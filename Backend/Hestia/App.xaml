@@ -1,0 +1,32 @@
+﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Hestia"
+             x:Class="Hestia.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <Style x:Key="BotaoPadrao" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="Green" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="BorderColor" Value="White" />
+                <Setter Property="FontFamily" Value="OpenSansRegular" />
+                <Setter Property="TextColor" Value="White" />
+            </Style>
+            <Style x:Key="BigText" TargetType="Label">
+                <Setter Property="TextColor" Value = "Black"/>
+                <Setter Property="FontSize" Value="30"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+            </Style>
+            <Style x:Key="StandardText" TargetType="Label">
+                <Setter Property="TextColor" Value = "Black"/>
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontFamily" Value="Open-SansRegular.ttf"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+            </Style>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,65 @@
+is_global = true
+build_property.TargetFramework = net7.0-windows10.0.19041.0
+build_property.TargetPlatformMinVersion = 10.0.17763.0
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 9A19103F-16F7-4668-BE54-9A1E7A4F7556
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = Hestia
+build_property.ProjectDir = C:\Users\yan\Documents\Programas\Honoka\Backend\Hestia\
+
+[C:/Users/yan/Documents/Programas/Honoka/Backend/Hestia/App.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Hestia.App.xaml
+build_metadata.AdditionalFiles.TargetPath = App.xaml
+build_metadata.AdditionalFiles.RelativePath = App.xaml
+
+[C:/Users/yan/Documents/Programas/Honoka/Backend/Hestia/AppShell.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Hestia.AppShell.xaml
+build_metadata.AdditionalFiles.TargetPath = AppShell.xaml
+build_metadata.AdditionalFiles.RelativePath = AppShell.xaml
+
+[C:/Users/yan/Documents/Programas/Honoka/Backend/Hestia/MainPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Hestia.MainPage.xaml
+build_metadata.AdditionalFiles.TargetPath = MainPage.xaml
+build_metadata.AdditionalFiles.RelativePath = MainPage.xaml
+
+[C:/Users/yan/Documents/Programas/Honoka/Backend/Hestia/Pages/AdminPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Hestia.Pages.AdminPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Pages\AdminPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Pages\AdminPage.xaml
+
+[C:/Users/yan/Documents/Programas/Honoka/Backend/Hestia/Pages/ConfigPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Hestia.Pages.ConfigPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Pages\ConfigPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Pages\ConfigPage.xaml
+
+[C:/Users/yan/Documents/Programas/Honoka/Backend/Hestia/Pages/MonitoringPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Hestia.Pages.MonitoringPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Pages\MonitoringPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Pages\MonitoringPage.xaml
+
+[C:/Users/yan/Documents/Programas/Honoka/Backend/Hestia/Pages/Tabs.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Hestia.Pages.Tabs.xaml
+build_metadata.AdditionalFiles.TargetPath = Pages\Tabs.xaml
+build_metadata.AdditionalFiles.RelativePath = Pages\Tabs.xaml
+
+[C:/Users/yan/Documents/Programas/Honoka/Backend/Hestia/Resources/Styles/Colors.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Hestia.Resources.Styles.Colors.xaml
+build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Colors.xaml
+build_metadata.AdditionalFiles.RelativePath = Resources\Styles\Colors.xaml
+
+[C:/Users/yan/Documents/Programas/Honoka/Backend/Hestia/Resources/Styles/Styles.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Hestia.Resources.Styles.Styles.xaml
+build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Styles.xaml
+build_metadata.AdditionalFiles.RelativePath = Resources\Styles\Styles.xaml

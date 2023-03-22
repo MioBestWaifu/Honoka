@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controller ="clr-namespace:Hestia.Controllers"
+             x:Class="Hestia.Pages.ConfigPage"
+             x:DataType="controller:ConfigController"
+             Title="ConfigPage">
+    <Grid RowDefinitions="0.1*,0.1*,0.1*,0.7*"
+          RowSpacing="4">
+        <Label Style="{StaticResource BigText}"
+               Text="Server"
+               HorizontalOptions="Center">
+        </Label>
+        <HorizontalStackLayout Grid.Row="1"
+                               VerticalOptions="Center">
+            <Label Style="{StaticResource StandardText}"
+                   Text="Ip:"
+                   Loaded="Label_Loaded">
+            </Label>
+            <HorizontalStackLayout>
+                <Label Style="{StaticResource StandardText}"
+                       TextColor="Black"
+                       Text="Port:">
+
+                </Label>
+                <Entry 
+                       Placeholder="Port"
+                       TextColor="Black"
+                       Loaded="Entry_Loaded"
+                       >
+                </Entry>
+            </HorizontalStackLayout>
+        </HorizontalStackLayout>
+        <Label Grid.Row="2"
+               Style="{StaticResource BigText}"
+               Text="Database"
+               HorizontalOptions="Center">
+        </Label>
+        <HorizontalStackLayout Grid.Row="3"
+                               HorizontalOptions="Center">
+            <VerticalStackLayout>
+                <Label Style="{StaticResource StandardText}"
+                       TextColor="Black"
+                       Text="DB IP:"
+                       HorizontalOptions="Center">
+
+                </Label>
+                <Entry 
+                       Placeholder="Ip"
+                       HorizontalOptions="Center"
+                       TextColor="Black"
+                       Loaded="Entry_Loaded"
+                       >
+                </Entry>
+            </VerticalStackLayout>
+        </HorizontalStackLayout>
+        
+    </Grid>
+</ContentPage>

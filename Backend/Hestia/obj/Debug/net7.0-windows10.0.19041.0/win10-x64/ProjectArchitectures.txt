@@ -1,0 +1,1 @@
+C:\Users\yan\Documents\Programas\Honoka\Backend\Hestia\Hestia.csproj;x64
