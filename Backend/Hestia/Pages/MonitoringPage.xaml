@@ -4,11 +4,17 @@
              xmlns:controller ="clr-namespace:Hestia.Controllers"
              x:Class="Hestia.Pages.MonitoringPage"
              x:DataType="controller:MonitoringController"
-             Title="MonitoringPage">
+             Title="MonitoringPage"
+             BackgroundColor="Beige"
+             >
     <VerticalStackLayout>
         <Label 
             Text="MONITORAÇÃO"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+        <Image Loaded="Image_Loaded"
+               Source="bocchi.png">
+            
+        </Image>
     </VerticalStackLayout>
 </ContentPage>

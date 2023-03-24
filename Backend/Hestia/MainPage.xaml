@@ -1,16 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Hestia.MainPage">
+             x:Class="Hestia.MainPage"
+             BackgroundImageSource="bocchi.png">
 
     <Grid ColumnDefinitions="*,Auto,*">
-        <Image
-            Source="bocchi.png"
-            HorizontalOptions="Fill"
-            VerticalOptions="Fill"
-            Aspect="AspectFill"
-            Grid.ColumnSpan="3"
-            ></Image>
         <Grid
             Grid.Column="1"
             RowSpacing="10"

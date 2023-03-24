@@ -13,14 +13,18 @@ namespace Hestia.Controllers
         [NotifyPropertyChangedFor(nameof(FortyOfWidth))]
         [NotifyPropertyChangedFor(nameof(ThirdOfWidth))]
         [NotifyPropertyChangedFor(nameof(FifthOfWidth))]
+        [NotifyPropertyChangedFor(nameof(FifteenPercentOfWidth))]
         int width;
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(QuarterOfHeight))]
         [NotifyPropertyChangedFor(nameof(FifthOfHeight))]
         int height;
 
+        [ObservableProperty]
+        static int defaultMargin = 12; 
         public int FortyOfWidth => (int)(Width * 0.4);
         public int FifthOfWidth => (int)(Width * 0.2);
+        public int FifteenPercentOfWidth => (int)(Width * 0.15);
         public int ThirdOfWidth => Width / 3;
         public int FifthOfHeight => Height / 5; 
         public int QuarterOfHeight => Height / 4;

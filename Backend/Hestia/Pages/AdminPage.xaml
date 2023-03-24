@@ -4,7 +4,8 @@
              xmlns:controller ="clr-namespace:Hestia.Controllers"
              x:Class="Hestia.Pages.AdminPage"
              x:DataType="controller:AdminController"
-             Title="AdminPage">
+             Title="AdminPage"
+             BackgroundColor="Beige">
     <VerticalStackLayout>
         <Label 
             Text="ADMINISTRAÇÃO"

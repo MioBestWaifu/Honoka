@@ -4,20 +4,22 @@
              xmlns:controller ="clr-namespace:Hestia.Controllers"
              x:Class="Hestia.Pages.ConfigPage"
              x:DataType="controller:ConfigController"
-             Title="ConfigPage">
-    <Grid RowDefinitions="0.1*,0.1*,0.1*,0.7*"
-          RowSpacing="4">
+             Title="ConfigPage"
+             BackgroundColor="LightPink">
+    <Grid RowDefinitions="0.1*,0.1*,0.2*,0.5*,0.1*"
+          RowSpacing="12">
         <Label Style="{StaticResource BigText}"
                Text="Server"
                HorizontalOptions="Center">
         </Label>
         <HorizontalStackLayout Grid.Row="1"
-                               VerticalOptions="Center">
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center">
             <Label Style="{StaticResource StandardText}"
-                   Text="Ip:"
-                   Loaded="Label_Loaded">
+                   Text="{Binding Ip}"
+                   Margin="{Binding DefaultMargin}">
             </Label>
-            <HorizontalStackLayout>
+            <HorizontalStackLayout Margin="10">
                 <Label Style="{StaticResource StandardText}"
                        TextColor="Black"
                        Text="Port:">
@@ -26,19 +28,31 @@
                 <Entry 
                        Placeholder="Port"
                        TextColor="Black"
-                       Loaded="Entry_Loaded"
+                       Loaded="Server_Port_Entry_Loaded"
+                       VerticalOptions="Start"
                        >
                 </Entry>
             </HorizontalStackLayout>
+            <Button Text="SERVER OFF"
+                    BorderColor="White"
+                    BorderWidth="2"
+                    CornerRadius="15"
+                    TextColor="White"
+                    BackgroundColor="Red"
+                    Pressed="Server_Button_Pressed"
+                    >
+                
+            </Button>
         </HorizontalStackLayout>
         <Label Grid.Row="2"
                Style="{StaticResource BigText}"
                Text="Database"
                HorizontalOptions="Center">
         </Label>
-        <HorizontalStackLayout Grid.Row="3"
-                               HorizontalOptions="Center">
-            <VerticalStackLayout>
+        <Grid Grid.Row="3"
+              ColumnDefinitions="*,*,*,*,*"
+              ColumnSpacing="12">
+            <VerticalStackLayout >
                 <Label Style="{StaticResource StandardText}"
                        TextColor="Black"
                        Text="DB IP:"
@@ -49,11 +63,104 @@
                        Placeholder="Ip"
                        HorizontalOptions="Center"
                        TextColor="Black"
-                       Loaded="Entry_Loaded"
+                       Loaded="Ip_Entry_Loaded"
+                       VerticalOptions="Start"
+                       BackgroundColor="White"
+                       WidthRequest="{Binding FifteenPercentOfWidth}"
                        >
                 </Entry>
             </VerticalStackLayout>
-        </HorizontalStackLayout>
-        
+            <VerticalStackLayout 
+                                 Grid.Column="1">
+                <Label Style="{StaticResource StandardText}"
+                       TextColor="Black"
+                       Text="DB Port:"
+                       HorizontalOptions="Center">
+
+                </Label>
+                <Entry 
+                       Placeholder="Port"
+                       HorizontalOptions="Center"
+                       TextColor="Black"
+                       Loaded="DB_Port_Entry_Loaded"
+                       VerticalOptions="Start"
+                       WidthRequest="{Binding FifteenPercentOfWidth}"
+                       BackgroundColor="White"
+                       >
+                </Entry>
+            </VerticalStackLayout>
+            <VerticalStackLayout 
+                                 Grid.Column="2">
+                <Label Style="{StaticResource StandardText}"
+                       TextColor="Black"
+                       Text="DB User:"
+                       HorizontalOptions="Center">
+
+                </Label>
+                <Entry 
+                       Placeholder="User"
+                       HorizontalOptions="Center"
+                       TextColor="Black"
+                       Loaded="User_Entry_Loaded"
+                       VerticalOptions="Start"
+                       BackgroundColor="White"
+                       WidthRequest="{Binding FifteenPercentOfWidth}"
+                       >
+                </Entry>
+            </VerticalStackLayout>
+            <VerticalStackLayout 
+                                 Grid.Column="3">
+                <Label Style="{StaticResource StandardText}"
+                       TextColor="Black"
+                       Text="DB Password:"
+                       HorizontalOptions="Center">
+
+                </Label>
+                <Entry 
+                       Placeholder="Password"
+                       HorizontalOptions="Center"
+                       TextColor="Black"
+                       Loaded="Password_Entry_Loaded"
+                       IsPassword="True"
+                       VerticalOptions="Start"
+                       BackgroundColor="White"
+                       
+                       WidthRequest="{Binding FifteenPercentOfWidth}"
+                       >
+                </Entry>
+            </VerticalStackLayout>
+            <VerticalStackLayout 
+                                 Grid.Column="4">
+                <Label Style="{StaticResource StandardText}"
+                       TextColor="Black"
+                       Text="Database Name:"
+                       HorizontalOptions="Center">
+
+                </Label>
+                <Entry 
+                       Placeholder="Name"
+                       HorizontalOptions="Center"
+                       TextColor="Black"
+                       Loaded="DB_Entry_Loaded"
+                       VerticalOptions="Start"
+                       BackgroundColor="White"
+                       WidthRequest="{Binding FifteenPercentOfWidth}"
+                       >
+                </Entry>
+            </VerticalStackLayout>
+        </Grid>
+        <Button Grid.Row="4"
+                HorizontalOptions="Center"
+                VerticalOptions="Start"
+                Text="DATABASE OFF"
+                BorderColor="White"
+                BorderWidth="2"
+                CornerRadius="15"
+                TextColor="White"
+                BackgroundColor="Red"
+                Pressed="DB_Button_Pressed"
+                >
+            
+        </Button>
     </Grid>
 </ContentPage>

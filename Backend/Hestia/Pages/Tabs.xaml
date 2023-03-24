@@ -3,8 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:Pages="clr-namespace:Hestia.Pages"
              x:Class="Hestia.Pages.Tabs"
-             Title="Tabs">
-    <Pages:MonitoringPage />
-    <Pages:AdminPage/>
-    <Pages:ConfigPage/>
+             Title="Tabs"
+             BarTextColor="Purple"
+             BackgroundColor="Beige"
+             BarBackgroundColor="Beige"
+             SelectedTabColor="Purple"
+             
+             >
 </TabbedPage>
