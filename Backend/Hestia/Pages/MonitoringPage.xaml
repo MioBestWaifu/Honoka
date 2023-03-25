@@ -4,22 +4,98 @@
              xmlns:controller ="clr-namespace:Hestia.Controllers"
              x:Class="Hestia.Pages.MonitoringPage"
              x:DataType="controller:MonitoringController"
-             Title="MonitoringPage"
-             BackgroundColor="Beige"
+             Title="Monitoring"
+             BackgroundColor="LightPink"
              >
-    <VerticalStackLayout>
-        <Label 
-            Text="MONITORAÇÃO"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Image Loaded="Image_Loaded"
-               Source="bocchi.png"
-               HeightRequest="300"
-               WidthRequest="300">
-        </Image>
-        <Button Text="TESTE"
-                Command="{Binding TryChangeImageCommand}">
-            
-        </Button>
-    </VerticalStackLayout>
+    <Grid RowDefinitions="*,*"
+          ColumnDefinitions="0.35*,0.15*,0.35*,0.15*">
+        <VerticalStackLayout VerticalOptions="Center">
+                <Label Style="{StaticResource StandardText}"
+                       Text="Connections"
+                       HorizontalOptions="Center">
+                </Label>
+                <Image x:Name="ConnGraph"
+                       HorizontalOptions="Center"
+                       Source="bocchi.png"
+                       HeightRequest="{Binding HeightAspectForMonitoring}"
+                       WidthRequest="{Binding ThirdOfWidth}">
+                </Image>
+            </VerticalStackLayout>
+        <VerticalStackLayout Grid.Column="1"
+                             HorizontalOptions="Start"
+                             VerticalOptions="Center">
+            <Label Style="{StaticResource StandardText}"
+                       Text="{Binding MaxConn}"
+                   HorizontalOptions="Start">
+            </Label>
+            <Label Style="{StaticResource StandardText}"
+                       Text="{Binding MinConn}"
+                   HorizontalOptions="Start">
+            </Label>
+            <Label Style="{StaticResource StandardText}"
+                       Text="{Binding AvgConn}"
+                   HorizontalOptions="Start">
+            </Label>
+        </VerticalStackLayout>
+        <VerticalStackLayout Grid.Row="1">
+                <Label Style="{StaticResource StandardText}"
+                       Text="Data Exchanged"
+                       HorizontalOptions="Center">
+                </Label>
+                <Image x:Name="DataGraph"
+                       HorizontalOptions="Center"
+                       Source="bocchi.png"
+                       HeightRequest="{Binding HeightAspectForMonitoring}"
+                       WidthRequest="{Binding ThirdOfWidth}">
+                </Image>
+            </VerticalStackLayout>
+        <VerticalStackLayout Grid.Column="1"
+                             Grid.Row="1"
+                             HorizontalOptions="Start"
+                             VerticalOptions="Center">
+            <Label Style="{StaticResource StandardText}"
+                       Text="{Binding MaxData}"
+                   HorizontalOptions="Start">
+            </Label>
+            <Label Style="{StaticResource StandardText}"
+                       Text="{Binding MinData}"
+                   HorizontalOptions="Start">
+            </Label>
+            <Label Style="{StaticResource StandardText}"
+                       Text="{Binding AvgData}"
+                   HorizontalOptions="Start">
+            </Label>
+        </VerticalStackLayout>
+        <VerticalStackLayout Grid.Row="0"
+                             Grid.Column="2"
+                             VerticalOptions="Center">
+                <Label Style="{StaticResource StandardText}"
+                       Text="Errors"
+                       HorizontalOptions="Center">
+                </Label>
+                <Image x:Name="ErrorGraph"
+                       HorizontalOptions="Center"
+                       Source="bocchi.png"
+                       HeightRequest="{Binding HeightAspectForMonitoring}"
+                       WidthRequest="{Binding ThirdOfWidth}">
+                </Image>
+            </VerticalStackLayout>
+        <VerticalStackLayout    Grid.Row="0"
+                                Grid.Column="3"
+                                HorizontalOptions="Start"
+                                VerticalOptions="Center">
+            <Label Style="{StaticResource StandardText}"
+                       Text="{Binding MaxErrors}"
+                   HorizontalOptions="Start">
+            </Label>
+            <Label Style="{StaticResource StandardText}"
+                       Text="{Binding MinErrors}"
+                   HorizontalOptions="Start">
+            </Label>
+            <Label Style="{StaticResource StandardText}"
+                       Text="{Binding AvgErros}"
+                   HorizontalOptions="Start">
+            </Label>
+        </VerticalStackLayout>
+    </Grid>
 </ContentPage>

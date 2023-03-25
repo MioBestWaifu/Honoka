@@ -4,7 +4,7 @@
              xmlns:controller ="clr-namespace:Hestia.Controllers"
              x:Class="Hestia.Pages.ConfigPage"
              x:DataType="controller:ConfigController"
-             Title="ConfigPage"
+             Title="Configurations"
              BackgroundColor="LightPink">
     <Grid RowDefinitions="0.1*,0.1*,0.2*,0.6*"
           RowSpacing="12">
@@ -152,21 +152,99 @@
                        >
                 </Entry>
             </VerticalStackLayout>
-        </Grid>
-        <Button x:Name="dbBtn"
-                Grid.Row="4"
+            <VerticalStackLayout Grid.Row="1"
+                             Grid.Column="0"
+                             VerticalOptions="Start">
+                <Label Style="{StaticResource StandardText}"
+                   Text="DB Connection">
+                </Label>
+                <Button x:Name="dbBtn"
                 HorizontalOptions="Center"
-                VerticalOptions="Start"
-                Text="DATABASE OFF"
+                Text="OFF"
                 BorderColor="White"
                 BorderWidth="2"
                 CornerRadius="15"
+                WidthRequest="{Binding FifteenPercentOfWidth}"
                 TextColor="White"
                 BackgroundColor="Red"
                 Command="{Binding TryChangeDatabaseStatusCommand}"
-                CommandParameter="{x:Reference dbBtn}"
-                >
-            
-        </Button>
+                CommandParameter="{x:Reference dbBtn}">
+                </Button>
+            </VerticalStackLayout>
+            <VerticalStackLayout Grid.Row="1"
+                             Grid.Column="1"
+                             VerticalOptions="Start">
+                <Label Style="{StaticResource StandardText}"
+                   Text="Client Bots">
+                </Label>
+                <Button x:Name="clientBtn"
+                HorizontalOptions="Center"
+                Text="OFF"
+                BorderColor="White"
+                BorderWidth="2"
+                CornerRadius="15"
+                WidthRequest="{Binding FifteenPercentOfWidth}"
+                TextColor="White"
+                BackgroundColor="Red"
+                Command="{Binding TryWakeClientBotsCommand}"
+                CommandParameter="{x:Reference clientBtn}">
+                </Button>
+            </VerticalStackLayout>
+            <VerticalStackLayout Grid.Row="1"
+                             Grid.Column="2"
+                             VerticalOptions="Start">
+                <Label Style="{StaticResource StandardText}"
+                   Text="Service Bots">
+                </Label>
+                <Button x:Name="serviceBotsBtn"
+                HorizontalOptions="Center"
+                Text="OFF"
+                BorderColor="White"
+                BorderWidth="2"
+                CornerRadius="15"
+                WidthRequest="{Binding FifteenPercentOfWidth}"
+                TextColor="White"
+                BackgroundColor="Red"
+                Command="{Binding TryWakeServiceBotsCommand}"
+                CommandParameter="{x:Reference serviceBotsBtn}">
+                </Button>
+            </VerticalStackLayout>
+            <VerticalStackLayout Grid.Row="1"
+                             Grid.Column="3"
+                             VerticalOptions="Start">
+                <Label Style="{StaticResource StandardText}"
+                   Text="Clear History">
+                </Label>
+                <Button
+                HorizontalOptions="Center"
+                Text="Clear"
+                BorderColor="White"
+                BorderWidth="2"
+                CornerRadius="15"
+                WidthRequest="{Binding FifteenPercentOfWidth}"
+                TextColor="White"
+                BackgroundColor="MediumBlue"
+                Command="{Binding ClearHistoryCommand}">
+                </Button>
+            </VerticalStackLayout>
+            <VerticalStackLayout Grid.Row="1"
+                             Grid.Column="4"
+                             VerticalOptions="Start">
+                <Label Style="{StaticResource StandardText}"
+                   Text="Clear All">
+                </Label>
+                <Button
+                HorizontalOptions="Center"
+                Text="Clear"
+                BorderColor="White"
+                BorderWidth="2"
+                CornerRadius="15"
+                WidthRequest="{Binding FifteenPercentOfWidth}"
+                TextColor="White"
+                BackgroundColor="MediumBlue"
+                Command="{Binding ClearAllCommand}">
+                </Button>
+            </VerticalStackLayout>
+        </Grid>
     </Grid>
 </ContentPage>

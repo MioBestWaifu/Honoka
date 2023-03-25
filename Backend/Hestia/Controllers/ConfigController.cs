@@ -43,20 +43,38 @@ namespace Hestia.Controllers
                 if (Server.ConnectDatabase())
                 {
                     btn.BackgroundColor = Colors.Green;
-                    btn.Text = "DATABASE ON";
+                    btn.Text = "ON";
                 }
             } else
             {
                 if (Server.DisconnectDatabase())
                 {
                     btn.BackgroundColor = Colors.Red;
-                    btn.Text = "DATABASE OFF";
+                    btn.Text = "OFF";
                 }
             }
         }
 
         [RelayCommand]
         void TryWakeServiceBots(Button btn)
+        {
+
+        }
+
+        [RelayCommand]
+        void TryWakeClientBots(Button btn)
+        {
+
+        }
+
+        [RelayCommand]
+        void ClearHistory()
+        {
+
+        }
+
+        [RelayCommand]
+        void ClearAll()
         {
 
         }
