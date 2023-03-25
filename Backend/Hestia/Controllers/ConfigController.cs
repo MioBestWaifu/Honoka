@@ -16,39 +16,50 @@ namespace Hestia.Controllers
         [ObservableProperty]
         string ip = "IP: 127.0.0.1";
 
-        public void TryTurnServerOn(Button btn)
+        [RelayCommand]
+        void TryChangeServerStatus(Button btn)
         {
-            if (Server.TurnServerOn())
+            if (!Server.isServerOn)
             {
-                btn.BackgroundColor = Colors.Green;
-                btn.Text = "SERVER ON";
+                if (Server.TurnServerOn())
+                {
+                    btn.BackgroundColor = Colors.Green;
+                    btn.Text = "SERVER ON";
+                }
+            } else
+            {
+                if (Server.TurnServerOff())
+                {
+                    btn.BackgroundColor = Colors.Red;
+                    btn.Text = "SERVER OFF";
+                }
             }
         }
 
-        public void TryTurnServerOff(Button btn)
-        {
-            if (Server.TurnServerOff())
+        [RelayCommand]
+        void TryChangeDatabaseStatus(Button btn) {
+            if (!Server.isDatabaseConnected)
             {
-                btn.BackgroundColor = Colors.Red;
-                btn.Text = "SERVER OFF";
+                if (Server.ConnectDatabase())
+                {
+                    btn.BackgroundColor = Colors.Green;
+                    btn.Text = "DATABASE ON";
+                }
+            } else
+            {
+                if (Server.DisconnectDatabase())
+                {
+                    btn.BackgroundColor = Colors.Red;
+                    btn.Text = "DATABASE OFF";
+                }
             }
         }
 
-        public void TryConnectToDatabase(Button btn) {
-            if (Server.ConnectDatabase())
-            {
-                btn.BackgroundColor = Colors.Green;
-                btn.Text = "DATABASE ON";
-            }
+        [RelayCommand]
+        void TryWakeServiceBots(Button btn)
+        {
+
         }
 
-        public void TryDisconnectFromDatabase(Button btn)
-        {
-            if (Server.DisconnectDatabase())
-            {
-                btn.BackgroundColor = Colors.Red;
-                btn.Text = "DATABASE OFF";
-            }
-        }
     }
 }

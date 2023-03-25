@@ -6,7 +6,7 @@
              x:DataType="controller:ConfigController"
              Title="ConfigPage"
              BackgroundColor="LightPink">
-    <Grid RowDefinitions="0.1*,0.1*,0.2*,0.5*,0.1*"
+    <Grid RowDefinitions="0.1*,0.1*,0.2*,0.6*"
           RowSpacing="12">
         <Label Style="{StaticResource BigText}"
                Text="Server"
@@ -33,13 +33,15 @@
                        >
                 </Entry>
             </HorizontalStackLayout>
-            <Button Text="SERVER OFF"
+            <Button x:Name="serverBtn"
+                    Text="SERVER OFF"
                     BorderColor="White"
                     BorderWidth="2"
                     CornerRadius="15"
                     TextColor="White"
                     BackgroundColor="Red"
-                    Pressed="Server_Button_Pressed"
+                    Command="{Binding TryChangeServerStatusCommand}"
+                    CommandParameter="{x:Reference serverBtn}"
                     >
                 
             </Button>
@@ -51,6 +53,8 @@
         </Label>
         <Grid Grid.Row="3"
               ColumnDefinitions="*,*,*,*,*"
+              RowDefinitions="*,*"
+              RowSpacing="8"
               ColumnSpacing="12">
             <VerticalStackLayout >
                 <Label Style="{StaticResource StandardText}"
@@ -149,7 +153,8 @@
                 </Entry>
             </VerticalStackLayout>
         </Grid>
-        <Button Grid.Row="4"
+        <Button x:Name="dbBtn"
+                Grid.Row="4"
                 HorizontalOptions="Center"
                 VerticalOptions="Start"
                 Text="DATABASE OFF"
@@ -158,7 +163,8 @@
                 CornerRadius="15"
                 TextColor="White"
                 BackgroundColor="Red"
-                Pressed="DB_Button_Pressed"
+                Command="{Binding TryChangeDatabaseStatusCommand}"
+                CommandParameter="{x:Reference dbBtn}"
                 >
             
         </Button>

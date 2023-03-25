@@ -54,31 +54,4 @@ public partial class ConfigPage : ContentPage
         controller.DbNameEntry = sender as Entry;
     }
 
-
-    private void Server_Button_Pressed(object sender, EventArgs e)
-    {
-        Button btn = sender as Button;
-        if (!Server.isServerOn)
-        {
-            controller.TryTurnServerOn(btn);
-        }
-        else
-        {
-            controller.TryTurnServerOff(btn);
-        }
-    }
-
-    private void DB_Button_Pressed(object sender, EventArgs e)
-    {
-        Button btn = sender as Button;
-        if (!Server.isDatabaseConnected)
-        {
-            controller.TryConnectToDatabase(btn);
-        }
-        else
-        {
-            controller.TryDisconnectFromDatabase(btn);
-        }
-    }
-
 }

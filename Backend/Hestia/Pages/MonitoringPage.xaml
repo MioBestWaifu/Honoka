@@ -13,8 +13,13 @@
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
         <Image Loaded="Image_Loaded"
-               Source="bocchi.png">
-            
+               Source="bocchi.png"
+               HeightRequest="300"
+               WidthRequest="300">
         </Image>
+        <Button Text="TESTE"
+                Command="{Binding TryChangeImageCommand}">
+            
+        </Button>
     </VerticalStackLayout>
 </ContentPage>
