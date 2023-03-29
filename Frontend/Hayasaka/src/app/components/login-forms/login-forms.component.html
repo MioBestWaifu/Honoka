@@ -1,1 +1,11 @@
-<p>login-forms works!</p>
+<form (ngSubmit)="Submit()">
+    <div class="formTemplate">
+        <label for="user" class="standardText">User</label>
+        <input id="user" name="username" type="text" [(ngModel)]="username"/>
+    </div>
+    <div class="formTemplate">
+        <label for="psswrd" class="standardText">Password</label>
+        <input id="psswrd" name="password" type="password" [(ngModel)]="password"/>
+    </div>
+    <input type="submit" value="Login">
+</form>

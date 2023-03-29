@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+.titleText{
+    color: white;
+    font-size: 38px;
+} .formTemplate{
+    border-width: 4px;
+    border-color: purple;
+} .standardText{
+    color: black;
+    font-size: 18px;
+} .standardButton{
+    background-color: purple;
+    border-radius: 5px;
+    color: purple;
+}
