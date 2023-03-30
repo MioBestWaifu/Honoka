@@ -29,6 +29,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<MonitoringPage>();
         builder.Services.AddSingleton<MonitoringController>();
         builder.Services.AddSingleton<Tabs>();
+        builder.Services.AddSingleton<Server>();
 
 #if DEBUG
         builder.Logging.AddDebug();
