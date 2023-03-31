@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Devices.Printers.Extensions;
 
 namespace Hestia.Scripts
 {
@@ -12,37 +14,66 @@ namespace Hestia.Scripts
         private RequestsOpener opener;
         public static bool isServerOn = false;
         public static bool isDatabaseConnected = false;
-        public static string connectionString = "server=127.0.0.1;uid=root;pwd=generalyan;database=aluguel";
+        public static string connectionString = "";
+        private static byte[] index, polyfiils, runtime, main, styles, favicon;
+
+        public static byte[] Index { get => index;}
+        public static byte[] Polyfills { get => polyfiils;}
+        public static byte[] Runtime { get => runtime;}
+        public static byte[] Main { get => main; }
+        public static byte[] Styles { get => styles; }
+        public static byte[] Favicon { get => favicon; }
 
         public Server()
         {
-            opener = new RequestsOpener(IPAddress.Any, 80);
-            opener.Start();
-            opener.OptionKeepAlive = true;
+            var basePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            index = File.ReadAllBytes(basePath + "/index.html");
+            main = File.ReadAllBytes(basePath + "/main.js");
+            runtime = File.ReadAllBytes(basePath + "/runtime.js");
+            polyfiils = File.ReadAllBytes(basePath + "/polyfills.js");
+            styles = File.ReadAllBytes(basePath + "/styles.css");
+            favicon = File.ReadAllBytes(basePath + "/favicon.ico");
         }
 
-        public static bool TurnServerOn()
+        public async Task<bool> TurnServerOnAsync(int port)
         {
-            isServerOn = true;
-            return true;
+            try {
+                opener = new RequestsOpener(IPAddress.Any, port);
+                isServerOn = true;
+                opener.Start();
+                return true;
+            } catch (Exception ex)
+            {
+                return false;
+            }
         }
 
-        public static bool TurnServerOff()
+        public bool TurnServerOff()
         {
             isServerOn = false;
             return true;
         }
 
-        public static bool ConnectDatabase()
+        public bool ConnectDatabase(string server, string uid, string pwd, string database, string port)
         {
+            connectionString = $"server={server};uid={uid};pwd={pwd};database={database};port={port}";
             isDatabaseConnected = true;
             return true;
         }
 
-        public static bool DisconnectDatabase()
+        public bool DisconnectDatabase()
         {
             isDatabaseConnected = false;
             return true;
+        }
+        private async Task<byte[]> ReadFile(string filePath)
+        {
+            using var stream = await FileSystem.OpenAppPackageFileAsync("AboutAssets.txt");
+            using var reader = new StreamReader(stream);
+
+            var contents = reader.ReadToEnd();
+
+            return null;
         }
     }
 }

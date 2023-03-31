@@ -11,24 +11,29 @@ namespace Hestia.Controllers
     public partial class ConfigController : Controller
     {
         public Label currentIpLabel;
-        public Entry serverPortEntry, DbIpEntry, DbPortEntry, DbUserEntry, DbPasswordEntry, DbNameEntry;
+        public Entry serverPortEntry, dbIpEntry, dbPortEntry, dbUserEntry, dbPasswordEntry, dbNameEntry;
+        private Server server;
 
         [ObservableProperty]
         string ip = "IP: 127.0.0.1";
+
+        public ConfigController(Server server) {
+            this.server = server;
+        }
 
         [RelayCommand]
         void TryChangeServerStatus(Button btn)
         {
             if (!Server.isServerOn)
             {
-                if (Server.TurnServerOn())
+                if (server.TurnServerOnAsync(Int32.Parse(serverPortEntry.Text)).Result)
                 {
                     btn.BackgroundColor = Colors.Green;
                     btn.Text = "SERVER ON";
                 }
             } else
             {
-                if (Server.TurnServerOff())
+                if (server.TurnServerOff())
                 {
                     btn.BackgroundColor = Colors.Red;
                     btn.Text = "SERVER OFF";
@@ -40,14 +45,14 @@ namespace Hestia.Controllers
         void TryChangeDatabaseStatus(Button btn) {
             if (!Server.isDatabaseConnected)
             {
-                if (Server.ConnectDatabase())
+                if (server.ConnectDatabase(dbIpEntry.Text,dbUserEntry.Text,dbPasswordEntry.Text,dbNameEntry.Text,dbPortEntry.Text))
                 {
                     btn.BackgroundColor = Colors.Green;
                     btn.Text = "ON";
                 }
             } else
             {
-                if (Server.DisconnectDatabase())
+                if (server.DisconnectDatabase())
                 {
                     btn.BackgroundColor = Colors.Red;
                     btn.Text = "OFF";

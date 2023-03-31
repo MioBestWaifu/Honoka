@@ -26,12 +26,12 @@ public partial class ConfigPage : ContentPage
 
     private void Ip_Entry_Loaded(object sender, EventArgs e)
     {
-        controller.DbIpEntry = sender as Entry;
+        controller.dbIpEntry = sender as Entry;
     }
 
     private void DB_Port_Entry_Loaded(object sender, EventArgs e)
     {
-        controller.DbPortEntry = sender as Entry;
+        controller.dbPortEntry = sender as Entry;
     }
 
     private void Server_Port_Entry_Loaded(object sender, EventArgs e)
@@ -41,17 +41,17 @@ public partial class ConfigPage : ContentPage
 
     private void User_Entry_Loaded(object sender, EventArgs e)
     {
-        controller.DbUserEntry = sender as Entry;
+        controller.dbUserEntry = sender as Entry;
     }
 
     private void Password_Entry_Loaded(object sender, EventArgs e)
     {
-        controller.DbPasswordEntry = sender as Entry;
+        controller.dbPasswordEntry = sender as Entry;
     }
 
     private void DB_Entry_Loaded(object sender, EventArgs e)
     {
-        controller.DbNameEntry = sender as Entry;
+        controller.dbNameEntry = sender as Entry;
     }
 
 }

@@ -24,29 +24,59 @@ namespace Hestia.Scripts
             base.OnReceivedRequest(request);
             if (request.Method == "HEAD")
                 SendResponseAsync(Response.MakeHeadResponse());
+            else if (request.Method == "GET")
+            {
+                if (request.Url.Contains("styles"))
+                {
+                    SendResponseAsync(Response.MakeGetResponse(Scripts.Server.Styles, "text/css; charset=UTF-8"));
+                }
+                else if (request.Url.Contains("runtime"))
+                {
+                    SendResponseAsync(Response.MakeGetResponse(Scripts.Server.Runtime, "text/javascript; charset=UTF-8"));
+                }
+                else if (request.Url.Contains("main"))
+                {
+                    SendResponseAsync(Response.MakeGetResponse(Scripts.Server.Main, "text/javascript; charset=UTF-8"));
+                }
+                else if (request.Url.Contains("polyfills"))
+                {
+                    SendResponseAsync(Response.MakeGetResponse(Scripts.Server.Polyfills, "text/javascript; charset=UTF-8"));
+                }
+                else if (request.Url.Contains("favicon"))
+                {
+                    SendResponseAsync(Response.MakeGetResponse(Scripts.Server.Favicon, "message/http; charset=UTF-8"));
+                }
+                else
+                {
+                    SendResponseAsync(Response.MakeGetResponse(Scripts.Server.Index, "text/html; charset=UTF-8"));
+                }
+            }
             else if (request.Method == "POST")
             {
                 if (request.Url.Contains("login"))
                 {
-                    UserInformation info = JsonSerializer.Deserialize<UserInformation>(request.Body,jsonOptions);
+                    UserInformation info = JsonSerializer.Deserialize<UserInformation>(request.Body, jsonOptions);
                     if (await CheckLoginAsync(info.Email, info.Password))
                     {
-                        SendResponseAsync(Response.MakeGetResponse(JsonSerializer.Serialize(await GetUserInformationAsync(info.Email)),"application/json;charset=UTF-8"));
-                    } else
+                        SendResponseAsync(Response.MakeGetResponse(JsonSerializer.Serialize(await GetUserInformationAsync(info.Email)), "application/json;charset=UTF-8"));
+                    }
+                    else
                     {
                         SendResponseAsync(Response.MakeGetResponse(JsonSerializer.Serialize(new UserInformation(-1)), "application/json;charset=UTF-8"));
                     }
-                } else if (request.Url.Contains("getUser"))
+                }
+                else if (request.Url.Contains("getUser"))
                 {
-                    
-                } else if (request.Url.Contains("register"))
+
+                }
+                else if (request.Url.Contains("register"))
                 {
                     if (await TryToRegisterUserAsync(JsonSerializer.Deserialize<UserInformation>(request.Body, jsonOptions)))
                         SendResponseAsync(Response.MakeGetResponse("DONE"));
                     else
                         SendResponseAsync(Response.MakeGetResponse("FAILED"));
                 }
-                
+
             }
         }
 
