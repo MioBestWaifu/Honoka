@@ -1,1 +1,19 @@
-<p>register-forms works!</p>
+<form (ngSubmit)="Submit()">
+    <div class="formTemplate">
+        <label for="email" class="standardText">Email</label>
+        <input id="email" name="username" type="email" [(ngModel)]="email"/>
+    </div>
+    <div class="formTemplate">
+        <label for="username" class="standardText">Username</label>
+        <input id="username" name="username" type="text" [(ngModel)]="username"/>
+    </div>
+    <div class="formTemplate">
+        <label for="psswrd" class="standardText">Password</label>
+        <input id="psswrd" name="password" type="password" [(ngModel)]="password"/>
+    </div>
+    <div class="formTemplate">
+        <label for="birthday" class="standardText">Birthday</label>
+        <input id="birthday" name="birthday" type="date" max="2005-03-31" [(ngModel)]="birthday"/>
+    </div>
+    <input type="submit" value="Register">
+</form>

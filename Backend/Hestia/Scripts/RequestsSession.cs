@@ -73,7 +73,7 @@ namespace Hestia.Scripts
                 {
 
                 }
-                else if (request.Url.Contains("register"))
+                else if (request.Url.Contains("registering"))
                 {
                     if (await TryToRegisterUserAsync(JsonSerializer.Deserialize<UserInformation>(request.Body, jsonOptions)))
                         SendResponseAsync(Response.MakeGetResponse("DONE"));
@@ -101,7 +101,16 @@ namespace Hestia.Scripts
 
         private async Task<UserInformation> GetUserInformationAsync(string email)
         {
-            return null;
+            try
+            {
+                var reader = await MySqlHelper.ExecuteReaderAsync(Scripts.Server.connectionString, "SELECT * FROM user WHERE user.email = @email", new MySqlParameter("email", email));
+                reader.Read();
+                return new UserInformation(reader.GetString(1), reader.GetString(2), "NULL", "NULL", reader.GetDateTime(5));
+            } catch (Exception ex)
+            {
+                return null;
+            }
+            
         }
 
         private async Task<UserInformation> GetUserInformationAsync(int id)
@@ -115,10 +124,11 @@ namespace Hestia.Scripts
             toPass[0] = new MySqlParameter("name",info.Username);
             toPass[1] = new MySqlParameter("email", info.Email);
             toPass[2] = new MySqlParameter("password", info.Password);
-            toPass[3] = new MySqlParameter("email", info.Email);
+            toPass[3] = new MySqlParameter("date", info.Birthday);
             try
             {
-                var reader = await MySqlHelper.ExecuteReaderAsync(Scripts.Server.connectionString, "INSERT INTO user VALUES(@name,@email,@password,NULL,@date,NULL,NULL)", toPass);
+                await MySqlHelper.ExecuteNonQueryAsync(Scripts.Server.connectionString, "INSERT INTO user (aluguel.user.name,aluguel.user.email,aluguel.user.password,aluguel.user.genre,aluguel.user.birthday,aluguel.user.providingService,aluguel.user.area) " +
+                    "VALUES(@name,@email,@password,NULL,@date,NULL,NULL)", toPass);
                 return true;
             } catch (MySqlException ex)
             {

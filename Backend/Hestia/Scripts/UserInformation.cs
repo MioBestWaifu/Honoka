@@ -38,7 +38,7 @@ namespace Hestia.Scripts
             this.password = password;
         }
 
-        public UserInformation(string email, string username, string password, string description, DateTime birthday) : this(email, username)
+        public UserInformation(string username, string email, string password, string description, DateTime birthday) : this(email, username)
         {
             this.password = password;
             this.description = description;

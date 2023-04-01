@@ -1,7 +1,7 @@
 export class UserInformation{
-    id:number;
-    email:string;
-    username:string;
-    birthday:Date;
-    description:string;
+    Id:number;
+    Email:string;
+    Username:string;
+    Birthday:Date;
+    Description:string;
 }

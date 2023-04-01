@@ -7,6 +7,8 @@ import { HttpParams } from '@angular/common/http';
 import { LoginFormsComponent } from '../components/login-forms/login-forms.component';
 import { LoginTemplate } from 'src/loginTemplate';
 import { UserInformation } from 'src/userInformation';
+import { RegisterFormsComponent } from '../components/register-forms/register-forms.component';
+import { RegisterTemplate } from 'src/registerTemplate';
 
 @Injectable({
   providedIn: 'root'
@@ -24,11 +26,11 @@ export class ServerConnectionService {
 
   TryToLogin(forms:LoginTemplate):Observable<UserInformation>{
       console.log(this.requestsUrl); 
-      return this.http.get<UserInformation>(this.requestsUrl+"login");
+      return this.http.post<UserInformation>(this.requestsUrl+"login",JSON.stringify(forms));
   }
 
-  TryToRegister(username:string,email:string,password:string,birthday:Date):boolean{
-    return true;
+  TryToRegister(forms:RegisterTemplate):Observable<string>{
+    return this.http.post<string>(this.requestsUrl+"registering",JSON.stringify(forms));
   }
 
   
