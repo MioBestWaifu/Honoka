@@ -46,6 +46,10 @@ namespace Hestia.Scripts
                 {
                     SendResponseAsync(Response.MakeGetResponse(Scripts.Server.Favicon, "message/http; charset=UTF-8"));
                 }
+                else if (request.Url.Contains("login"))
+                {
+                    SendResponseAsync(Response.MakeGetResponse(JsonSerializer.Serialize(new UserInformation(-1)), "application/json;charset=UTF-8"));
+                }
                 else
                 {
                     SendResponseAsync(Response.MakeGetResponse(Scripts.Server.Index, "text/html; charset=UTF-8"));

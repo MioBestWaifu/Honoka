@@ -26,6 +26,10 @@ namespace Hestia.Scripts
         public UserInformation(int id)
         {
             this.id = id;
+            email = "NULL";
+            username= "NULL";
+            birthday = DateTime.Now;
+            description = "NULL";
         }
 
         public UserInformation(string email, string password)

@@ -43,8 +43,15 @@
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiCss Remove="Resources\Raw\styles.css" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <None Remove="Resources\Images\bocchi.png" />
-	  <None Remove="Resources\Raw\pica.txt" />
+	  <None Remove="Resources\Raw\index.html" />
+	  <None Remove="Resources\Raw\main.js" />
+	  <None Remove="Resources\Raw\polyfills.js" />
+	  <None Remove="Resources\Raw\runtime.js" />
 	</ItemGroup>
 
 	<ItemGroup>
