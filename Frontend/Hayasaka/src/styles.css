@@ -3,13 +3,32 @@
     color: white;
     font-size: 38px;
 } .formTemplate{
-    border-width: 4px;
+    margin: auto;
+    padding: 1%;
+    border-style: solid;
+    border-width: 3px;
+    border-radius: 8px;
     border-color: purple;
+    width: 35%;
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 } .standardText{
     color: black;
     font-size: 18px;
 } .standardButton{
+    border-style: solid;
     background-color: purple;
-    border-radius: 5px;
-    color: purple;
+    border-radius: 2px;
+    border-color: gray;
+    color: white;
+    margin: auto;
+    width: 20%;
+    height: 8%;
+    
+} .formsDiv{
+    display: inline-block;
+    margin: 1.5%;
+    width: 45%;
 }

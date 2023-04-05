@@ -1,19 +1,19 @@
-<form (ngSubmit)="Submit()">
-    <div class="formTemplate">
+<form (ngSubmit)="Submit()" class="formTemplate">
+    <div class="formsDiv">
         <label for="email" class="standardText">Email</label>
         <input id="email" name="username" type="email" [(ngModel)]="email"/>
     </div>
-    <div class="formTemplate">
+    <div class="formsDiv">
         <label for="username" class="standardText">Username</label>
         <input id="username" name="username" type="text" [(ngModel)]="username"/>
     </div>
-    <div class="formTemplate">
+    <div class="formsDiv">
         <label for="psswrd" class="standardText">Password</label>
         <input id="psswrd" name="password" type="password" [(ngModel)]="password"/>
     </div>
-    <div class="formTemplate">
-        <label for="birthday" class="standardText">Birthday</label>
-        <input id="birthday" name="birthday" type="date" max="2005-03-31" [(ngModel)]="birthday"/>
+    <div class="formsDiv">
+        <label for="birthday" class="standardText" style="display: block;">Birthday</label>
+        <input id="birthday" name="birthday" type="date" max="2005-03-31" style="display: block;"[(ngModel)]="birthday"/>
     </div>
-    <input type="submit" value="Register">
+    <input type="submit" value="Register" class="standardButton">
 </form>

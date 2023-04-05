@@ -15,7 +15,7 @@ namespace Hestia.Controllers
         private Server server;
 
         [ObservableProperty]
-        string ip = "IP: 127.0.0.1";
+        string ip = Dns.GetHostEntry(Dns.GetHostName()).AddressList[1].ToString();
 
         public ConfigController(Server server) {
             this.server = server;

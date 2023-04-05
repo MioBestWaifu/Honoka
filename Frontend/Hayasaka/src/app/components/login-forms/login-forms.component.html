@@ -1,11 +1,12 @@
-<form (ngSubmit)="Submit()">
-    <div class="formTemplate">
-        <label for="user" class="standardText">Email</label>
-        <input id="user" name="username" type="email" [(ngModel)]="email"/>
+<form (ngSubmit)="Submit()" class="formTemplate">
+    <div class="formsDiv">
+        <label for="user" class="standardText" style="display: block;">Email</label>
+        <input id="user" name="username" type="email" style="display: block;"[(ngModel)]="email"/>
     </div>
-    <div class="formTemplate">
-        <label for="psswrd" class="standardText">Password</label>
-        <input id="psswrd" name="password" type="password" [(ngModel)]="password"/>
+    <div style="position: relative; top: 0px;" class="formsDiv">
+        <label for="psswrd" class="standardText" style="display: block;">Password</label>
+        <input id="psswrd" name="password" type="password" style="display: block;"[(ngModel)]="password"/>
     </div>
-    <input type="submit" value="Login">
+    <input type="submit" value="Login" class="standardButton" style="display: block;">
+    <a routerLink="/register" routerLinkActive="active" style="margin: auto; display: block;">Not registered yet? Register!</a>
 </form>

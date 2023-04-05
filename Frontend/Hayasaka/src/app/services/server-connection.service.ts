@@ -19,7 +19,8 @@ export class ServerConnectionService {
   loginParams = new HttpParams();
   test:UserInformation;
   constructor(private http:HttpClient) {
-    this.requestsUrl = "http://127.0.0.1:80/";
+    this.requestsUrl = window.location.href.slice(0,window.location.href.length-1) + ":80/";
+    console.log(this.requestsUrl);
     this.loginParams = this.loginParams.append("type", "01");
   }
 

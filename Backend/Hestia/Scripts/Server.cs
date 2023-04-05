@@ -57,8 +57,22 @@ namespace Hestia.Scripts
         public bool ConnectDatabase(string server, string uid, string pwd, string database, string port)
         {
             connectionString = $"server={server};uid={uid};pwd={pwd};database={database};port={port}";
-            isDatabaseConnected = true;
-            return true;
+            try
+            {
+                MySqlParameter[] toPass = new MySqlParameter[2];
+                toPass[0] = new MySqlParameter("email", "Yanbarril@hotmail.com");
+                toPass[1] = new MySqlParameter("password", "sexo");
+                var reader = MySqlHelper.ExecuteReaderAsync(connectionString, "SELECT user.idUser FROM user WHERE user.email = @email AND user.password = @password", toPass).Result;
+                if (reader.HasRows) {
+                    isDatabaseConnected = true;
+                    return true;
+                } else
+                {
+                    return false;
+                }
+            } catch (Exception ex){
+                return false;
+            }
         }
 
         public bool DisconnectDatabase()
