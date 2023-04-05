@@ -15,10 +15,17 @@ namespace Hestia.Controllers
         private Server server;
 
         [ObservableProperty]
-        string ip = Dns.GetHostEntry(Dns.GetHostName()).AddressList[1].ToString();
+        string ip;
 
         public ConfigController(Server server) {
             this.server = server;
+            try
+            {
+                ip = Dns.GetHostEntry(Dns.GetHostName()).AddressList[1].ToString();
+            } catch (Exception ex)
+            {
+
+            }
         }
 
         [RelayCommand]
