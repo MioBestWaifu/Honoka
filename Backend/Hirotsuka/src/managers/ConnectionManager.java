@@ -25,7 +25,7 @@ public class ConnectionManager {
         System.out.println("User:");
         String username = "root";
         System.out.println("Password:");
-        String password = "generalyan";
+        String password = "";
         try {
             conn = DriverManager.getConnection(url, username, password);
         } catch (SQLException e) {
