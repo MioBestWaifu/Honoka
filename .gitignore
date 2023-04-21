@@ -1,3 +1,6 @@
 Backend/Hestia/bin/
 Backend/Hestia/obj/
 Backend/Hestia/.vs/
+.vscode/
+Backend/Hirotsuka/bin
+Backend/Hirotsuka/src/raw/
