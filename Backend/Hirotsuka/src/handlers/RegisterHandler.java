@@ -23,7 +23,7 @@ public class RegisterHandler implements HttpHandler{
             toSend = "FAILED".getBytes();
         }
 
-        exchange.getResponseHeaders().add("Content-type", "text");
+        exchange.getResponseHeaders().add("Content-type", "text/plain");
         Utils.sendAndClose(exchange, toSend);
     }
     

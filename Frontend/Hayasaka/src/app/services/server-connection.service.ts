@@ -31,7 +31,7 @@ export class ServerConnectionService {
   }
 
   TryToRegister(forms:RegisterTemplate):Observable<string>{
-    return this.http.post<string>(this.requestsUrl+"registering",JSON.stringify(forms));
+    return this.http.post(this.requestsUrl+"registering",JSON.stringify(forms),{responseType: 'text'});
   }
 
   

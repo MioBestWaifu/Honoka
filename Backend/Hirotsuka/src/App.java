@@ -4,11 +4,12 @@ import com.sun.net.httpserver.HttpServer;
 import handlers.InitHandler;
 import handlers.LoginHandler;
 import handlers.RegisterHandler;
+import managers.ConnectionManager;
 import managers.Utils;
 public class App {
     public static void main(String[] args) throws Exception {
         HttpServer server = HttpServer.create(new InetSocketAddress(80), 99);
-        //Connector.connect();
+        ConnectionManager.connect();
         Utils.init();
         InitHandler initHandler = new InitHandler();
         server.createContext("/", initHandler);
