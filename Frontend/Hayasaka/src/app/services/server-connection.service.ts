@@ -27,7 +27,12 @@ export class ServerConnectionService {
 
   TryToLogin(forms:LoginTemplate):Observable<UserInformation>{
       console.log(this.requestsUrl); 
+      try{
       return this.http.post<UserInformation>(this.requestsUrl+"login",JSON.stringify(forms));
+      } catch(error){
+        console.log(error)
+        return null;
+      }
   }
 
   TryToRegister(forms:RegisterTemplate):Observable<string>{

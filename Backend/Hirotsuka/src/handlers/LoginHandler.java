@@ -8,7 +8,8 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 import info.UserInformation;
-import managers.ConnectionManager;
+import managers.DatabaseConnection;
+import managers.UserConnectionManager;
 import managers.Utils;
 
 public class LoginHandler implements HttpHandler{
@@ -17,13 +18,19 @@ public class LoginHandler implements HttpHandler{
     public void handle(HttpExchange exchange) throws IOException {
         String x = new String(exchange.getRequestBody().readAllBytes(),StandardCharsets.UTF_8);
         byte[] toSend;
-        if (ConnectionManager.checkLogin(new UserInformation(x))){
-            toSend = ConnectionManager.getUserInformation(new UserInformation(x)).getBytes(StandardCharsets.UTF_8);
+        System.out.println(exchange.getRemoteAddress().getHostString());
+        UserInformation info = new UserInformation(x);
+        if (DatabaseConnection.checkLogin(info)){
+            info = DatabaseConnection.getUserInformation(info);
+            System.out.println(info.toJson().substring(1315, 1320));
+            System.out.println(info.toJson().substring(1290, 1340));
+            toSend = info.toJson().getBytes(StandardCharsets.UTF_8);
+            UserConnectionManager.addConnection(exchange.getRemoteAddress().getHostString(), info);
             exchange.getResponseHeaders().add("Content-type", "application/json");
             Utils.sendAndClose(exchange, toSend);
         } else {
             var errorInformation = new UserInformation();
-            errorInformation.setEmail(null);
+            errorInformation.setEmail("NULL");
             toSend = errorInformation.toJson().getBytes(StandardCharsets.UTF_8);
             exchange.getResponseHeaders().add("Content-type", "application/json");
             Utils.sendAndClose(exchange, toSend);

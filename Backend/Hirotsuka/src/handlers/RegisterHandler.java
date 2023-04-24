@@ -6,7 +6,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 import info.UserInformation;
-import managers.ConnectionManager;
+import managers.DatabaseConnection;
 import managers.Utils;
 
 public class RegisterHandler implements HttpHandler{
@@ -15,7 +15,7 @@ public class RegisterHandler implements HttpHandler{
     public void handle(HttpExchange exchange) throws IOException {
         byte[] toSend;
         String x = new String(exchange.getRequestBody().readAllBytes());
-        if (ConnectionManager.tryToRegister(new UserInformation(x))){
+        if (DatabaseConnection.tryToRegister(new UserInformation(x))){
             //Checar esse krl
             toSend = "DONE".getBytes();
             //Esse tbm

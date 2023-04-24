@@ -13,7 +13,7 @@ public class InitHandler implements HttpHandler{
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        String path = exchange.getHttpContext().getPath();
+        String path = exchange.getRequestURI().toString();
         byte[] toSend;
         switch (path){
             case "/":

@@ -1,6 +1,7 @@
 package info;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.mysql.cj.xdevapi.JsonString;
@@ -8,10 +9,11 @@ import com.mysql.cj.xdevapi.JsonString;
 import managers.Utils;
 
 public class UserInformation {
-    String email, password, genre,name;
+    String email, password, genre,name,imageUrl;
     int id;
     boolean providingService;
     Date birthday;
+    ArrayList<ServiceInformation> reccomendations;
     public UserInformation(){
 
     }
@@ -37,18 +39,26 @@ public class UserInformation {
         HashMap<String,String> mapFields = new HashMap<>();
         if (email != null)
             mapFields.put("Email", email);
+        if (imageUrl != null)
+            mapFields.put("ImageUrl", imageUrl);
         if (name != null)
             mapFields.put("Name", name);
         if (password != null) 
             mapFields.put("Password", password);
         if (genre != null)
             mapFields.put("Genre", genre);
-        mapFields.put("Id", Integer.toString(id));
         mapFields.put("ProvidingService", Boolean.toString(providingService));
         if (birthday != null)
             mapFields.put("Birthday", birthday.toString());
+        if (!(reccomendations == null || reccomendations.size() == 0)){
+            var buffer = new ArrayList<String>();
+            ArrayList<String> toJoin = new ArrayList<String>();
+            for (ServiceInformation si : reccomendations){
+                toJoin.add(si.toJson());
+            }
+            mapFields.put("ServiceRecs", Utils.joinJsonArray(toJoin));
+        }
         String toReturn = Utils.toJson(mapFields);
-        System.out.println(toReturn);
 
         
         return toReturn;
@@ -105,6 +115,21 @@ public class UserInformation {
     public void setName(String name) {
         this.name = name;
     }
+    public ArrayList<ServiceInformation> getReccomendations() {
+        return reccomendations;
+    }
+    public void setReccomendations(ArrayList<ServiceInformation> reccomendations) {
+        this.reccomendations = reccomendations;
+    }
+    public String getImageUrl() {
+        return imageUrl;
+    }
+    public void setImageUrl(String userCode) {
+        this.imageUrl = "http://"+Utils.ipAddress+"/images/"+userCode+".png";
+    }
+
+    
+    
     
     
 }

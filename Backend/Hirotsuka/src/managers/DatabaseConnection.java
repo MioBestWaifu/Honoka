@@ -1,12 +1,15 @@
 package managers;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
+import info.ServiceInformation;
 import info.UserInformation;
 
-public class ConnectionManager {
+public class DatabaseConnection {
     private static Connection conn;
     public static void connect(){
         String driverName = "com.mysql.cj.jdbc.Driver";
@@ -48,7 +51,7 @@ public class ConnectionManager {
         
     }
 
-    public static String getUserInformation(UserInformation info){
+    public static UserInformation getUserInformation(UserInformation info){
         try {
             var st = conn.prepareStatement("SELECT * FROM user WHERE user.email = ?");
             st.setString(1, info.getEmail());
@@ -58,7 +61,9 @@ public class ConnectionManager {
             info.setBirthday(result.getDate("birthday"));
             info.setGenre(result.getString("genre"));
             info.setProvidingService(result.getBoolean("providingService"));
-            return info.toJson();
+            info.setImageUrl(Integer.toString(result.getInt("idUser")));
+            info.setReccomendations(getServiceRecommendations(result.getInt("idUser")));
+            return info;
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -85,5 +90,56 @@ public class ConnectionManager {
         } catch (SQLException e) {
             return false;
         }
+    }
+
+    public static boolean tryToAddServiceTemplate(ServiceInformation info){
+        try {
+            var st = conn.prepareStatement("INSERT INTO serviceTemplates (idProvider,serviceName,description,costPerHour)"+
+            "VALUES (?,?,?,?)");
+            st.setInt(1, info.getProviderId());
+            st.setString(2, info.getServiceName());
+            st.setString(3, info.getDescription());
+            st.setFloat(4, info.getCostPerHour());
+            return st.executeUpdate() >0;
+            
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private static ArrayList<ServiceInformation> getServiceRecommendations(int userCode){
+        ArrayList<ServiceInformation> toReturn = new ArrayList<>();
+        PreparedStatement st = null;
+        PreparedStatement providerSt = null;
+        try {
+            st = conn.prepareStatement("SELECT * FROM serviceTemplates WHERE idServiceTemplates = ?");
+            providerSt = conn.prepareStatement("SELECT * FROM user WHERE idUser = ?");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        for (int i = 1; i<=8; i++){
+            try {
+                st.setInt(1, i);
+                var res = st.executeQuery();
+                res.next();
+                ServiceInformation toAdd = new ServiceInformation();
+                toAdd.setCostPerHour(res.getFloat("costPerHour"));
+                toAdd.setDescription(res.getString("description"));
+                toAdd.setServiceName(res.getString("serviceName"));
+                providerSt.setInt(1, res.getInt("idProvider"));
+                var providerRes = providerSt.executeQuery();
+                providerRes.next();
+                toAdd.setProviderName(providerRes.getString("name"));
+                toAdd.setProviderImageUrl(Integer.toString(providerRes.getInt("idUser")));
+                toAdd.setProviderUrl(Integer.toString(providerRes.getInt("idUser")));
+                toReturn.add(toAdd);
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        return toReturn;
     }
 }
