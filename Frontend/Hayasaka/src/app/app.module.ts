@@ -12,6 +12,7 @@ import { LoginFormsComponent } from './components/login-forms/login-forms.compon
 import { RegisterFormsComponent } from './components/register-forms/register-forms.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FootTestComponent } from './components/foot-test/foot-test.component';
+import { LateralBarComponent } from './components/lateral-bar/lateral-bar.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { FootTestComponent } from './components/foot-test/foot-test.component';
     LoginFormsComponent,
     RegisterFormsComponent,
     HeaderComponent,
-    FootTestComponent
+    FootTestComponent,
+    LateralBarComponent
   ],
   imports: [
     BrowserModule,

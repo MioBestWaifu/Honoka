@@ -1,3 +1,4 @@
+import { ServiceBundle } from "./serviceBundle";
 import { ServiceInformation } from "./serviceInformation";
 
 export class UserInformation{
@@ -7,5 +8,5 @@ export class UserInformation{
     ImageUrl:string;
     Birthday:Date;
     Description:string;
-    ServiceRecs:ServiceInformation[];
+    ServiceRecs:ServiceBundle[];
 }

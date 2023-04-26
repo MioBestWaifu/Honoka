@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import info.ServiceBundle;
 import info.ServiceInformation;
 import info.UserInformation;
 
@@ -109,8 +110,9 @@ public class DatabaseConnection {
         }
     }
 
-    private static ArrayList<ServiceInformation> getServiceRecommendations(int userCode){
-        ArrayList<ServiceInformation> toReturn = new ArrayList<>();
+    private static ArrayList<ServiceBundle> getServiceRecommendations(int userCode){
+        ArrayList<ServiceBundle> toReturn = new ArrayList<>();
+        ArrayList<ServiceInformation> buffer = new ArrayList<>();
         PreparedStatement st = null;
         PreparedStatement providerSt = null;
         try {
@@ -134,12 +136,18 @@ public class DatabaseConnection {
                 toAdd.setProviderName(providerRes.getString("name"));
                 toAdd.setProviderImageUrl(Integer.toString(providerRes.getInt("idUser")));
                 toAdd.setProviderUrl(Integer.toString(providerRes.getInt("idUser")));
-                toReturn.add(toAdd);
+                buffer.add(toAdd);
             } catch (SQLException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+
         }
+
+        toReturn.add(new ServiceBundle());
+        toReturn.add(new ServiceBundle());
+        toReturn.get(0).setServInfos(new ArrayList<ServiceInformation>(buffer.subList(0, 4)));
+        toReturn.get(1).setServInfos(new ArrayList<ServiceInformation>(buffer.subList(4, 8)));
         return toReturn;
     }
 }

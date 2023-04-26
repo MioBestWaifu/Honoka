@@ -13,7 +13,7 @@ public class UserInformation {
     int id;
     boolean providingService;
     Date birthday;
-    ArrayList<ServiceInformation> reccomendations;
+    ArrayList<ServiceBundle> reccomendations;
     public UserInformation(){
 
     }
@@ -51,9 +51,8 @@ public class UserInformation {
         if (birthday != null)
             mapFields.put("Birthday", birthday.toString());
         if (!(reccomendations == null || reccomendations.size() == 0)){
-            var buffer = new ArrayList<String>();
             ArrayList<String> toJoin = new ArrayList<String>();
-            for (ServiceInformation si : reccomendations){
+            for (ServiceBundle si : reccomendations){
                 toJoin.add(si.toJson());
             }
             mapFields.put("ServiceRecs", Utils.joinJsonArray(toJoin));
@@ -115,10 +114,10 @@ public class UserInformation {
     public void setName(String name) {
         this.name = name;
     }
-    public ArrayList<ServiceInformation> getReccomendations() {
+    public ArrayList<ServiceBundle> getReccomendations() {
         return reccomendations;
     }
-    public void setReccomendations(ArrayList<ServiceInformation> reccomendations) {
+    public void setReccomendations(ArrayList<ServiceBundle> reccomendations) {
         this.reccomendations = reccomendations;
     }
     public String getImageUrl() {

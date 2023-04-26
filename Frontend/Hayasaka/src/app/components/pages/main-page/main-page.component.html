@@ -1,5 +1,9 @@
-<p [textContent]="test"></p>
-<p [textContent]="buffer.userInfo.Username"></p>
-<p [textContent]="buffer.userInfo.Email"></p>
-<p [textContent]="buffer.userInfo.Birthday"></p>
-<img [src]="buffer.userInfo.ImageUrl" alt="">
+<app-lateral-bar></app-lateral-bar>
+<ol>
+    <li *ngFor="let bundle of buffer.userInfo.ServiceRecs">
+        <img [src]="bundle.ServiceInfos[0].ProviderImageUrl" alt="" style="display: inline-block;">
+        <img [src]="bundle.ServiceInfos[1].ProviderImageUrl" alt="" style="display: inline-block;">
+        <img [src]="bundle.ServiceInfos[2].ProviderImageUrl" alt="" style="display: inline-block;">
+        <img [src]="bundle.ServiceInfos[3].ProviderImageUrl" alt="" style="display: inline-block;">
+    </li>
+</ol>

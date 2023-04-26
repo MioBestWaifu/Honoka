@@ -27,7 +27,7 @@ export class LoginFormsComponent {
     try{
     const x = await firstValueFrom(this.conn.TryToLogin(t));
     this.user = x;
-    x.ServiceRecs.forEach(z => console.log(z.ServiceName));
+    x.ServiceRecs.forEach(z => console.log(z.ServiceInfos[0].ServiceName));
     } catch (error){
       console.log(error)
     }
