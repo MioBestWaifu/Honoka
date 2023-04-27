@@ -1,4 +1,4 @@
-<app-lateral-bar></app-lateral-bar>
+<app-lateral-bar [user]=buffer.userInfo></app-lateral-bar>
 <ol>
     <li *ngFor="let bundle of buffer.userInfo.ServiceRecs">
         <img [src]="bundle.ServiceInfos[0].ProviderImageUrl" alt="" style="display: inline-block;">
