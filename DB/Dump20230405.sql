@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `aluguel` /*!40100 DEFAULT CHARACTER SET utf8mb3 */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `aluguel`;
 -- MySQL dump 10.13  Distrib 8.0.32, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: aluguel
@@ -120,11 +122,12 @@ DROP TABLE IF EXISTS `servicetemplates`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `servicetemplates` (
   `idServiceTemplates` int NOT NULL AUTO_INCREMENT,
-  `idProvider` int DEFAULT NULL,
+  `idProvider` int NOT NULL,
   `serviceModality` int DEFAULT NULL,
   `serviceCategory` int DEFAULT NULL,
-  `costPerHour` float DEFAULT NULL,
+  `costPerHour` float NOT NULL,
   `description` varchar(320) DEFAULT NULL,
+  `serviceName` varchar(45) NOT NULL,
   PRIMARY KEY (`idServiceTemplates`),
   KEY `idProvider_idx` (`idProvider`),
   KEY `category_idx` (`serviceCategory`),
@@ -132,7 +135,7 @@ CREATE TABLE `servicetemplates` (
   CONSTRAINT `category` FOREIGN KEY (`serviceCategory`) REFERENCES `servicecategory` (`idServiceCategory`),
   CONSTRAINT `idProvider` FOREIGN KEY (`idProvider`) REFERENCES `user` (`idUser`),
   CONSTRAINT `modality` FOREIGN KEY (`serviceModality`) REFERENCES `servicemodality` (`idServiceModality`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -141,6 +144,7 @@ CREATE TABLE `servicetemplates` (
 
 LOCK TABLES `servicetemplates` WRITE;
 /*!40000 ALTER TABLE `servicetemplates` DISABLE KEYS */;
+INSERT INTO `servicetemplates` VALUES (1,2,NULL,NULL,75,'Faço cover com vocal e baixo de qualquer música','Cover'),(2,2,NULL,NULL,35,'Podemos fizer jogando conversa fora sobre qualquer assunto, principalmente música','Conversinha'),(3,3,NULL,NULL,60,'Debater sobre as questões modernas','Discussão sobre a sociedade'),(4,3,NULL,NULL,500,'Não importa o assunto, eu sei tudo','Aula particular'),(5,3,NULL,NULL,2000,'Meu pai é rico, logo eu sei administrar dinheiro','Conselho financeiro'),(6,4,NULL,NULL,40,'','Jogar ARAM'),(7,4,NULL,NULL,70,'','Jogar Ranked'),(8,4,NULL,NULL,90,'','Elojob');
 /*!40000 ALTER TABLE `servicetemplates` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -172,7 +176,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'Yan','Yanbarril@hotmail.com','sexo','M','2005-03-16',NULL,NULL),(2,'Jonas','email','pica','T','2000-02-02',0,NULL),(3,'jonas','email','pica','T','2004-02-04',NULL,NULL),(4,'hhhhh','generalyan1603@hotmail.com','mm',NULL,'2005-03-01',NULL,NULL);
+INSERT INTO `user` VALUES (1,'Yan','Teste@hotmail.com','sexo','M','2005-03-16',NULL,NULL),(2,'Akiyama Mio','Mio@hotmail.com','sexo','F','2004-03-16',NULL,NULL),(3,'Shinomiya Kaguya','Kaguya@hotmail.com','sexo','F','2003-03-16',NULL,NULL),(4,'Morgana','Morgana@hotmail.com','sexo','F','2002-03-16',NULL,NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -185,4 +189,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-05 16:45:46
+-- Dump completed on 2023-04-26 21:43:22
