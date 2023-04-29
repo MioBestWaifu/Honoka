@@ -18,7 +18,7 @@
     color: black;
     font-size: 18px;
 } .standardWhiteText{
-    color: white;
+    color: rgb(78, 255, 24);
     font-size: 18px;
 } .standardButton{
     border-style: solid;
@@ -34,14 +34,25 @@
     margin: 1.5%;
     width: 45%;
 } .lateralDiv{
-    display: inline-block;
+    position: fixed;
+    top: 8vh;
     background-color: purple;
     height: 92vh;
     width: 15vw;
 } .lateralBlockDiv{
     border-style: solid;
-    border-width: 3%;
+    border-bottom-width: 0.2vw;
+    border-top-width: 0vw;
+    border-left-width: 0vw;
+    border-right-width: 0vw;
     border-color: rgb(155, 147, 221);
-    width: 14vw;
+    width: 15vw;
     height: 14vh;
+} .cardImage{
+    border-radius: 5%;
+    border-color: purple;
+    border-width: 0.2vw;
+    border-style: solid;
+    width: 14vw;
+    aspect-ratio:1/1;
 }

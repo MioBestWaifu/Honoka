@@ -1,4 +1,5 @@
-<div style="background-image: {{service.ProviderImageUrl}}">
-    <p [textContent]="service.ServiceName" class="standardWhiteText"></p>
-    <p [textContent]="service.CostPerHour" class="standardWhiteText"></p>
+<div>
+    <img class="cardImage" [src]="service.ProviderImageUrl" alt="">
+    <p [textContent]="service.ServiceName" class="standardWhiteText" style="position: absolute;bottom:1.5vw;left: 0.7vw;"></p>
+    <p [textContent]="service.CostPerHour" class="standardWhiteText" style="position: absolute;bottom:0.5vw;left: 0.7vw;"></p>
 </div>

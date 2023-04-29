@@ -35,6 +35,7 @@ public class DatabaseConnection {
         } catch (SQLException e) {
             System.out.println("Conexão merda");
             System.out.println(e.getMessage());
+            System.exit(0);
         }
         //input.close();
     }
@@ -59,6 +60,7 @@ public class DatabaseConnection {
             var result = st.executeQuery();
             result.next();
             info.setId(0);
+            info.setName(result.getString("name"));
             info.setBirthday(result.getDate("birthday"));
             info.setGenre(result.getString("genre"));
             info.setProvidingService(result.getBoolean("providingService"));

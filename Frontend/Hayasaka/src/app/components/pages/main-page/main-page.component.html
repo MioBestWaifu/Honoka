@@ -1,5 +1,5 @@
 <app-lateral-bar [user]=buffer.userInfo class="lateralDiv"></app-lateral-bar>
-<ol style="display: inline-block;list-style: none;padding-left: 4vw;padding-top: 8vh;">
+<ol style="display: inline-block;list-style: none;position:absolute;left:20vw;padding-top: 8vh;">
     <li *ngFor="let bundle of buffer.userInfo.ServiceRecs">
         <app-service-row [bundle] = bundle></app-service-row>
     </li>
