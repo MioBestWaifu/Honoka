@@ -22,7 +22,9 @@ public class UserInformation {
     if (map.containsKey("email"))
         email = map.get("email");
     if (map.containsKey("name"))
-        email = map.get("name");
+        name = map.get("name");
+    else if (map.containsKey("username"))
+        name = map.get("username");
     if (map.containsKey("password"))
         password = map.get("password");
     if (map.containsKey("id"))

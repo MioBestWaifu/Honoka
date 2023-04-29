@@ -1,9 +1,6 @@
-<app-lateral-bar [user]=buffer.userInfo></app-lateral-bar>
-<ol>
+<app-lateral-bar [user]=buffer.userInfo class="lateralDiv"></app-lateral-bar>
+<ol style="display: inline-block;list-style: none;padding-left: 4vw;padding-top: 8vh;">
     <li *ngFor="let bundle of buffer.userInfo.ServiceRecs">
-        <img [src]="bundle.ServiceInfos[0].ProviderImageUrl" alt="" style="display: inline-block;">
-        <img [src]="bundle.ServiceInfos[1].ProviderImageUrl" alt="" style="display: inline-block;">
-        <img [src]="bundle.ServiceInfos[2].ProviderImageUrl" alt="" style="display: inline-block;">
-        <img [src]="bundle.ServiceInfos[3].ProviderImageUrl" alt="" style="display: inline-block;">
+        <app-service-row [bundle] = bundle></app-service-row>
     </li>
 </ol>

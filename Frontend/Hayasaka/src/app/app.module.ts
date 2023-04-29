@@ -13,6 +13,8 @@ import { RegisterFormsComponent } from './components/register-forms/register-for
 import { HeaderComponent } from './components/header/header.component';
 import { FootTestComponent } from './components/foot-test/foot-test.component';
 import { LateralBarComponent } from './components/lateral-bar/lateral-bar.component';
+import { ServiceRowComponent } from './components/service-row/service-row.component';
+import { ServiceCardComponent } from './components/service-card/service-card.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { LateralBarComponent } from './components/lateral-bar/lateral-bar.compon
     RegisterFormsComponent,
     HeaderComponent,
     FootTestComponent,
-    LateralBarComponent
+    LateralBarComponent,
+    ServiceRowComponent,
+    ServiceCardComponent
   ],
   imports: [
     BrowserModule,
