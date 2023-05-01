@@ -1,5 +1,5 @@
-<div>
-    <img class="cardImage" [src]="service.ProviderImageUrl" alt="" [title]="service.Description">
-    <p [textContent]="service.ServiceName" class="standardWhiteText" style="position: absolute;bottom:1.5vw;left: 0.7vw;"></p>
-    <p [textContent]="service.CostPerHour" class="standardWhiteText" style="position: absolute;bottom:0.5vw;left: 0.7vw;"></p>
+<div class="wrapper cardShadow">
+    <img class="cardImage center" [src]="service.ProviderImageUrl" alt="" [title]="service.Description">
+    <p [textContent]="service.ShortServiceName" class="standardText serviceNameText"></p>
+    <p [textContent]="service.CostPerHour" class="standardText roseText serviceCostText"></p>
 </div>

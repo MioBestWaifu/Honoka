@@ -5,6 +5,11 @@
     --lavender: #e6e6faff;
     --maroon: #d3c0cdff;
     --jet: #3d3a4bff;
+    --a-size: 1vw;
+    --b-size:1.1vw;
+    --c-size: 1.3vw;
+    --d-size:1.5vw;
+    --e-size:2.8vw;
 }.appWrapper{
     position: relative;
     background-color: var(--lavender);
@@ -19,9 +24,8 @@
 .titleText{
     color: var(--lavender);
     /*-webkit-text-fill-color: var(--lavender);*/
-    font-size: 38px;
-    -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: var(--rose);
+    font-size: var(--e-size);
+    text-shadow: -1px 0 var(--rose), 0 1px var(--rose), 1px 0 var(--rose), 0 -1px var(--rose);
 } .formTemplate{
     margin: auto;
     padding: 1%;
@@ -36,11 +40,12 @@
     transform: translate(-50%, -50%);
 } .standardText{
     color: var(--jet);
-    font-size: 18px;
-} .standardWhiteText{
+    font-size:var(--c-size);
+} .whiteText{
     color: var(--lavender);
-    font-size: 18px;
-} .standardButton{
+} .standardText.roseText {
+    color: var(--rose);  
+}.standardButton{
     border-style: solid;
     background-color: var(--rose);
     border-radius: 2px;
@@ -74,15 +79,16 @@
     width: 15vw;
     height: 14vh;
 } .cardImage{
-    border-radius: 5%;
-    border-color: var(--rose);
-    border-width: 0.25vw;
-    border-style: solid;
-    width: 14vw;
+    width: 12vw;
     aspect-ratio:1/1;
 } app-header{
     height: 8vh;
     width: 100vw;
     border-color: var(--rose);
     position: fixed;
+} .cardShadow{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+} .center{
+    margin-left: auto;
+    margin-right: auto;
 }

@@ -1,7 +1,12 @@
-div{
+.wrapper{
     /*word-wrap: break-word;*/
-    text-overflow: ellipsis;
-    width: 15vw;
-    aspect-ratio: 1/1;
+    width: 12vw;
+    overflow: hidden; /* make sure it hides the content that overflows */
+    white-space: nowrap; /* don't break the line */
+    text-overflow: ellipsis; /* give the beautiful '...' effect */
+    aspect-ratio: 2/3;
     position: relative;
+} .serviceNameText{
+    font-size: var(--b-size);
+} .serviceCostText{
 }

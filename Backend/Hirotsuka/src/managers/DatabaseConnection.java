@@ -25,11 +25,11 @@ public class DatabaseConnection {
         String serverName = "127.0.0.1";
         System.out.println("Database:");
         String mydatabase ="aluguel";
-        String url = "jdbc:mysql://" + serverName + "/" + mydatabase+"?useSSL=false";
+        String url = "jdbc:mysql://" + serverName + "/" + mydatabase+"?useSSL=false&allowPublicKeyRetrieval=true";
         System.out.println("User:");
         String username = "root";
         System.out.println("Password:");
-        String password = "";
+        String password = "generalyan";
         try {
             conn = DriverManager.getConnection(url, username, password);
         } catch (SQLException e) {

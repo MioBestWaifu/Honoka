@@ -9,4 +9,5 @@ div {
     border-right-width: 0vw;
     border-color: var(--rose);
     position: fixed;
+    text-overflow: clip;
 }

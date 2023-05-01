@@ -1,5 +1,7 @@
 package info;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.HashMap;
 
 import managers.Utils;
@@ -12,14 +14,24 @@ public class ServiceInformation {
     public String toJson(){
         HashMap<String,String> mapFields = new HashMap<>();
         mapFields.put("ServiceName", serviceName);
+        if (serviceName.length()>26)
+            mapFields.put("ShortServiceName", serviceName.substring(0, 24)+"...");
+        else
+            mapFields.put("ShortServiceName", serviceName);
         mapFields.put("Description", description);
         if (description.isBlank()){
             description = "DESC";
         }
         mapFields.put("ProviderName", providerName);
         mapFields.put("ProviderUrl", providerUrl);
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+        symbols.setDecimalSeparator(',');
+        DecimalFormat format = new DecimalFormat();
+        format.setDecimalFormatSymbols(symbols);
+        format.setMinimumFractionDigits(2);
+        format.setMaximumFractionDigits(2);
         mapFields.put("ProviderImageUrl", providerImageUrl);
-        mapFields.put("CostPerHour", Float.toString(costPerHour));
+        mapFields.put("CostPerHour", "R$"+format.format(costPerHour)+"/hr");
         return Utils.toJson(mapFields);
     }
     public String getDescription() {
