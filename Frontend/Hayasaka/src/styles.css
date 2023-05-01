@@ -1,30 +1,50 @@
 /* You can add global styles to this file, and also import other style files */
+:root{
+    --rose: #eb4b9bff;
+    --purple: #35143dff;
+    --lavender: #e6e6faff;
+    --maroon: #d3c0cdff;
+    --jet: #3d3a4bff;
+}.appWrapper{
+    position: relative;
+    background-color: var(--lavender);
+    height: 100vh;
+    width: 100vw;
+} .pageWrapper{
+    background-color: var(--lavender);
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+}
 .titleText{
-    color: white;
+    color: var(--lavender);
+    /*-webkit-text-fill-color: var(--lavender);*/
     font-size: 38px;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: var(--rose);
 } .formTemplate{
     margin: auto;
     padding: 1%;
     border-style: solid;
     border-width: 3px;
     border-radius: 8px;
-    border-color: purple;
+    border-color: var(--rose);
     width: 35%;
     position: absolute;
     top: 35%;
     left: 50%;
     transform: translate(-50%, -50%);
 } .standardText{
-    color: black;
+    color: var(--jet);
     font-size: 18px;
 } .standardWhiteText{
-    color: rgb(78, 255, 24);
+    color: var(--lavender);
     font-size: 18px;
 } .standardButton{
     border-style: solid;
-    background-color: purple;
+    background-color: var(--rose);
     border-radius: 2px;
-    border-color: gray;
+    border-color: var(--jet);
     color: white;
     margin: auto;
     width: 20%;
@@ -36,23 +56,33 @@
 } .lateralDiv{
     position: fixed;
     top: 8vh;
-    background-color: purple;
     height: 92vh;
     width: 15vw;
+    border-style: solid;
+    border-bottom-width: 0vw;
+    border-top-width: 0vw;
+    border-left-width: 0vw;
+    border-right-width: 0.2vw;
+    border-color: var(--rose);
 } .lateralBlockDiv{
     border-style: solid;
     border-bottom-width: 0.2vw;
     border-top-width: 0vw;
     border-left-width: 0vw;
     border-right-width: 0vw;
-    border-color: rgb(155, 147, 221);
+    border-color: var(--rose);
     width: 15vw;
     height: 14vh;
 } .cardImage{
     border-radius: 5%;
-    border-color: purple;
-    border-width: 0.2vw;
+    border-color: var(--rose);
+    border-width: 0.25vw;
     border-style: solid;
     width: 14vw;
     aspect-ratio:1/1;
+} app-header{
+    height: 8vh;
+    width: 100vw;
+    border-color: var(--rose);
+    position: fixed;
 }
