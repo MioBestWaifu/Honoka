@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
+import {MatDialogModule} from "@angular/material/dialog";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +19,9 @@ import { ServiceCardComponent } from './components/service-card/service-card.com
 import { ActiveUserPageComponent } from './components/pages/active-user-page/active-user-page.component';
 import { UserPageComponent } from './components/pages/user-page/user-page.component';
 import { ServicePageComponent } from './components/pages/service-page/service-page.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MissingInfoDialogComponent } from './components/dialogs/missing-info-dialog/missing-info-dialog.component';
+import { WrongCredentialsDialogComponent } from './components/dialogs/wrong-credentials-dialog/wrong-credentials-dialog.component';
 
 @NgModule({
   declarations: [
@@ -34,13 +38,17 @@ import { ServicePageComponent } from './components/pages/service-page/service-pa
     ServiceCardComponent,
     ActiveUserPageComponent,
     UserPageComponent,
-    ServicePageComponent
+    ServicePageComponent,
+    MissingInfoDialogComponent,
+    WrongCredentialsDialogComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -6,6 +6,11 @@ import { UserInformation } from 'src/userInformation';
 import { catchError } from 'rxjs';
 import { firstValueFrom } from 'rxjs';
 import { BufferserviceService } from 'src/app/services/bufferservice.service';
+import { MatDialog } from '@angular/material/dialog';
+import { RegisterFormsComponent } from '../register-forms/register-forms.component';
+import { MissingInfoDialogComponent } from '../dialogs/missing-info-dialog/missing-info-dialog.component';
+import { WrongCredentialsDialogComponent } from '../dialogs/wrong-credentials-dialog/wrong-credentials-dialog.component';
+
 
 @Component({
   selector: 'app-login-forms',
@@ -16,10 +21,11 @@ export class LoginFormsComponent {
   email:string;
   password:string;
   user:UserInformation;
-  constructor(private conn:ServerConnectionService, private router:Router,private buffer:BufferserviceService){}
+  constructor(private conn:ServerConnectionService, private router:Router,private buffer:BufferserviceService,private dialog:MatDialog){}
 
   async Submit(){
     if (!this.email  || !this.password){
+      this.dialog.open(MissingInfoDialogComponent)
       return;
     }
     
@@ -37,6 +43,8 @@ export class LoginFormsComponent {
       this.password = "";
       this.buffer.userInfo = this.user;
       this.router.navigateByUrl("/main");
+    } else {
+      this.dialog.open(WrongCredentialsDialogComponent)
     }
     }
 }
