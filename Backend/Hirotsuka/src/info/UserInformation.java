@@ -60,7 +60,6 @@ public class UserInformation {
             mapFields.put("ServiceRecs", Utils.joinJsonArray(toJoin));
         }
         String toReturn = Utils.toJson(mapFields);
-
         
         return toReturn;
     }

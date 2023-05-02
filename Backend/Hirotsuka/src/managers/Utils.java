@@ -1,12 +1,18 @@
 package managers;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.Buffer;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -69,13 +75,27 @@ public class Utils {
         return toReturn;
     }
 
-    public static byte[] imageToByteArray(String address, String format)
-        throws IOException {
+    public static byte[] imageToByteArray(String address, String format) throws IOException {
+        if (Files.notExists(Paths.get(address))){
+            address = "src/raw/images/0.png";
+        }
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ImageIO.write(ImageIO.read(new File(address)), format, baos);
         byte[] bytes = baos.toByteArray();
         return bytes;
+    }
 
+    public static boolean byteArrayToImage(String address, String format,byte[]data){
+        try{
+        BufferedImage bImage2 = ImageIO.read(new ByteArrayInputStream(data));
+        //BufferedImage bImage2 = ImageIO.read(bis);
+        ImageIO.write(bImage2, format, new File(address+"."+format) );
+        return true;
+        } catch (IOException ex){
+            System.out.println("Exceção update imagem");
+            System.out.println(ex.getMessage());
+            return false;
+        }
     }
 
     public static String joinJsonArray(ArrayList<String> toJoin){

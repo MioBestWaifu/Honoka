@@ -18,10 +18,10 @@ public class ServiceInformation {
             mapFields.put("ShortServiceName", serviceName.substring(0, 24)+"...");
         else
             mapFields.put("ShortServiceName", serviceName);
-        mapFields.put("Description", description);
         if (description.isBlank()){
-            description = "DESC";
+                description = "DESC";
         }
+        mapFields.put("Description", description);
         mapFields.put("ProviderName", providerName);
         mapFields.put("ProviderUrl", providerUrl);
         DecimalFormatSymbols symbols = new DecimalFormatSymbols();

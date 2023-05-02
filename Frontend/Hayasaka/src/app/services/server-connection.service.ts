@@ -9,6 +9,8 @@ import { LoginTemplate } from 'src/loginTemplate';
 import { UserInformation } from 'src/userInformation';
 import { RegisterFormsComponent } from '../components/register-forms/register-forms.component';
 import { RegisterTemplate } from 'src/registerTemplate';
+import { EditUserDialogComponent } from '../components/dialogs/edit-user-dialog/edit-user-dialog.component';
+import {base64ToFile } from 'ngx-image-cropper';
 
 @Injectable({
   providedIn: 'root'
@@ -39,5 +41,8 @@ export class ServerConnectionService {
     return this.http.post(this.requestsUrl+"registering",JSON.stringify(forms),{responseType: 'text'});
   }
 
+  TryToUpdateUserProfile(dia:EditUserDialogComponent):Observable<string>{
+    return this.http.post(this.requestsUrl+"images/update",base64ToFile(dia.croppedImage),{responseType: 'text'});
+  }
   
 }

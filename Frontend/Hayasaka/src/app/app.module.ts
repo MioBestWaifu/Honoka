@@ -3,8 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {MatDialogModule} from "@angular/material/dialog";
-
 import { AppRoutingModule } from './app-routing.module';
+import { ImageCropperModule } from 'ngx-image-cropper';
+
+
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './components/pages/login-page/login-page.component';
 import { RegisterPageComponent } from './components/pages/register-page/register-page.component';
@@ -18,10 +20,12 @@ import { ServiceRowComponent } from './components/service-row/service-row.compon
 import { ServiceCardComponent } from './components/service-card/service-card.component';
 import { ActiveUserPageComponent } from './components/pages/active-user-page/active-user-page.component';
 import { UserPageComponent } from './components/pages/user-page/user-page.component';
+import { UserBasicInfoComponent } from './components/user-basic-info/user-basic-info.component';
 import { ServicePageComponent } from './components/pages/service-page/service-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MissingInfoDialogComponent } from './components/dialogs/missing-info-dialog/missing-info-dialog.component';
 import { WrongCredentialsDialogComponent } from './components/dialogs/wrong-credentials-dialog/wrong-credentials-dialog.component';
+import { EditUserDialogComponent } from './components/dialogs/edit-user-dialog/edit-user-dialog.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +44,9 @@ import { WrongCredentialsDialogComponent } from './components/dialogs/wrong-cred
     UserPageComponent,
     ServicePageComponent,
     MissingInfoDialogComponent,
-    WrongCredentialsDialogComponent
+    WrongCredentialsDialogComponent,
+    UserBasicInfoComponent,
+    EditUserDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +54,8 @@ import { WrongCredentialsDialogComponent } from './components/dialogs/wrong-cred
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
-    MatDialogModule
+    MatDialogModule,
+    ImageCropperModule
   ],
   providers: [],
   bootstrap: [AppComponent]

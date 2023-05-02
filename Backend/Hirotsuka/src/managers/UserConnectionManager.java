@@ -14,4 +14,8 @@ public class UserConnectionManager {
     public static UserInformation getInformation(String address){
         return connections.get(address);
     }
+
+    public static boolean hasIp(String host){
+        return connections.containsKey(host);
+    }
 }

@@ -59,13 +59,14 @@ public class DatabaseConnection {
             st.setString(1, info.getEmail());
             var result = st.executeQuery();
             result.next();
-            info.setId(0);
+            info.setId(result.getInt("idUser"));
             info.setName(result.getString("name"));
             info.setBirthday(result.getDate("birthday"));
             info.setGenre(result.getString("genre"));
+            info.setEmail(result.getString("email"));
             info.setProvidingService(result.getBoolean("providingService"));
             info.setImageUrl(Integer.toString(result.getInt("idUser")));
-            info.setReccomendations(getServiceRecommendations(result.getInt("idUser")));
+            info.setReccomendations(getServiceRecommendations(info.getId()));
             return info;
         } catch (SQLException e) {
             // TODO Auto-generated catch block

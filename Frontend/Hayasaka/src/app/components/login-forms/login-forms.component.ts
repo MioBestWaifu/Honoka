@@ -33,7 +33,7 @@ export class LoginFormsComponent {
     try{
     const x = await firstValueFrom(this.conn.TryToLogin(t));
     this.user = x;
-    console.log(x.Name)
+    console.log(x);
     x.ServiceRecs.forEach(z => console.log(z.ServiceInfos[0].ServiceName));
     } catch (error){
       console.log(error)

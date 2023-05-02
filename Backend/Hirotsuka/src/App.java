@@ -1,7 +1,7 @@
 import java.net.InetSocketAddress;
 import com.sun.net.httpserver.HttpServer;
-
-import handlers.ImageHandler;
+import handlers.ImageRequestHandler;
+import handlers.ImageUpdateHandler;
 import handlers.InitHandler;
 import handlers.LoginHandler;
 import handlers.RegisterHandler;
@@ -17,7 +17,8 @@ public class App {
         server.createContext("/", initHandler);
         server.createContext("/login", new LoginHandler());
         server.createContext("/registering", new RegisterHandler());
-        server.createContext("/images", new ImageHandler());
+        server.createContext("/images", new ImageRequestHandler());
+        server.createContext("/images/update", new ImageUpdateHandler());
         server.start();
     }
 }

@@ -1,0 +1,25 @@
+<h2 mat-dialog-title>aaa</h2>
+
+<mat-dialog-content>
+ <p>aaaaaaaaaa</p>
+ <label for="user" class="standardText block">Email</label>
+ <input id="user" type="file" (change)="fileChangeEvent($event)" />
+
+<image-cropper
+    [imageChangedEvent]="imageChangedEvent"
+    [maintainAspectRatio]="true"
+    [aspectRatio]="1/1"
+    format="png"
+    (imageCropped)="imageCropped($event)"
+    (imageLoaded)="imageLoaded()"
+    (cropperReady)="cropperReady()"
+    (loadImageFailed)="loadImageFailed()"
+></image-cropper>
+
+<img [src]="croppedImage" alt=""/>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button class="mat-raised-button standardButton"(click)="cancel()">Cancel</button>
+    <button class="mat-raised-button mat-primary standardButton"(click)="save()">Save</button>
+</mat-dialog-actions>
