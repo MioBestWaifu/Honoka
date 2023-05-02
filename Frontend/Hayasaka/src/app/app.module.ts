@@ -15,6 +15,9 @@ import { FootTestComponent } from './components/foot-test/foot-test.component';
 import { LateralBarComponent } from './components/lateral-bar/lateral-bar.component';
 import { ServiceRowComponent } from './components/service-row/service-row.component';
 import { ServiceCardComponent } from './components/service-card/service-card.component';
+import { ActiveUserPageComponent } from './components/pages/active-user-page/active-user-page.component';
+import { UserPageComponent } from './components/pages/user-page/user-page.component';
+import { ServicePageComponent } from './components/pages/service-page/service-page.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,10 @@ import { ServiceCardComponent } from './components/service-card/service-card.com
     FootTestComponent,
     LateralBarComponent,
     ServiceRowComponent,
-    ServiceCardComponent
+    ServiceCardComponent,
+    ActiveUserPageComponent,
+    UserPageComponent,
+    ServicePageComponent
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,10 @@
 <div class="lateralBlockDiv">
-    <img [src]="user.ImageUrl" alt="">
-    <p [textContent]="user.Name" class="standardWhiteText" style="display: inline-block;"></p>
+    <div class="centerHor meio">
+        <img [src]="user.ImageUrl" alt="">
+        <div style="display: inline-block;">
+            <p [textContent]="user.Name" class="standardText meio" routerLink="/viewProfile"></p>
+        </div>
+    </div>
 </div>
 <div class="lateralBlockDiv">
-
 </div>

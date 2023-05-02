@@ -70,6 +70,7 @@
     border-right-width: 0.2vw;
     border-color: var(--rose);
 } .lateralBlockDiv{
+    position: relative;
     border-style: solid;
     border-bottom-width: 0.2vw;
     border-top-width: 0vw;
@@ -88,7 +89,9 @@
     position: fixed;
 } .cardShadow{
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-} .center{
-    margin-left: auto;
-    margin-right: auto;
+} .centerHor{
+    margin: 0 auto
+}.centerVer{
+    margin-top: auto;
+    margin-bottom: auto;
 }
