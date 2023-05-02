@@ -8,5 +8,6 @@
     position: relative;
 } .serviceNameText{
     font-size: var(--b-size);
+    cursor: pointer;
 } .serviceCostText{
 }

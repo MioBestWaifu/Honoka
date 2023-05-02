@@ -49,8 +49,8 @@
     border-style: solid;
     background-color: var(--rose);
     border-radius: 2px;
-    border-color: var(--jet);
-    color: white;
+    border-color: var(--purple);
+    color: var(--lavender);
     margin: auto;
     width: 20%;
     height: 8%;
@@ -82,6 +82,7 @@
 } .cardImage{
     width: 12vw;
     aspect-ratio:1/1;
+    cursor: pointer;
 } app-header{
     height: 8vh;
     width: 100vw;

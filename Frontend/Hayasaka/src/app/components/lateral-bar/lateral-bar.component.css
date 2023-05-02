@@ -6,10 +6,13 @@ img{
 
 } p{
     display: block;
+    cursor: pointer;
 } .meio{
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     vertical-align: middle;
     width: fit-content;
+} .inline{
+    display: inline-block;
 }
