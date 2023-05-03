@@ -12,6 +12,7 @@ export class UserBasicInfoComponent {
   constructor(public buffer:BufferserviceService, private dialog:MatDialog){}
 
   edit(){
-    this.dialog.open(EditUserDialogComponent)
+   const x = this.dialog.open(EditUserDialogComponent)
+   x.updateSize("40vw","60vh")
   }
 }

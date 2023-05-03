@@ -19,6 +19,7 @@ import java.util.Scanner;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
+import javax.print.DocFlavor.STRING;
 
 import com.sun.net.httpserver.HttpExchange;
 
@@ -85,12 +86,20 @@ public class Utils {
         return bytes;
     }
 
-    public static boolean byteArrayToImage(String address, String format,byte[]data){
+    public static boolean byteArrayToImage(String host,String address, String format,byte[]data){
         try{
+        String time = Long.toString(System.currentTimeMillis());
         BufferedImage bImage2 = ImageIO.read(new ByteArrayInputStream(data));
         //BufferedImage bImage2 = ImageIO.read(bis);
-        ImageIO.write(bImage2, format, new File(address+"."+format) );
-        return true;
+        String name = address+time+"."+format;
+
+        if (DatabaseConnection.tryToUpdateUserImageUrl(Integer.parseInt(String.valueOf(address.charAt(address.length()-1))), String.valueOf(address.charAt(address.length()-1))+time+"."+format)){
+            ImageIO.write(bImage2, format, new File(name) );
+            UserConnectionManager.getInformation(host).setImageUrl(String.valueOf(address.charAt(address.length()-1))+time+"."+format);
+            return true;
+        }
+
+        return false;
         } catch (IOException ex){
             System.out.println("Exceção update imagem");
             System.out.println(ex.getMessage());

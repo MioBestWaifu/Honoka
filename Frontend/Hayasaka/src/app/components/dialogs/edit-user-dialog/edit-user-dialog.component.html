@@ -1,25 +1,26 @@
-<h2 mat-dialog-title>aaa</h2>
+<div class="roseBorder">
+    <h2 mat-dialog-title>Edit profile</h2>
+    <mat-dialog-content>
+        <div class="flexbox">
+            <img [src]="croppedImage" alt="">
+            <input type="file" class="imageInput" accept="image/*" (change)="fileChangeEvent($event)"/>
+        </div>
+        <image-cropper
+            style="max-height: 180vh;"
+            [imageChangedEvent]="imageChangedEvent"
+            [maintainAspectRatio]="true"
+            [aspectRatio]="1/1"
+            format="png"
+            (imageCropped)="imageCropped($event)"
+            (imageLoaded)="imageLoaded()"
+            (cropperReady)="cropperReady()"
+            (loadImageFailed)="loadImageFailed()"
+        ></image-cropper>
+        <input type="text" [placeholder]="buffer.userInfo.Name" maxlength="32" [(ngModel)]="newName">
+    </mat-dialog-content>
 
-<mat-dialog-content>
- <p>aaaaaaaaaa</p>
- <label for="user" class="standardText block">Email</label>
- <input id="user" type="file" (change)="fileChangeEvent($event)" />
-
-<image-cropper
-    [imageChangedEvent]="imageChangedEvent"
-    [maintainAspectRatio]="true"
-    [aspectRatio]="1/1"
-    format="png"
-    (imageCropped)="imageCropped($event)"
-    (imageLoaded)="imageLoaded()"
-    (cropperReady)="cropperReady()"
-    (loadImageFailed)="loadImageFailed()"
-></image-cropper>
-
-<img [src]="croppedImage" alt=""/>
-</mat-dialog-content>
-
-<mat-dialog-actions>
-    <button class="mat-raised-button standardButton"(click)="cancel()">Cancel</button>
-    <button class="mat-raised-button mat-primary standardButton"(click)="save()">Save</button>
-</mat-dialog-actions>
+    <mat-dialog-actions>
+        <button class="mat-raised-button standardButton"(click)="cancel()">Cancel</button>
+        <button class="mat-raised-button mat-primary standardButton"(click)="save()">Save</button>
+    </mat-dialog-actions>
+</div>

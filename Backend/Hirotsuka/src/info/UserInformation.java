@@ -125,7 +125,7 @@ public class UserInformation {
         return imageUrl;
     }
     public void setImageUrl(String userCode) {
-        this.imageUrl = "http://"+Utils.ipAddress+"/images/"+userCode+".png";
+        this.imageUrl = "http://"+Utils.ipAddress+"/images/"+userCode;
     }
 
     

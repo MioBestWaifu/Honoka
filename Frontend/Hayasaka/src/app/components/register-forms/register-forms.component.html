@@ -1,11 +1,11 @@
-<form (ngSubmit)="Submit()" class="formTemplate">
+<form (ngSubmit)="Submit()" class="formTemplate roseBorder">
     <div class="formsDiv">
         <label for="email" class="standardText">Email</label>
-        <input id="email" name="email" type="email" [(ngModel)]="email"/>
+        <input id="email" name="email" type="email" maxlength="320" [(ngModel)]="email"/>
     </div>
     <div class="formsDiv">
         <label for="username" class="standardText">Username</label>
-        <input id="username" name="username" type="text" [(ngModel)]="username"/>
+        <input id="username" name="username" type="text" maxlength="32" [(ngModel)]="username"/>
     </div>
     <div class="formsDiv">
         <label for="psswrd" class="standardText">Password</label>

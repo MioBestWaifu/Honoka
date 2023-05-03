@@ -1,10 +1,12 @@
 
 <div class="pageWrapper">
     <app-header></app-header>
-    <app-lateral-bar [user]=buffer.userInfo class="lateralDiv"></app-lateral-bar>
-    <ol>
-        <li *ngFor="let bundle of buffer.userInfo.ServiceRecs">
-            <app-service-row [bundle] = bundle></app-service-row>
-        </li>
-    </ol>
+    <app-lateral-bar [user]=buffer.userInfo class="lateralDiv roseBorder"></app-lateral-bar>
+    <div class="contentWrapper">
+        <ol>
+            <li *ngFor="let bundle of buffer.userInfo.ServiceRecs">
+                <app-service-row [bundle] = bundle></app-service-row>
+            </li>
+        </ol>
+    </div>
 </div>

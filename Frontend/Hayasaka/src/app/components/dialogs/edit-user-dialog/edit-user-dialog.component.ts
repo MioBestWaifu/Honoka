@@ -4,6 +4,7 @@ import { BufferserviceService } from 'src/app/services/bufferservice.service';
 import { ImageCroppedEvent, LoadedImage, base64ToFile } from 'ngx-image-cropper';
 import { ServerConnectionService } from 'src/app/services/server-connection.service';
 import { firstValueFrom } from 'rxjs';
+import { FailedUpdateDialogComponent } from '../failed-update-dialog/failed-update-dialog.component';
 
 @Component({
   selector: 'app-edit-user-dialog',
@@ -12,15 +13,17 @@ import { firstValueFrom } from 'rxjs';
 })
 export class EditUserDialogComponent {
   imageChangedEvent: any = '';
+  public newName:string;
   public croppedImage: any = '';
-    constructor(public buffer:BufferserviceService, private dialog:MatDialog, private conn:ServerConnectionService){}
+    constructor(public buffer:BufferserviceService, private dialog:MatDialog, private conn:ServerConnectionService){
+      this.croppedImage = buffer.userInfo.ImageUrl;
+    }
 
   fileChangeEvent(event: any): void {
       this.imageChangedEvent = event;
   }
   imageCropped(event: ImageCroppedEvent) {
       this.croppedImage = event.base64;
-      console.log(base64ToFile(this.croppedImage))
   }
   imageLoaded() {
         // show cropper
@@ -33,11 +36,21 @@ export class EditUserDialogComponent {
   }
 
   cancel(){
+    this.dialog.closeAll();
   } 
   async save(){
-    const response = await firstValueFrom(this.conn.TryToUpdateUserProfile(this));
+    var response = await firstValueFrom(this.conn.TryToUpdateUserPicture(this));
     if(response != "OK"){
+      this.dialog.open(FailedUpdateDialogComponent)
       return
+    }
+
+    if(this.newName != undefined){
+      response = await firstValueFrom(this.conn.TryToUpdateUserName(this));
+      if(response != "OK"){
+        this.dialog.open(FailedUpdateDialogComponent)
+        return
+      }
     }
     //Aq vai o update do user no frontend
     //this.buffer.userInfo.ImageUrl =

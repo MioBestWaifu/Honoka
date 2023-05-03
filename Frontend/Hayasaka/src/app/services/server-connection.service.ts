@@ -41,8 +41,14 @@ export class ServerConnectionService {
     return this.http.post(this.requestsUrl+"registering",JSON.stringify(forms),{responseType: 'text'});
   }
 
-  TryToUpdateUserProfile(dia:EditUserDialogComponent):Observable<string>{
-    return this.http.post(this.requestsUrl+"images/update",base64ToFile(dia.croppedImage),{responseType: 'text'});
+  TryToUpdateUserPicture(dia:EditUserDialogComponent):Observable<string>{
+    return this.http.post(this.requestsUrl+"update/userimage",base64ToFile(dia.croppedImage),{responseType: 'text'});
   }
+
+  TryToUpdateUserName(dia:EditUserDialogComponent):Observable<string>{
+    return this.http.post(this.requestsUrl+"update/username/",dia.newName,{responseType: 'text'});
+  }
+
+
   
 }

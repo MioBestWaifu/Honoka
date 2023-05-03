@@ -26,6 +26,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MissingInfoDialogComponent } from './components/dialogs/missing-info-dialog/missing-info-dialog.component';
 import { WrongCredentialsDialogComponent } from './components/dialogs/wrong-credentials-dialog/wrong-credentials-dialog.component';
 import { EditUserDialogComponent } from './components/dialogs/edit-user-dialog/edit-user-dialog.component';
+import { FailedUpdateDialogComponent } from './components/dialogs/failed-update-dialog/failed-update-dialog.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { EditUserDialogComponent } from './components/dialogs/edit-user-dialog/e
     MissingInfoDialogComponent,
     WrongCredentialsDialogComponent,
     UserBasicInfoComponent,
-    EditUserDialogComponent
+    EditUserDialogComponent,
+    FailedUpdateDialogComponent
   ],
   imports: [
     BrowserModule,

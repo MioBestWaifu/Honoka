@@ -65,7 +65,7 @@ public class DatabaseConnection {
             info.setGenre(result.getString("genre"));
             info.setEmail(result.getString("email"));
             info.setProvidingService(result.getBoolean("providingService"));
-            info.setImageUrl(Integer.toString(result.getInt("idUser")));
+            info.setImageUrl(result.getString("profileUrl"));
             info.setReccomendations(getServiceRecommendations(info.getId()));
             return info;
         } catch (SQLException e) {
@@ -137,7 +137,7 @@ public class DatabaseConnection {
                 var providerRes = providerSt.executeQuery();
                 providerRes.next();
                 toAdd.setProviderName(providerRes.getString("name"));
-                toAdd.setProviderImageUrl(Integer.toString(providerRes.getInt("idUser")));
+                toAdd.setProviderImageUrl(providerRes.getString("profileUrl"));
                 toAdd.setProviderUrl(Integer.toString(providerRes.getInt("idUser")));
                 buffer.add(toAdd);
             } catch (SQLException e) {
@@ -152,5 +152,31 @@ public class DatabaseConnection {
         toReturn.get(0).setServInfos(new ArrayList<ServiceInformation>(buffer.subList(0, 4)));
         toReturn.get(1).setServInfos(new ArrayList<ServiceInformation>(buffer.subList(4, 8)));
         return toReturn;
+    }
+
+    public static boolean tryToUpdateUserName(int id, String newName){
+        try{
+            var st = conn.prepareStatement("UPDATE user SET name = ? WHERE idUser = ?");
+            st.setString(1, newName);
+            st.setInt(2, id);
+            var rst = st.executeUpdate();
+            return rst == 1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static boolean tryToUpdateUserImageUrl(int id, String newUrl){
+        try{
+            var st = conn.prepareStatement("UPDATE user SET profileUrl = ? WHERE idUser = ?");
+            st.setString(1, newUrl);
+            st.setInt(2, id);
+            var rst = st.executeUpdate();
+            return rst == 1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

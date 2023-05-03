@@ -57,7 +57,7 @@ public class ServiceInformation {
         return providerImageUrl;
     }
     public void setProviderImageUrl(String providerCode) {
-        this.providerImageUrl = "http://"+Utils.ipAddress+"/images/"+providerCode+".png";
+        this.providerImageUrl = "http://"+Utils.ipAddress+"/images/"+providerCode;
     }
     public float getCostPerHour() {
         return costPerHour;
