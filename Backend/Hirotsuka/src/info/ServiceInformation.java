@@ -14,10 +14,11 @@ public class ServiceInformation {
     public String toJson(){
         HashMap<String,String> mapFields = new HashMap<>();
         mapFields.put("ServiceName", serviceName);
-        if (serviceName.length()>26)
-            mapFields.put("ShortServiceName", serviceName.substring(0, 24)+"...");
+        if (serviceName.length()>23)
+            mapFields.put("ShortServiceName", serviceName.substring(0, 21)+"...");
         else
             mapFields.put("ShortServiceName", serviceName);
+        System.out.println(mapFields.get("ShortServiceName"));
         if (description.isBlank()){
                 description = "DESC";
         }
