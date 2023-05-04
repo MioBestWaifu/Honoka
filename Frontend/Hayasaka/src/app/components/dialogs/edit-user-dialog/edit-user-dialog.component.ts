@@ -39,10 +39,12 @@ export class EditUserDialogComponent {
     this.dialog.closeAll();
   } 
   async save(){
-    var response = await firstValueFrom(this.conn.TryToUpdateUserPicture(this));
-    if(response != "OK"){
-      this.dialog.open(FailedUpdateDialogComponent)
-      return
+    if (this.croppedImage != this.buffer.userInfo.ImageUrl){
+      var response = await firstValueFrom(this.conn.TryToUpdateUserPicture(this));
+      if(response != "OK"){
+        this.dialog.open(FailedUpdateDialogComponent)
+        return
+      }
     }
 
     if(this.newName != undefined){
@@ -52,8 +54,7 @@ export class EditUserDialogComponent {
         return
       }
     }
-    //Aq vai o update do user no frontend
-    //this.buffer.userInfo.ImageUrl =
+    this.buffer.userInfo = await firstValueFrom(this.conn.ReloadUser());
     this.dialog.closeAll();
   }
 }

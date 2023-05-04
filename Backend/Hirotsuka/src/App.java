@@ -9,6 +9,7 @@ import handlers.InitHandler;
 import handlers.LoginHandler;
 import handlers.NameUpdateHandler;
 import handlers.RegisterHandler;
+import handlers.ReloadHandler;
 import info.ServiceInformation;
 import managers.DatabaseConnection;
 import managers.Utils;
@@ -24,6 +25,7 @@ public class App {
         server.createContext("/images", new ImageRequestHandler());
         server.createContext("/update/userimage", new ImageUpdateHandler());
         server.createContext("/update/username",new NameUpdateHandler());
+        server.createContext("/reload",new ReloadHandler());
         server.start();
     }
 }

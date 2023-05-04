@@ -46,7 +46,11 @@ export class ServerConnectionService {
   }
 
   TryToUpdateUserName(dia:EditUserDialogComponent):Observable<string>{
-    return this.http.post(this.requestsUrl+"update/username/",dia.newName,{responseType: 'text'});
+    return this.http.post(this.requestsUrl+"update/username",dia.newName,{responseType: 'text'});
+  }
+
+  ReloadUser():Observable<UserInformation>{
+    return this.http.get<UserInformation>(this.requestsUrl+"reload/user");
   }
 
 

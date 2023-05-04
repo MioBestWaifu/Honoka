@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `aluguel` /*!40100 DEFAULT CHARACTER SET utf8mb3 */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `aluguel`;
 -- MySQL dump 10.13  Distrib 8.0.32, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: aluguel
@@ -164,10 +162,11 @@ CREATE TABLE `user` (
   `birthday` date DEFAULT NULL,
   `providingService` tinyint DEFAULT NULL,
   `area` int DEFAULT NULL,
+  `profileUrl` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`idUser`),
   KEY `area_idx` (`area`),
   CONSTRAINT `area` FOREIGN KEY (`area`) REFERENCES `area` (`idArea`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -176,7 +175,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'Yan','Teste@hotmail.com','sexo','M','2005-03-16',NULL,NULL),(2,'Akiyama Mio','Mio@hotmail.com','sexo','F','2004-03-16',NULL,NULL),(3,'Shinomiya Kaguya','Kaguya@hotmail.com','sexo','F','2003-03-16',NULL,NULL),(4,'Morgana','Morgana@hotmail.com','sexo','F','2002-03-16',NULL,NULL);
+INSERT INTO `user` VALUES (1,'Ninjagermanico','Teste@hotmail.com','sexo','M','2005-03-16',NULL,NULL,'11683147135786.png'),(2,'Akiyama Mio','Mio@hotmail.com','sexo','F','2004-03-16',NULL,NULL,'2.png'),(3,'Shinomiya Kaguya','Kaguya@hotmail.com','sexo','F','2003-03-16',NULL,NULL,'3.png'),(4,'Morgana','Morgana@hotmail.com','sexo','F','2002-03-16',NULL,NULL,'4.png'),(5,'thwumeimba','aaa','babaritibaba',NULL,'2005-03-01',NULL,NULL,NULL),(6,'Momo-chan','joca@gmail.com','joca',NULL,'2005-03-02',NULL,NULL,'61683143039020.png');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -189,4 +188,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-26 21:43:22
+-- Dump completed on 2023-05-03 21:44:14
