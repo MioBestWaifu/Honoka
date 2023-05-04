@@ -6,6 +6,9 @@ import { RegisterPageComponent } from './components/pages/register-page/register
 import { UserPageComponent } from './components/pages/user-page/user-page.component';
 import { ServicePageComponent } from './components/pages/service-page/service-page.component';
 import { ActiveUserPageComponent } from './components/pages/active-user-page/active-user-page.component';
+import { SearchPageComponent } from './components/pages/search-page/search-page.component';
+import { SettingsPageComponent } from './components/pages/settings-page/settings-page.component';
+import { MyServicesPageComponent } from './components/pages/my-services-page/my-services-page.component';
 
 const routes: Routes = [
   {path:'',component:LoginPageComponent},
@@ -13,7 +16,10 @@ const routes: Routes = [
   {path:'main',component:MainPageComponent},
   {path:'user/:id',component:UserPageComponent},
   {path:'service/:id',component:ServicePageComponent},
-  {path:'viewProfile',component:ActiveUserPageComponent}
+  {path:'viewprofile',component:ActiveUserPageComponent},
+  {path:'search',component:SearchPageComponent},
+  {path:'settings',component:SettingsPageComponent},
+  {path:'myservices',component:MyServicesPageComponent}
 ];
 
 @NgModule({

@@ -12,10 +12,10 @@ public class NameUpdateHandler implements HttpHandler{
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        if (UserConnectionManager.hasIp(exchange.getRemoteAddress().getHostName())){
+        if (UserConnectionManager.hasIp(exchange.getRemoteAddress().getHostString())){
             String newName =  new String (exchange.getRequestBody().readAllBytes());
-            if (DatabaseConnection.tryToUpdateUserName(UserConnectionManager.getInformation(exchange.getRemoteAddress().getHostName()).getId(),newName)){
-                UserConnectionManager.getInformation(exchange.getRemoteAddress().getHostName()).setName(newName);
+            if (DatabaseConnection.tryToUpdateUserName(UserConnectionManager.getInformation(exchange.getRemoteAddress().getHostString()).getId(),newName)){
+                UserConnectionManager.getInformation(exchange.getRemoteAddress().getHostString()).setName(newName);
                 exchange.getResponseHeaders().add("Content-type", "text/plain");
                 Utils.sendAndClose(exchange, "OK".getBytes(StandardCharsets.UTF_8));
             } else {

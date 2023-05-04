@@ -1,5 +1,5 @@
 div {
-    background-color: var(--lavender);
+    background-color: var(--background-color);
     height: 8vh;
     width: 100vw;
     border-style: solid;
@@ -10,4 +10,7 @@ div {
     border-color: var(--rose);
     position: fixed;
     text-overflow: clip;
+    cursor: pointer;
+} p{
+    cursor: pointer;
 }

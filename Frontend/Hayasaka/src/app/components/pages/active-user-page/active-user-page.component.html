@@ -2,6 +2,9 @@
     <app-header></app-header>
     <app-lateral-bar [user]=buffer.userInfo class="lateralDiv roseBorder"></app-lateral-bar>
     <div class="contentWrapper">
-        <app-user-basic-info></app-user-basic-info>
+        <div class="flexbox centerHor">
+            <app-user-basic-info [user]="buffer.userInfo"></app-user-basic-info>
+            <button class="standardButton" (click)="edit()">Edit profile</button>
+        </div>
     </div>
 </div>

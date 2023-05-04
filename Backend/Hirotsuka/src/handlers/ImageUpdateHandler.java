@@ -11,8 +11,8 @@ public class ImageUpdateHandler implements HttpHandler{
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        if (UserConnectionManager.hasIp(exchange.getRemoteAddress().getHostName())){
-            if (Utils.byteArrayToImage(exchange.getRemoteAddress().getHostName(),"src/raw/images/"+UserConnectionManager.getInformation(exchange.getRemoteAddress().getHostName()).getId(), "png", exchange.getRequestBody().readAllBytes())){
+        if (UserConnectionManager.hasIp(exchange.getRemoteAddress().getHostString())){
+            if (Utils.byteArrayToImage(exchange.getRemoteAddress().getHostString(),"src/raw/images/"+UserConnectionManager.getInformation(exchange.getRemoteAddress().getHostString()).getId(), "png", exchange.getRequestBody().readAllBytes())){
                 exchange.getResponseHeaders().add("Content-type", "text/plain");
                 Utils.sendAndClose(exchange, "OK".getBytes(StandardCharsets.UTF_8));
             } else {

@@ -6,6 +6,9 @@
     text-overflow: ellipsis; /* give the beautiful '...' effect */
     aspect-ratio: 2/3;
     position: relative;
+    border-style: solid;
+    border-width: 0.1vw;
+    border-color: var(--rose);
 } .serviceNameText{
     font-size: var(--b-size);
     cursor: pointer;

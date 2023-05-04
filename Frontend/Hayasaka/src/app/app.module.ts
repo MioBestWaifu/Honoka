@@ -27,6 +27,9 @@ import { MissingInfoDialogComponent } from './components/dialogs/missing-info-di
 import { WrongCredentialsDialogComponent } from './components/dialogs/wrong-credentials-dialog/wrong-credentials-dialog.component';
 import { EditUserDialogComponent } from './components/dialogs/edit-user-dialog/edit-user-dialog.component';
 import { FailedUpdateDialogComponent } from './components/dialogs/failed-update-dialog/failed-update-dialog.component';
+import { SearchPageComponent } from './components/pages/search-page/search-page.component';
+import { SettingsPageComponent } from './components/pages/settings-page/settings-page.component';
+import { MyServicesPageComponent } from './components/pages/my-services-page/my-services-page.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +51,10 @@ import { FailedUpdateDialogComponent } from './components/dialogs/failed-update-
     WrongCredentialsDialogComponent,
     UserBasicInfoComponent,
     EditUserDialogComponent,
-    FailedUpdateDialogComponent
+    FailedUpdateDialogComponent,
+    SearchPageComponent,
+    SettingsPageComponent,
+    MyServicesPageComponent
   ],
   imports: [
     BrowserModule,

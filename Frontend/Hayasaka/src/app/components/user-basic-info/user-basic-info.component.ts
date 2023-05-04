@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { BufferserviceService } from 'src/app/services/bufferservice.service';
 import { EditUserDialogComponent } from '../dialogs/edit-user-dialog/edit-user-dialog.component';
+import { UserInformation } from 'src/userInformation';
 
 @Component({
   selector: 'app-user-basic-info',
@@ -9,10 +10,7 @@ import { EditUserDialogComponent } from '../dialogs/edit-user-dialog/edit-user-d
   styleUrls: ['./user-basic-info.component.css']
 })
 export class UserBasicInfoComponent {
+  @Input() user:UserInformation;
   constructor(public buffer:BufferserviceService, private dialog:MatDialog){}
 
-  edit(){
-   const x = this.dialog.open(EditUserDialogComponent)
-   x.updateSize("40vw","60vh")
-  }
 }

@@ -95,7 +95,9 @@ public class Utils {
 
         if (DatabaseConnection.tryToUpdateUserImageUrl(Integer.parseInt(String.valueOf(address.charAt(address.length()-1))), String.valueOf(address.charAt(address.length()-1))+time+"."+format)){
             ImageIO.write(bImage2, format, new File(name) );
+            var x = UserConnectionManager.getInformation(host).getImageUrl();
             UserConnectionManager.getInformation(host).setImageUrl(String.valueOf(address.charAt(address.length()-1))+time+"."+format);
+            new File("src/raw/images/"+x.split("/")[4]).delete();
             return true;
         }
 

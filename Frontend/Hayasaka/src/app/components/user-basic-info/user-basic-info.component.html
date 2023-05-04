@@ -1,5 +1,6 @@
-<div>
-    <img [src]="buffer.userInfo.ImageUrl" alt="" style="border-radius: 50%; width: 15vw; aspect-ratio: 1/1;">
-    <p [textContent]="buffer.userInfo.Name" class="standardText" style="display: inline-block;"></p>
-    <button class="standardButton" (click)="edit()" style="display: inline-block;">Edit</button>
+<div class="flexbox">
+    <img [src]="user.ImageUrl" alt="" class="roseBorder">
+    <div>
+        <p [textContent]="user.Name" class="titleText"></p>
+    </div>
 </div>

@@ -1,10 +1,24 @@
-<div class="lateralBlockDiv roseBorder">
-    <div class="centerHor meio">
+<div id="nameBox" class="lateralBlockDiv roseBorder" routerLink="/viewprofile">
+    <div class="centerHor meio flexbox">
         <img [src]="user.ImageUrl" alt="" class="roseBorder">
-        <div class="inline">
-            <u [textContent]="user.Name" class="standardText meio" routerLink="/viewProfile"></u>
-        </div>
+        <p id="name" [textContent]="user.Name" class="standardText"></p>
     </div>
 </div>
-<div class="lateralBlockDiv roseBorder">
+<div class="lateralBlockDiv roseBorder" routerLink="/search">
+    <div class="centerHor meio flexbox">
+        <i class="material-symbols-outlined icon">search</i>
+        <p class="standardText specialSize">Search</p>
+    </div>
+</div>
+<div class="lateralBlockDiv roseBorder" routerLink="/myservices">
+    <div class="centerHor meio flexbox">
+        <i class="material-symbols-outlined icon">construction</i>
+        <p class="standardText specialSize">My Services</p>
+    </div>
+</div>
+<div class="lateralBlockDiv roseBorder" routerLink="/settings">
+    <div class="centerHor meio flexbox">
+        <i class="material-symbols-outlined icon">settings</i>
+        <p class="standardText specialSize">Settings</p>
+    </div>
 </div>
