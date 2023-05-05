@@ -2,6 +2,9 @@
     <div class="centerHor">
         <img class="cardImage" [src]="service.ProviderImageUrl" alt="" [title]="service.Description" [routerLink]="['/service',service.ServiceName]">
         <p [textContent]="service.ShortServiceName" class="standardText serviceNameText" [title]="service.ServiceName" [routerLink]="['/service',service.ServiceName]"></p>
+        <p [textContent]="service.ProviderName" class="standardText serviceMinorText"></p>
         <p [textContent]="service.CostPerHour" class="standardText roseText serviceCostText"></p>
+        <!-- Aq vai o rating -->
+        <p [textContent]="service.ProviderArea" class="standardText serviceMinorText"></p>
     </div>
 </div>

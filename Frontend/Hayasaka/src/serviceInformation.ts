@@ -3,4 +3,6 @@ export class ServiceInformation{
     ShortServiceName:string;
     CostPerHour:string;
     ProviderId:number;
+    ProviderArea:string;
+    AverageScore:number;
 }

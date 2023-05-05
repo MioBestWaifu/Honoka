@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { BufferserviceService } from 'src/app/services/bufferservice.service';
 
 @Component({
   selector: 'app-service-page',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./service-page.component.css']
 })
 export class ServicePageComponent {
+  constructor(public buffer:BufferserviceService){}
 
 }

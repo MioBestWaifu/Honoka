@@ -119,4 +119,12 @@ public class Utils {
         toReturn+="]";
         return toReturn;
     }
+
+    public static int sumOfArray(ArrayList<Integer> array) {
+        int sum = 0;
+        for (int value : array) {
+            sum += value;
+        }
+        return sum;
+    }
 }

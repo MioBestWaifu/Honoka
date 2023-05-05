@@ -1,6 +1,7 @@
 import java.net.InetSocketAddress;
 import java.time.LocalTime;
 import java.util.Date;
+import java.util.Random;
 
 import com.sun.net.httpserver.HttpServer;
 import handlers.ImageRequestHandler;
@@ -11,6 +12,7 @@ import handlers.NameUpdateHandler;
 import handlers.RegisterHandler;
 import handlers.ReloadHandler;
 import info.ServiceInformation;
+import info.UserInformation;
 import managers.DatabaseConnection;
 import managers.Utils;
 public class App {
@@ -26,6 +28,7 @@ public class App {
         server.createContext("/update/userimage", new ImageUpdateHandler());
         server.createContext("/update/username",new NameUpdateHandler());
         server.createContext("/reload",new ReloadHandler());
-        server.start();
+        server.start(); 
+        
     }
 }

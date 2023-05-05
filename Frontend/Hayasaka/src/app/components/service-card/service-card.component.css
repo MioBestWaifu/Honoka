@@ -10,7 +10,14 @@
     border-width: 0.1vw;
     border-color: var(--rose);
 } .serviceNameText{
-    font-size: var(--b-size);
+    font-size: 1vw;
     cursor: pointer;
 } .serviceCostText{
+    font-size: 1.2vw
+} .serviceMinorText{
+    font-size: 0.9vw;
+    cursor: pointer;
+} p {
+    margin-left: 0.1vw;
+    margin-top: 0.1vw;
 }

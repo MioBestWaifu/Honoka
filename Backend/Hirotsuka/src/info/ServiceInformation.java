@@ -7,21 +7,25 @@ import java.util.HashMap;
 import managers.Utils;
 
 public class ServiceInformation {
-    private String serviceName,description, providerName, providerUrl, providerImageUrl;
+    private String serviceName,description, providerName, providerUrl, providerImageUrl, providerArea;
     private float costPerHour;
-    private int providerId;
+    private float scoreAverage;
+    private int providerId, templateId;
 
     public String toJson(){
         HashMap<String,String> mapFields = new HashMap<>();
         mapFields.put("ServiceName", serviceName);
-        if (serviceName.length()>23)
-            mapFields.put("ShortServiceName", serviceName.substring(0, 21)+"...");
+        mapFields.put("ServiceId", Integer.toString(templateId));
+        if (serviceName.length()>25)
+            mapFields.put("ShortServiceName", serviceName.substring(0, 23)+"...");
         else
             mapFields.put("ShortServiceName", serviceName);
         System.out.println(mapFields.get("ShortServiceName"));
         if (description.isBlank()){
                 description = "DESC";
         }
+        mapFields.put("ScoreAverage", Float.toString(scoreAverage));
+        mapFields.put("ProviderArea", providerArea);
         mapFields.put("Description", description);
         mapFields.put("ProviderName", providerName);
         mapFields.put("ProviderUrl", providerUrl);
@@ -77,6 +81,33 @@ public class ServiceInformation {
     public void setProviderId(int providerId) {
         this.providerId = providerId;
     }
+    public String getProviderArea() {
+        return providerArea;
+    }
+    public void setProviderArea(String providerArea) {
+        this.providerArea = providerArea;
+    }
+    public float getScoreAverage() {
+        return scoreAverage;
+    }
+    public void setScoreAverage(float scoreAverage) {
+        DecimalFormat format = new DecimalFormat();
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+        symbols.setDecimalSeparator('.');
+        format.setDecimalFormatSymbols(symbols);
+        format.setMinimumFractionDigits(0);
+        format.setMaximumFractionDigits(1);   
+        this.scoreAverage = Float.parseFloat(format.format(scoreAverage));
+    }
+    public int getTemplateId() {
+        return templateId;
+    }
+    public void setTemplateId(int templateId) {
+        this.templateId = templateId;
+    }
+
+    
+    
 
     
 }
