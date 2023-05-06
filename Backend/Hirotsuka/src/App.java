@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.Random;
 
 import com.sun.net.httpserver.HttpServer;
+
+import handlers.AreaHandler;
 import handlers.ImageRequestHandler;
 import handlers.ImageUpdateHandler;
 import handlers.InitHandler;
@@ -28,6 +30,7 @@ public class App {
         server.createContext("/update/userimage", new ImageUpdateHandler());
         server.createContext("/update/username",new NameUpdateHandler());
         server.createContext("/reload",new ReloadHandler());
+        server.createContext("/areas",new AreaHandler());
         server.start(); 
         
     }

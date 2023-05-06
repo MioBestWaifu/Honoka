@@ -15,5 +15,18 @@
         <label for="birthday" class="standardText block">Birthday</label>
         <input id="birthday" name="birthday" type="date" max="2005-03-31" class="block;"[(ngModel)]="birthday"/>
     </div>
-    <input type="submit" value="Register" class="standardButton">
+    <div class="formsDiv">
+        <label for="gender" class="standardText block">Gender</label>
+        <select name="gender" id="gender" [(ngModel)]="gender">
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+        </select>
+    </div>
+    <div class="formsDiv">
+        <label for="area" class="standardText block">Area</label>
+        <select name="area" id="area" [(ngModel)]="area">
+            <option *ngFor="let a of AreaInfos" [value]="a.Id" >{{a.Name}}</option>
+        </select>
+    </div>
+    <input type="submit" value="Register" class="standardButton centerHor">
 </form>

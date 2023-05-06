@@ -3,9 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {MatDialogModule} from "@angular/material/dialog";
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatSelectModule} from '@angular/material/select';
 import { AppRoutingModule } from './app-routing.module';
 import { ImageCropperModule } from 'ngx-image-cropper';
 
@@ -67,9 +64,6 @@ import { MyServicesPageComponent } from './components/pages/my-services-page/my-
     BrowserAnimationsModule,
     MatDialogModule,
     ImageCropperModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

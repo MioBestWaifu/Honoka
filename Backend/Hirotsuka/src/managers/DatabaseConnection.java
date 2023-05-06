@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -78,7 +79,7 @@ public class DatabaseConnection {
             info.setId(result.getInt("idUser"));
             info.setName(result.getString("name"));
             info.setBirthday(result.getDate("birthday"));
-            info.setGenre(result.getString("genre"));
+            info.setGender(result.getString("genre"));
             info.setEmail(result.getString("email"));
             info.setProvidingService(result.getBoolean("providingService"));
             info.setImageUrl(result.getString("profileUrl"));
@@ -98,14 +99,15 @@ public class DatabaseConnection {
             var result = st.executeQuery();
             if (result.next())
                 return false;
-        st = conn.prepareStatement("INSERT INTO user (name,email,password,birthday,profileUrl,genre)"+
-        "VALUES(?,?,?,?,?,?)");
+        st = conn.prepareStatement("INSERT INTO user (name,email,password,birthday,profileUrl,gender,area)"+
+        "VALUES(?,?,?,?,?,?,?)");
         st.setString(1, info.getName());
         st.setString(2, info.getEmail());
         st.setString(3, info.getPassword());
         st.setDate(4, info.getBirthday());
         st.setString(5, info.getId()+".png");
-        st.setString(6, info.getGenre());
+        st.setString(6, info.getGender());
+        st.setInt(7, info.getArea());
         int rowsAffected = st.executeUpdate();
         System.out.println(rowsAffected);
         return true;
@@ -286,6 +288,29 @@ public class DatabaseConnection {
         } catch (SQLException ex){
             ex.printStackTrace();
             return false;
+        }
+    }
+
+    public static String GetAreas(){
+        try{
+            var st = conn.prepareStatement("SELECT * FROM area");
+            var rst = st.executeQuery();
+            ArrayList<String> toJoin = new ArrayList<>();
+            HashMap<String,String> buff = new HashMap<>();
+            while(rst.next()){
+                buff.put("Id", rst.getString("idArea"));
+                buff.put("Name", rst.getString("name"));
+                toJoin.add(Utils.toJson(buff));
+            }
+
+            var toSend = Utils.joinJsonArray(toJoin);
+            //buff = new HashMap<>();
+            //buff.put("AreaInfos", toSend);
+            //return Utils.toJson(buff);
+            return toSend;
+        } catch (SQLException ex){
+            ex.printStackTrace();
+            return null;
         }
     }
 

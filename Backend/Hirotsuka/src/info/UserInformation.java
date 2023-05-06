@@ -9,8 +9,8 @@ import com.mysql.cj.xdevapi.JsonString;
 import managers.Utils;
 
 public class UserInformation {
-    String email, password, genre,name,imageUrl;
-    int id;
+    String email, password, gender,name,imageUrl;
+    int id, area;
     boolean providingService;
     Date birthday;
     ArrayList<ServiceBundle> reccomendations;
@@ -29,8 +29,10 @@ public class UserInformation {
         password = map.get("password");
     if (map.containsKey("id"))
         id = Integer.parseInt(map.get("id"));
-    if (map.containsKey("genre"))
-        genre = map.get("genre");
+    if (map.containsKey("gender"))
+        gender = map.get("gender");
+    if (map.containsKey("area"))
+        area = Integer.parseInt(map.get("area"));
     if (map.containsKey("providingService"))
         providingService = Boolean.parseBoolean(map.get("email"));
     if (map.containsKey("birthday"))
@@ -47,8 +49,8 @@ public class UserInformation {
             mapFields.put("Name", name);
         if (password != null) 
             mapFields.put("Password", password);
-        if (genre != null)
-            mapFields.put("Genre", genre);
+        if (gender != null)
+            mapFields.put("Gender", gender);
         mapFields.put("ProvidingService", Boolean.toString(providingService));
         if (birthday != null)
             mapFields.put("Birthday", birthday.toString());
@@ -78,12 +80,12 @@ public class UserInformation {
         this.password = password;
     }
 
-    public String getGenre() {
-        return genre;
+    public String getGender() {
+        return gender;
     }
 
-    public void setGenre(String genre) {
-        this.genre = genre;
+    public void setGender(String genre) {
+        this.gender = genre;
     }
 
     public int getId() {
@@ -127,6 +129,13 @@ public class UserInformation {
     public void setImageUrl(String userCode) {
         this.imageUrl = "http://"+Utils.ipAddress+"/images/"+userCode;
     }
+    public int getArea() {
+        return area;
+    }
+    public void setArea(int area) {
+        this.area = area;
+    }
+    
 
     
     
