@@ -18,8 +18,8 @@ import managers.Utils;
 public class App {
     public static void main(String[] args) throws Exception {
         HttpServer server = HttpServer.create(new InetSocketAddress(80), 99);
-        DatabaseConnection.connect();
         Utils.init();
+        DatabaseConnection.connect();
         InitHandler initHandler = new InitHandler();
         server.createContext("/", initHandler);
         server.createContext("/login", new LoginHandler());

@@ -126,6 +126,23 @@
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
 } .imageInput{
+}.highlightBox:hover{
+    background-color: var(--secondary-background-color);
+}.highlightText:hover{
+    text-decoration: underline;
+} .highlightImage {
+    -webkit-transition: all 0.50s;
+    transition: all 0.50s;
+    &:hover {
+        border: 1px solid gray;
+        -webkit-filter: brightness(130%);
+        -moz-filter: brightness(130%);
+        -o-filter: brightness(130%);
+        -ms-filter: brightness(130%);
+        filter: brightness(130%);
+        -webkit-transition: all 0.50s;
+        transition: all 0.50s;
+    }
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

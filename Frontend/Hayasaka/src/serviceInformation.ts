@@ -5,4 +5,5 @@ export class ServiceInformation{
     ProviderId:number;
     ProviderArea:string;
     AverageScore:number;
+    ServiceId:number;
 }

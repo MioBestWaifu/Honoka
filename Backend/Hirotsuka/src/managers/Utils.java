@@ -25,7 +25,7 @@ import com.sun.net.httpserver.HttpExchange;
 
 public class Utils {
     public static HashMap<String,byte[]> pages = new HashMap<String,byte[]>();
-    public static String ipAddress = "127.0.0.1";
+    public static String ipAddress;
     public static void init () throws IOException{
         pages.put("Index", Files.readAllBytes(Paths.get("src/raw/dist/index.html")));
         pages.put("Main", Files.readAllBytes(Paths.get("src/raw/dist/main.js")));
@@ -33,7 +33,11 @@ public class Utils {
         pages.put("Polyfills", Files.readAllBytes(Paths.get("src/raw/dist/polyfills.js")));
         pages.put("Styles", Files.readAllBytes(Paths.get("src/raw/dist/styles.css")));
         pages.put("Favicon", Files.readAllBytes(Paths.get("src/raw/dist/favicon.ico")));
-        System.out.println("IP ADDRESS:");
+        var x = Files.readAllLines((Paths.get("src/raw/info.txt")));
+        ipAddress = x.get(0);
+        DatabaseConnection.serverPassword = x.get(1);
+        System.out.println(ipAddress);
+        System.out.println(DatabaseConnection.serverPassword);
         //Scanner input = new Scanner(System.in);
         //ipAddress = input.nextLine();
         //input.close();

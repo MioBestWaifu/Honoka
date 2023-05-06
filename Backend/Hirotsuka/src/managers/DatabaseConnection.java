@@ -17,6 +17,7 @@ import info.UserInformation;
 public class DatabaseConnection {
     private static Connection conn;
     private static ArrayList<Integer> serviceIds = new ArrayList<>();
+    public static String serverPassword;
     public static void connect(){
         String driverName = "com.mysql.cj.jdbc.Driver";
         try {
@@ -33,10 +34,8 @@ public class DatabaseConnection {
         String url = "jdbc:mysql://" + serverName + "/" + mydatabase+"?useSSL=false&allowPublicKeyRetrieval=true";
         System.out.println("User:");
         String username = "root";
-        System.out.println("Password:");
-        String password = "";
         try {
-            conn = DriverManager.getConnection(url, username, password);
+            conn = DriverManager.getConnection(url, username, serverPassword);
         } catch (SQLException ex) {
             System.out.println("Conexão merda");
             System.out.println(ex.getMessage());
@@ -159,6 +158,7 @@ public class DatabaseConnection {
                 toAdd.setCostPerHour(res.getFloat("costPerHour"));
                 toAdd.setDescription(res.getString("description"));
                 toAdd.setServiceName(res.getString("serviceName"));
+                toAdd.setProviderId(res.getInt("idProvider"));
                 providerSt.setInt(1, res.getInt("idProvider"));
                 var providerRes = providerSt.executeQuery();
                 providerRes.next();

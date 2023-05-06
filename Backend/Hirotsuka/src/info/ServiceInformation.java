@@ -16,6 +16,7 @@ public class ServiceInformation {
         HashMap<String,String> mapFields = new HashMap<>();
         mapFields.put("ServiceName", serviceName);
         mapFields.put("ServiceId", Integer.toString(templateId));
+        mapFields.put("ProviderId", Integer.toString(providerId));
         if (serviceName.length()>25)
             mapFields.put("ShortServiceName", serviceName.substring(0, 23)+"...");
         else
