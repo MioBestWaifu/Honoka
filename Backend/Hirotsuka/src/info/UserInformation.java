@@ -47,8 +47,6 @@ public class UserInformation {
             mapFields.put("ImageUrl", imageUrl);
         if (name != null)
             mapFields.put("Name", name);
-        if (password != null) 
-            mapFields.put("Password", password);
         if (gender != null)
             mapFields.put("Gender", gender);
         mapFields.put("ProvidingService", Boolean.toString(providingService));

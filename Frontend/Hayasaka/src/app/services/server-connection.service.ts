@@ -23,17 +23,17 @@ export class ServerConnectionService {
   test:UserInformation;
   constructor(private http:HttpClient) {
     this.requestsUrl = window.location.href.slice(0,window.location.href.length-1) + ":80/";
-    console.log(this.requestsUrl);
+    //console.log(this.requestsUrl);
     this.loginParams = this.loginParams.append("type", "01");
   }
 
 
   TryToLogin(forms:LoginTemplate):Observable<UserInformation>{
-      console.log(this.requestsUrl); 
+      //console.log(this.requestsUrl); 
       try{
       return this.http.post<UserInformation>(this.requestsUrl+"login",JSON.stringify(forms));
       } catch(error){
-        console.log(error)
+        //console.log(error)
         return null;
       }
   }

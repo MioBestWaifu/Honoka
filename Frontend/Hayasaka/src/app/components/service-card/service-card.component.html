@@ -4,7 +4,7 @@
         <p [textContent]="service.ShortServiceName" class="standardText serviceNameText highlightText" [title]="service.ServiceId" [routerLink]="['/service',service.ServiceName]"></p>
         <p [textContent]="service.ProviderName" class="standardText serviceMinorText highlightText" [routerLink]="['/user',service.ProviderId]"></p>
         <p [textContent]="service.CostPerHour" class="standardText roseText serviceCostText"></p>
-        <!-- Aq vai o rating -->
+        <app-star-rating [isEnabled]=false [rating]="service.AverageScore"></app-star-rating>
         <p [textContent]="service.ProviderArea" class="standardText serviceMinorText highlightText"></p>
     </div>
 </div>

@@ -26,17 +26,17 @@ export class RegisterFormsComponent{
   }
   /* async ngOnInit(): Promise<void> {
     this.AreaInfos = await firstValueFrom(this.conn.GetAreas())
-    console.log(this.AreaInfos);
+    //console.log(this.AreaInfos);
   } */
 
   async Init(){
     this.AreaInfos = await firstValueFrom(this.conn.GetAreas())
-    console.log(this.AreaInfos[2]);
+    //console.log(this.AreaInfos[2]);
   }
 
 
   async Submit(){
-    console.log(this)
+    //console.log(this)
     if (!this.email  || !this.password || !this.username || !this.birthday || !this.gender || !this.area){
       this.dialog.open(MissingInfoDialogComponent);
       return;

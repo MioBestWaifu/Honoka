@@ -30,14 +30,8 @@ export class LoginFormsComponent {
     }
     
     let t:LoginTemplate = new LoginTemplate(this.email,this.password);
-    try{
     const x = await firstValueFrom(this.conn.TryToLogin(t));
     this.user = x;
-    console.log(x);
-    x.ServiceRecs.forEach(z => console.log(z.ServiceInfos[0].ServiceName));
-    } catch (error){
-      console.log(error)
-    }
     if(this.user.Email != "NULL"){
       this.email = "";
       this.password = "";
@@ -46,6 +40,7 @@ export class LoginFormsComponent {
     } else {
       this.dialog.open(WrongCredentialsDialogComponent)
     }
-    }
+    
+}
 }
 

@@ -79,7 +79,7 @@ public class DatabaseConnection {
             info.setId(result.getInt("idUser"));
             info.setName(result.getString("name"));
             info.setBirthday(result.getDate("birthday"));
-            info.setGender(result.getString("genre"));
+            info.setGender(result.getString("gender"));
             info.setEmail(result.getString("email"));
             info.setProvidingService(result.getBoolean("providingService"));
             info.setImageUrl(result.getString("profileUrl"));

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ServiceBundle } from 'src/serviceBundle';
 import { ServiceInformation } from 'src/serviceInformation';
 
@@ -7,6 +7,10 @@ import { ServiceInformation } from 'src/serviceInformation';
   templateUrl: './service-card.component.html',
   styleUrls: ['./service-card.component.css']
 })
-export class ServiceCardComponent {
+export class ServiceCardComponent implements OnInit{
   @Input() service:ServiceInformation
+
+  ngOnInit(): void {
+    //console.log("AVG"+this.service.AverageScore)
+  }
 }

@@ -25,7 +25,7 @@ public class ServiceInformation {
         if (description.isBlank()){
                 description = "DESC";
         }
-        mapFields.put("ScoreAverage", Float.toString(scoreAverage));
+        mapFields.put("AverageScore", Float.toString(scoreAverage));
         mapFields.put("ProviderArea", providerArea);
         mapFields.put("Description", description);
         mapFields.put("ProviderName", providerName);
@@ -99,6 +99,8 @@ public class ServiceInformation {
         format.setMinimumFractionDigits(0);
         format.setMaximumFractionDigits(1);   
         this.scoreAverage = Float.parseFloat(format.format(scoreAverage));
+        System.out.println(this.serviceName);
+        System.out.println(this.scoreAverage);
     }
     public int getTemplateId() {
         return templateId;

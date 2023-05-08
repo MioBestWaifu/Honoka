@@ -30,6 +30,7 @@ import { FailedUpdateDialogComponent } from './components/dialogs/failed-update-
 import { SearchPageComponent } from './components/pages/search-page/search-page.component';
 import { SettingsPageComponent } from './components/pages/settings-page/settings-page.component';
 import { MyServicesPageComponent } from './components/pages/my-services-page/my-services-page.component';
+import { StarRatingComponent } from './components/star-rating/star-rating.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { MyServicesPageComponent } from './components/pages/my-services-page/my-
     FailedUpdateDialogComponent,
     SearchPageComponent,
     SettingsPageComponent,
-    MyServicesPageComponent
+    MyServicesPageComponent,
+    StarRatingComponent
   ],
   imports: [
     BrowserModule,
