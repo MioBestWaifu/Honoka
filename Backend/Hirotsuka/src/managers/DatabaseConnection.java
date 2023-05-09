@@ -204,6 +204,7 @@ public class DatabaseConnection {
                 toAdd.setDescription(res.getString("description"));
                 toAdd.setServiceName(res.getString("serviceName"));
                 toAdd.setProviderId(res.getInt("idProvider"));
+                toAdd.setTemplateImageUrl(res.getString("templateImageUrl"));
                 providerSt.setInt(1, res.getInt("idProvider"));
                 var providerRes = providerSt.executeQuery();
                 providerRes.next();

@@ -6,4 +6,5 @@ export class ServiceInformation{
     ProviderArea:string;
     AverageScore:number;
     ServiceId:number;
+    TemplateImageUrl:string;
 }

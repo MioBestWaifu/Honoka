@@ -35,6 +35,8 @@ public class ServiceInformation {
             mapFields.put("ProviderName", providerName);
         if (! (providerUrl == null || providerUrl.isBlank()))
             mapFields.put("ProviderUrl", providerUrl);
+        if (! (templateImageUrl == null || templateImageUrl.isBlank()))
+            mapFields.put("TemplateImageUrl", templateImageUrl);
         DecimalFormatSymbols symbols = new DecimalFormatSymbols();
         symbols.setDecimalSeparator(',');
         DecimalFormat format = new DecimalFormat();
@@ -125,7 +127,7 @@ public class ServiceInformation {
         return templateImageUrl;
     }
     public void setTemplateImageUrl(String templateImageUrl) {
-        this.templateImageUrl = templateImageUrl;
+        this.templateImageUrl = "http://"+Utils.ipAddress+"/images/services/"+templateImageUrl;
     }
     public ArrayList<ReviewInfomation> getReviews() {
         return reviews;

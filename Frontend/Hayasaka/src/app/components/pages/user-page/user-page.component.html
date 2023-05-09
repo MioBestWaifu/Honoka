@@ -2,5 +2,8 @@
     <app-header></app-header>
     <app-lateral-bar [user]=buffer.userInfo class="lateralDiv roseBorder"></app-lateral-bar>
     <div class="contentWrapper">
+        <div class="flexbox">
+            <app-user-basic-info [user]="info"></app-user-basic-info>
+        </div>
     </div>
 </div>

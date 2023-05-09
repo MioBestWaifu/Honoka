@@ -177,7 +177,7 @@ CREATE TABLE `servicetemplates` (
 
 LOCK TABLES `servicetemplates` WRITE;
 /*!40000 ALTER TABLE `servicetemplates` DISABLE KEYS */;
-INSERT INTO `servicetemplates` VALUES (1,2,NULL,NULL,75,'Faço cover com vocal e baixo de qualquer música','Cover',NULL),(2,2,NULL,NULL,35,'Podemos fizer jogando conversa fora sobre qualquer assunto, principalmente música','Conversinha',NULL),(3,3,NULL,NULL,60,'Debater sobre as questões modernas','Discussão sobre a sociedade',NULL),(4,3,NULL,NULL,500,'Não importa o assunto, eu sei tudo','Aula particular',NULL),(5,3,NULL,NULL,2000,'Meu pai é rico, logo eu sei administrar dinheiro','Conselho financeiro',NULL),(6,4,NULL,NULL,40,'','Jogar ARAM',NULL),(7,4,NULL,NULL,70,'','Jogar Ranked',NULL),(8,4,NULL,NULL,90,'','Elojob',NULL),(9,8,NULL,NULL,85,'Vou atrás do alvo e te conto tudo','Stalking',NULL),(10,8,NULL,NULL,55,'A gente enche a cara e xinga minorias','Bebedeira',NULL),(11,9,NULL,NULL,110,'Cuido de tudo, pessoal, limpeza, produtos, o caralho a quatro','Gerenciamento',NULL),(12,9,NULL,NULL,72.99,'Entrevisto seus candidatos de acordo com os critérios estabelecidos','Entrevista de emprego',NULL),(13,10,NULL,NULL,430,'Por choque. Ninguem vai nem ver.','Assassinato',NULL),(14,10,NULL,NULL,300,'Movo corpors por forças eletromagnéticas','Transporte eletromagnético',NULL);
+INSERT INTO `servicetemplates` VALUES (1,2,NULL,NULL,75,'Faço cover com vocal e baixo de qualquer música','Cover','1.png'),(2,2,NULL,NULL,35,'Podemos fizer jogando conversa fora sobre qualquer assunto, principalmente música','Conversinha','2.png'),(3,3,NULL,NULL,60,'Debater sobre as questões modernas','Discussão sobre a sociedade','3.png'),(4,3,NULL,NULL,500,'Não importa o assunto, eu sei tudo','Aula particular','4.png'),(5,3,NULL,NULL,2000,'Meu pai é rico, logo eu sei administrar dinheiro','Conselho financeiro','5.png'),(6,4,NULL,NULL,40,'','Jogar ARAM','6.png'),(7,4,NULL,NULL,70,'','Jogar Ranked','7.png'),(8,4,NULL,NULL,90,'','Elojob','8.png'),(9,8,NULL,NULL,85,'Vou atrás do alvo e te conto tudo','Stalking','9.png'),(10,8,NULL,NULL,55,'A gente enche a cara e xinga minorias','Bebedeira','10.png'),(11,9,NULL,NULL,110,'Cuido de tudo, pessoal, limpeza, produtos, o caralho a quatro','Gerenciamento','11.png'),(12,9,NULL,NULL,72.99,'Entrevisto seus candidatos de acordo com os critérios estabelecidos','Entrevista de emprego','12.png'),(13,10,NULL,NULL,430,'Por choque. Ninguem vai nem ver.','Assassinato','13.png'),(14,10,NULL,NULL,300,'Invado ou destruo qualquer sistema','Hacking','14.png');
 /*!40000 ALTER TABLE `servicetemplates` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -252,4 +252,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-08 22:44:23
+-- Dump completed on 2023-05-09 18:36:07
