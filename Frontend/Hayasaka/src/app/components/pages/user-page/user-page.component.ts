@@ -3,6 +3,7 @@ import { BufferserviceService } from 'src/app/services/bufferservice.service';
 import { ActivatedRoute } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { UserInformation } from 'src/userInformation';
+import { ServerConnectionService } from 'src/app/services/server-connection.service';
 
 @Component({
   selector: 'app-user-page',
@@ -13,13 +14,16 @@ export class UserPageComponent implements OnInit{
   id:number;
   sub:any;
   info:UserInformation;
-  constructor(public buffer:BufferserviceService, private router:ActivatedRoute){}
+  constructor(public buffer:BufferserviceService, private router:ActivatedRoute, private conn:ServerConnectionService){}
 
   async ngOnInit(){
     this.sub = this.router.params.subscribe(params => {
       this.id = +params['id']; 
-      
-   });
+  
+   })
+   this.info = await firstValueFrom(this.conn.GetUser(this.id.toString()))
+   console.log("USER PAGE");
+   console.log(this.info);
   }
 
 }

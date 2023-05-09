@@ -13,6 +13,8 @@ import handlers.LoginHandler;
 import handlers.NameUpdateHandler;
 import handlers.RegisterHandler;
 import handlers.ReloadHandler;
+import handlers.ServiceRequestHandler;
+import handlers.UserRequestHandler;
 import info.ServiceInformation;
 import info.UserInformation;
 import managers.DatabaseConnection;
@@ -31,6 +33,8 @@ public class App {
         server.createContext("/update/username",new NameUpdateHandler());
         server.createContext("/reload",new ReloadHandler());
         server.createContext("/areas",new AreaHandler());
+        server.createContext("/users", new UserRequestHandler());
+        server.createContext("/services", new ServiceRequestHandler());
         server.start(); 
         
     }

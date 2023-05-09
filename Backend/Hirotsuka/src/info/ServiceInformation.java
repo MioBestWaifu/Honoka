@@ -2,6 +2,7 @@ package info;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import managers.Utils;
@@ -11,6 +12,7 @@ public class ServiceInformation {
     private float costPerHour;
     private float scoreAverage;
     private int providerId, templateId;
+    private ArrayList<ReviewInfomation> reviews;
 
     public String toJson(){
         HashMap<String,String> mapFields = new HashMap<>();
@@ -26,17 +28,28 @@ public class ServiceInformation {
                 description = "DESC";
         }
         mapFields.put("AverageScore", Float.toString(scoreAverage));
-        mapFields.put("ProviderArea", providerArea);
+        if (! (providerArea == null || providerArea.isBlank()))
+            mapFields.put("ProviderArea", providerArea);
         mapFields.put("Description", description);
-        mapFields.put("ProviderName", providerName);
-        mapFields.put("ProviderUrl", providerUrl);
+        if (! (providerName == null || providerName.isBlank()))
+            mapFields.put("ProviderName", providerName);
+        if (! (providerUrl == null || providerUrl.isBlank()))
+            mapFields.put("ProviderUrl", providerUrl);
         DecimalFormatSymbols symbols = new DecimalFormatSymbols();
         symbols.setDecimalSeparator(',');
         DecimalFormat format = new DecimalFormat();
         format.setDecimalFormatSymbols(symbols);
         format.setMinimumFractionDigits(2);
         format.setMaximumFractionDigits(2);
-        mapFields.put("ProviderImageUrl", providerImageUrl);
+        if (! (providerImageUrl == null || providerImageUrl.isBlank()))
+            mapFields.put("ProviderImageUrl", providerImageUrl);
+        if (!(reviews == null || reviews.size() == 0)){
+            ArrayList<String> toJoin = new ArrayList<String>();
+            for (ReviewInfomation si : reviews){
+                toJoin.add(si.toJson());
+            }
+            mapFields.put("Reviews", Utils.joinJsonArray(toJoin));
+        }
         mapFields.put("CostPerHour", "R$"+format.format(costPerHour)+"/hr");
         return Utils.toJson(mapFields);
     }
@@ -114,11 +127,18 @@ public class ServiceInformation {
     public void setTemplateImageUrl(String templateImageUrl) {
         this.templateImageUrl = templateImageUrl;
     }
-
-    
-
-    
-    
-
-    
+    public ArrayList<ReviewInfomation> getReviews() {
+        return reviews;
+    }
+    public void setReviews(ArrayList<ReviewInfomation> reviews) {
+        this.reviews = reviews;
+        if (reviews.size()>0){
+            int tot = 0;
+            for (ReviewInfomation reviewInfomation : reviews) {
+                tot += reviewInfomation.getScore();
+            }
+            var x = ((float)tot) / reviews.size();
+            setScoreAverage(x);
+        }
+    }
 }

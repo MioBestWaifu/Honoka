@@ -60,11 +60,21 @@ export class ServerConnectionService {
   }
 
   GetUser(id:string):Observable<UserInformation>{
+    try{
     return this.http.get<UserInformation>(this.requestsUrl+"users?id="+id);
+    } catch (error){
+      console.log(error);
+      return null;
+    }
   }
 
   GetService(id:string):Observable<ServiceInformation>{
+    try{
     return this.http.get<ServiceInformation>(this.requestsUrl+"services?id="+id);
+    } catch (error){
+      console.log(error)
+      return null;
+    }
   }
 
 

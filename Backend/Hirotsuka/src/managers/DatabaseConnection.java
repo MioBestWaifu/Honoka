@@ -73,8 +73,9 @@ public class DatabaseConnection {
 
     public static UserInformation getBasicUserInformation(UserInformation info){
         try {
-            var st = conn.prepareStatement("SELECT idUser, name, birthday, gender, profileUrl FROM user WHERE user.email = ?");
+            var st = conn.prepareStatement("SELECT idUser, name, birthday, gender, profileUrl FROM user WHERE user.email = ? OR user.idUser = ?");
             st.setString(1, info.getEmail());
+            st.setInt(2, info.getId());
             var result = st.executeQuery();
             result.next();
             info.setId(result.getInt("idUser"));
@@ -88,6 +89,18 @@ public class DatabaseConnection {
             e.printStackTrace();
             return null;
         }
+    }
+
+    private static UserInformation userFromId(int id){
+        UserInformation user = new UserInformation();
+        user.setId(id);
+        return user;
+    }
+
+    private static ServiceInformation serviceFromId(int id){
+        ServiceInformation user = new ServiceInformation();
+        user.setTemplateId(id);
+        return user;
     }
 
     public static UserInformation getSensitiveUserInformation(UserInformation info){
@@ -113,8 +126,8 @@ public class DatabaseConnection {
         return info;
     }
 
-    public static UserInformation getRequestedUserInformation(UserInformation info){
-        info = getBasicUserInformation(info);
+    public static UserInformation getRequestedUserInformation(int id){
+        UserInformation info = getBasicUserInformation(userFromId(id));
         info = getUserServices(info);
         info = getUserReviews(info);
         return info;
@@ -346,7 +359,7 @@ public class DatabaseConnection {
 
     public static UserInformation getUserServices(UserInformation info){
         try{
-            var st = conn.prepareStatement("SELECT idServiceTemplates, costPerHour, description, serviceName, templateImageUrl FROM servcetemplates WHERE idProvider = ?");
+            var st = conn.prepareStatement("SELECT idServiceTemplates, costPerHour, description, serviceName, templateImageUrl FROM servicetemplates WHERE idProvider = ?");
             st.setInt(1, info.getId());
             var res = st.executeQuery();
             ArrayList<ServiceInformation> toAdd = new ArrayList<>();
@@ -379,7 +392,7 @@ public class DatabaseConnection {
             while (res.next()){
                 buffer = new ReviewInfomation();
                 buffer.setScore(res.getInt("score"));
-                buffer.setComment("comment");
+                buffer.setComment(res.getString("comment"));
                 UserInformation x = new UserInformation();
                 x.setId(res.getInt("idreviewer"));
                 buffer.setReviewer(getBasicUserInformation(x));
@@ -393,20 +406,53 @@ public class DatabaseConnection {
         }
     }
 
-    public static ServiceInformation getBasicServiceInformation(ServiceInformation info){
+    public static ServiceInformation getServiceReviews(ServiceInformation info){
         try{
-            return null;
+            var st = conn.prepareStatement("SELECT idclient, score, comment FROM servicereviews WHERE idtemplate = ?");
+            st.setInt(1, info.getTemplateId());
+            var res = st.executeQuery();
+            ArrayList<ReviewInfomation> toAdd = new ArrayList<>();
+            ReviewInfomation buffer;
+            while (res.next()){
+                buffer = new ReviewInfomation();
+                buffer.setScore(res.getInt("score"));
+                buffer.setComment(res.getString("comment"));
+                UserInformation x = new UserInformation();
+                x.setId(res.getInt("idclient"));
+                buffer.setReviewer(getBasicUserInformation(x));
+                toAdd.add(buffer);
+            }
+            info.setReviews(toAdd);
+            return info;
         } catch (SQLException ex){
             ex.printStackTrace();
+            return null;
         }
     }
 
-    public static ServiceInformation getFullServiceInformation(ServiceInformation info){
+    public static ServiceInformation getBasicServiceInformation(ServiceInformation info){
         try{
-            return null;
+            var st = conn.prepareStatement("SELECT idProvider, costPerHour, description, serviceName, templateImageUrl FROM servicetemplates WHERE idServiceTemplates = ?");
+            st.setInt(1, info.getTemplateId());
+            var res = st.executeQuery();
+            res.next();
+            info.setProviderId(res.getInt("idProvider"));
+            info.setCostPerHour(res.getFloat("costPerHour"));
+            info.setDescription(res.getString("description"));
+            info.setServiceName(res.getString("serviceName"));
+            info.setTemplateImageUrl(res.getString("templateImageUrl"));
+            return info;
         } catch (SQLException ex){
             ex.printStackTrace();
+            return null;
         }
+    }
+
+    public static ServiceInformation getFullServiceInformation(int id){
+        ServiceInformation info = serviceFromId(id);
+        info = getBasicServiceInformation(info);
+        info = getServiceReviews(info);
+        return info;
     }
 
 

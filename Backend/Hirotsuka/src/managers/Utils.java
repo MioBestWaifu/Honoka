@@ -70,6 +70,8 @@ public class Utils {
             try{
             if (pair.getValue().charAt(0) == '[')
                 toReturn += pair.getValue()+",";
+            else if (pair.getValue().charAt(0) == '{')
+                toReturn += pair.getValue()+",";
             else
                 toReturn+= String.format("\"%s\",",pair.getValue());
             } catch (IllegalStateException | StringIndexOutOfBoundsException ex){
@@ -132,7 +134,7 @@ public class Utils {
         return sum;
     }
 
-    public Map<String, String> queryToMap(String query) {
+    public static Map<String, String> queryToMap(String query) {
         if(query == null) {
             return null;
         }
