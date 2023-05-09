@@ -73,7 +73,7 @@ public class DatabaseConnection {
 
     public static UserInformation getBasicUserInformation(UserInformation info){
         try {
-            var st = conn.prepareStatement("SELECT idUser, name, birthday, gender, profileUrl FROM user WHERE user.email = ? OR user.idUser = ?");
+            var st = conn.prepareStatement("SELECT idUser, name, birthday, gender, profileUrl,area FROM user WHERE user.email = ? OR user.idUser = ?");
             st.setString(1, info.getEmail());
             st.setInt(2, info.getId());
             var result = st.executeQuery();
@@ -83,6 +83,16 @@ public class DatabaseConnection {
             info.setBirthday(result.getDate("birthday"));
             info.setGender(result.getString("gender"));
             info.setImageUrl(result.getString("profileUrl"));
+
+            try{
+            var areaSt = conn.prepareStatement("SELECT name FROM area WHERE idArea = ?");
+            areaSt.setInt(1, result.getInt("area"));
+            var areaRes = areaSt.executeQuery();
+            areaRes.next();
+            info.setAreaName(areaRes.getString(1));
+            } catch (SQLException ex){
+            }
+
             return info;
         } catch (SQLException e) {
             // TODO Auto-generated catch block

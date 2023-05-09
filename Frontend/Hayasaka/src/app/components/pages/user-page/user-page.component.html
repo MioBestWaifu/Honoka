@@ -3,7 +3,17 @@
     <app-lateral-bar [user]=buffer.userInfo class="lateralDiv roseBorder"></app-lateral-bar>
     <div class="contentWrapper">
         <div class="flexbox">
-            <app-user-basic-info [user]="info"></app-user-basic-info>
+            <div>
+                <div id="teste" style="width: 68.901903367496339677891654465593vw">
+                    <app-user-basic-info [user]="info"></app-user-basic-info>
+                </div>
+                <ol>
+                    <li *ngFor="let x of info.Services">
+                        <app-service-card [service]="x"></app-service-card>
+                    </li>
+                </ol>
+            </div>
+            <app-review-lateral-list [reviews]="info.Reviews"></app-review-lateral-list>
         </div>
     </div>
 </div>

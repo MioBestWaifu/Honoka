@@ -28,10 +28,10 @@
     width: 100vw;
 } .contentWrapper{
     position: absolute;
-    left: 16vw;
-    top: 9vh;
-    height: 91vh;
-    width: 84vw;
+    left: 15vw;
+    top: 8vh;
+    height: 92vh;
+    width: 85vw;
     overflow-y: scroll;
 } .standardText{
     color: var(--font-color);

@@ -11,6 +11,7 @@ import managers.Utils;
 public class UserInformation {
     String email, password, gender,name,imageUrl;
     int id, area;
+    String areaName;
     boolean providingService;
     Date birthday;
     ArrayList<ServiceBundle> reccomendations;
@@ -49,6 +50,9 @@ public class UserInformation {
             mapFields.put("ImageUrl", imageUrl);
         if (name != null)
             mapFields.put("Name", name);
+        //Essa porra é confusa
+        if (areaName != null)
+            mapFields.put("Area", areaName);
         if (gender != null)
             mapFields.put("Gender", gender);
         mapFields.put("ProvidingService", Boolean.toString(providingService));
@@ -161,11 +165,12 @@ public class UserInformation {
     public void setReviews(ArrayList<ReviewInfomation> reviews) {
         this.reviews = reviews;
     }
-    
-    
-
-    
-    
+    public String getAreaName() {
+        return areaName;
+    }
+    public void setAreaName(String areaName) {
+        this.areaName = areaName;
+    }
     
     
 }

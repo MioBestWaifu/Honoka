@@ -2,6 +2,6 @@ import { UserInformation } from "./userInformation";
 
 export class ReviewInformation{
     Reviewer:UserInformation;
-    Rating:number;
+    Score:number;
     Comment:string;
 }

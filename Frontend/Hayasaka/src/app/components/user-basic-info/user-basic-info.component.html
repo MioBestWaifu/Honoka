@@ -1,6 +1,12 @@
-<div class="flexbox">
+<div id="father" class="flexbox">
     <img [src]="user.ImageUrl" alt="" class="roseBorder">
     <div>
-        <p [textContent]="user.Name" class="titleText"></p>
+        <div class="flexbox">
+            <p [textContent]="user.Name" class="titleText"></p>
+            <i *ngIf="user.Gender=='M'; else elseGender" class="material-symbols-outlined maleIcon">male</i>
+            <ng-template #elseGender><i class="material-symbols-outlined femIcon">female</i></ng-template>
+        </div>
+        <!-- Botar link pra pag de areas qnd tiver -->
+        <p [textContent]="user.Area" class="standardText highlightText" id="areaText"></p>
     </div>
 </div>

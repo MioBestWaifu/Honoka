@@ -31,6 +31,7 @@ import { SearchPageComponent } from './components/pages/search-page/search-page.
 import { SettingsPageComponent } from './components/pages/settings-page/settings-page.component';
 import { MyServicesPageComponent } from './components/pages/my-services-page/my-services-page.component';
 import { StarRatingComponent } from './components/star-rating/star-rating.component';
+import { ReviewLateralListComponent } from './components/review-lateral-list/review-lateral-list.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { StarRatingComponent } from './components/star-rating/star-rating.compon
     SearchPageComponent,
     SettingsPageComponent,
     MyServicesPageComponent,
-    StarRatingComponent
+    StarRatingComponent,
+    ReviewLateralListComponent
   ],
   imports: [
     BrowserModule,

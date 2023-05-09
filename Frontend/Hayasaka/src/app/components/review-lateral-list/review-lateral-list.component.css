@@ -1,0 +1,13 @@
+div{
+    border-bottom-width: 0.1vw;
+    border-top-width: 0vw;
+    border-left-width: 0.1vw;
+    border-right-width: 0vw;
+    border-color: var(--rose);
+    border-style: solid;
+    display: flex;
+    flex-direction: column;
+    width: 15vw;
+} ol{
+    list-style: none;
+}

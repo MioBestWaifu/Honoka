@@ -16,7 +16,7 @@ public class ReloadHandler implements HttpHandler{
         switch(path){
             case"/reload/user":
                 exchange.getResponseHeaders().add("Content-type","application/json");
-                var toSend = UserConnectionManager.getInformation(exchange.getRemoteAddress().getHostString()).toJson().getBytes();
+                var toSend = UserConnectionManager.getInformation(exchange.getRemoteAddress().getHostString()).toJson().getBytes(StandardCharsets.UTF_8);
                 Utils.sendAndClose(exchange, toSend);
                 break;
             case"/reload/service":

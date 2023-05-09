@@ -3,4 +3,12 @@ img{
     width: 15vw; 
     aspect-ratio: 1/1;
     
+} #areaText{
+    font-size: var(--d-size);
+} .femIcon{
+    color: #E52B50;
+    font-size: 3.2vw;
+}.maleIcon{
+    color: #007FFF;
+    font-size: 3.2vw;
 }

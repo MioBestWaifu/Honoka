@@ -14,5 +14,6 @@ export class UserInformation{
     Description:string;
     ServiceRecs:ServiceBundle[];
     Reviews:ReviewInformation[];
+    Services:ServiceInformation[];
 
 }

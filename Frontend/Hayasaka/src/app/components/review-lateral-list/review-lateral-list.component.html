@@ -1,0 +1,9 @@
+<ol>
+    <li *ngFor="let x of reviews">
+        <div>
+            <p [textContent]="x.Reviewer.Name" class="standardText"></p>
+            <app-star-rating [rating]="x.Score"></app-star-rating>
+            <p [textContent]="x.Comment" class="standardText"></p>
+        </div>
+    </li>
+</ol>

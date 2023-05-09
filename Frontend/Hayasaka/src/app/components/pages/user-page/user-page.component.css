@@ -1,0 +1,23 @@
+ol{
+    list-style: none;
+    position:absolute;
+    left:4vw;
+    margin-top: 3vw;
+} li {
+    display: inline-block;
+    margin-right: 3vw;
+} app-review-lateral-list{
+    width: 15vw;
+    position: absolute;
+    right: 0vw;
+
+} #teste{
+    display: flex;
+    justify-content: center;
+    border-bottom-width: 0.1vw;
+    border-top-width: 0vw;
+    border-left-width: 0vw;
+    border-right-width: 0vw;
+    border-color: var(--rose);
+    border-style: solid;
+} 
