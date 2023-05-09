@@ -7,7 +7,7 @@ import java.util.HashMap;
 import managers.Utils;
 
 public class ServiceInformation {
-    private String serviceName,description, providerName, providerUrl, providerImageUrl, providerArea;
+    private String serviceName,description, providerName, providerUrl, providerImageUrl, providerArea, templateImageUrl;
     private float costPerHour;
     private float scoreAverage;
     private int providerId, templateId;
@@ -108,6 +108,14 @@ public class ServiceInformation {
     public void setTemplateId(int templateId) {
         this.templateId = templateId;
     }
+    public String getTemplateImageUrl() {
+        return templateImageUrl;
+    }
+    public void setTemplateImageUrl(String templateImageUrl) {
+        this.templateImageUrl = templateImageUrl;
+    }
+
+    
 
     
     

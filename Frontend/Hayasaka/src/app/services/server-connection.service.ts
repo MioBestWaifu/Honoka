@@ -12,6 +12,7 @@ import { RegisterTemplate } from 'src/registerTemplate';
 import { EditUserDialogComponent } from '../components/dialogs/edit-user-dialog/edit-user-dialog.component';
 import {base64ToFile } from 'ngx-image-cropper';
 import { AreaInformation } from 'src/areaInformation';
+import { ServiceInformation } from 'src/serviceInformation';
 
 @Injectable({
   providedIn: 'root'
@@ -56,6 +57,14 @@ export class ServerConnectionService {
 
   GetAreas():Observable<AreaInformation[]>{
     return this.http.get<AreaInformation[]>(this.requestsUrl+"areas");
+  }
+
+  GetUser(id:string):Observable<UserInformation>{
+    return this.http.get<UserInformation>(this.requestsUrl+"users?id="+id);
+  }
+
+  GetService(id:string):Observable<ServiceInformation>{
+    return this.http.get<ServiceInformation>(this.requestsUrl+"services?id="+id);
   }
 
 

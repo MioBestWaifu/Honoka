@@ -11,6 +11,7 @@ import java.util.Scanner;
 
 import com.mysql.cj.x.protobuf.MysqlxCrud.Collection;
 
+import info.ReviewInfomation;
 import info.ServiceBundle;
 import info.ServiceInformation;
 import info.UserInformation;
@@ -70,9 +71,9 @@ public class DatabaseConnection {
         
     }
 
-    public static UserInformation getUserInformation(UserInformation info){
+    public static UserInformation getBasicUserInformation(UserInformation info){
         try {
-            var st = conn.prepareStatement("SELECT * FROM user WHERE user.email = ?");
+            var st = conn.prepareStatement("SELECT idUser, name, birthday, gender, profileUrl FROM user WHERE user.email = ?");
             st.setString(1, info.getEmail());
             var result = st.executeQuery();
             result.next();
@@ -80,10 +81,7 @@ public class DatabaseConnection {
             info.setName(result.getString("name"));
             info.setBirthday(result.getDate("birthday"));
             info.setGender(result.getString("gender"));
-            info.setEmail(result.getString("email"));
-            info.setProvidingService(result.getBoolean("providingService"));
             info.setImageUrl(result.getString("profileUrl"));
-            info.setReccomendations(getServiceRecommendations(info.getId()));
             return info;
         } catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -91,6 +89,38 @@ public class DatabaseConnection {
             return null;
         }
     }
+
+    public static UserInformation getSensitiveUserInformation(UserInformation info){
+        try {
+            var st = conn.prepareStatement("SELECT email, providingService FROM user WHERE user.email = ?");
+            st.setString(1, info.getEmail());
+            var result = st.executeQuery();
+            result.next();
+            info.setEmail(result.getString("email"));
+            info.setProvidingService(result.getBoolean("providingService"));
+            return info;
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static UserInformation getActiveUserInformation(UserInformation info){
+        info = getBasicUserInformation(info);
+        info = getSensitiveUserInformation(info);
+        info.setReccomendations(getServiceRecommendations(info.getId()));
+        return info;
+    }
+
+    public static UserInformation getRequestedUserInformation(UserInformation info){
+        info = getBasicUserInformation(info);
+        info = getUserServices(info);
+        info = getUserReviews(info);
+        return info;
+    }
+
+    
 
     public static boolean tryToRegister(UserInformation info){
         try {
@@ -311,6 +341,71 @@ public class DatabaseConnection {
         } catch (SQLException ex){
             ex.printStackTrace();
             return null;
+        }
+    }
+
+    public static UserInformation getUserServices(UserInformation info){
+        try{
+            var st = conn.prepareStatement("SELECT idServiceTemplates, costPerHour, description, serviceName, templateImageUrl FROM servcetemplates WHERE idProvider = ?");
+            st.setInt(1, info.getId());
+            var res = st.executeQuery();
+            ArrayList<ServiceInformation> toAdd = new ArrayList<>();
+            ServiceInformation buffer;
+            while (res.next()){
+                buffer = new ServiceInformation();
+                buffer.setProviderId(info.getId());
+                buffer.setTemplateId(res.getInt("idServiceTemplates"));
+                buffer.setCostPerHour(res.getFloat("costPerHour"));
+                buffer.setDescription(res.getString("description"));
+                buffer.setServiceName(res.getString("serviceName"));
+                buffer.setTemplateImageUrl(res.getString("templateImageUrl"));
+                toAdd.add(buffer);
+            }
+            info.setServices(toAdd);
+            return info;
+        } catch (SQLException ex){
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+    public static UserInformation getUserReviews(UserInformation info){
+        try{
+            var st = conn.prepareStatement("SELECT idreviewer, score, comment FROM userreviews WHERE idtarget = ?");
+            st.setInt(1, info.getId());
+            var res = st.executeQuery();
+            ArrayList<ReviewInfomation> toAdd = new ArrayList<>();
+            ReviewInfomation buffer;
+            while (res.next()){
+                buffer = new ReviewInfomation();
+                buffer.setScore(res.getInt("score"));
+                buffer.setComment("comment");
+                UserInformation x = new UserInformation();
+                x.setId(res.getInt("idreviewer"));
+                buffer.setReviewer(getBasicUserInformation(x));
+                toAdd.add(buffer);
+            }
+            info.setReviews(toAdd);
+            return info;
+        } catch (SQLException ex){
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+    public static ServiceInformation getBasicServiceInformation(ServiceInformation info){
+        try{
+            return null;
+        } catch (SQLException ex){
+            ex.printStackTrace();
+        }
+    }
+
+    public static ServiceInformation getFullServiceInformation(ServiceInformation info){
+        try{
+            return null;
+        } catch (SQLException ex){
+            ex.printStackTrace();
         }
     }
 

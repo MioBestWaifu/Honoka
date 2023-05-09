@@ -1,7 +1,7 @@
 <div class="wrapper">
     <div class="centerHor">
         <img class="cardImage highlightImage" [src]="service.ProviderImageUrl" alt="" [title]="service.Description" [routerLink]="['/service',service.ServiceId]">
-        <p [textContent]="service.ShortServiceName" class="standardText serviceNameText highlightText" [title]="service.ServiceId" [routerLink]="['/service',service.ServiceName]"></p>
+        <p [textContent]="service.ShortServiceName" class="standardText serviceNameText highlightText" [title]="service.ServiceName" [routerLink]="['/service',service.ServiceId]"></p>
         <p [textContent]="service.ProviderName" class="standardText serviceMinorText highlightText" [routerLink]="['/user',service.ProviderId]"></p>
         <p [textContent]="service.CostPerHour" class="standardText roseText serviceCostText"></p>
         <app-star-rating [isEnabled]=false [rating]="service.AverageScore"></app-star-rating>

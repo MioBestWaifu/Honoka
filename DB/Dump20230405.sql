@@ -160,6 +160,7 @@ CREATE TABLE `servicetemplates` (
   `costPerHour` float NOT NULL,
   `description` varchar(320) DEFAULT NULL,
   `serviceName` varchar(45) NOT NULL,
+  `templateImageUrl` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`idServiceTemplates`),
   KEY `idProvider_idx` (`idProvider`),
   KEY `category_idx` (`serviceCategory`),
@@ -176,7 +177,7 @@ CREATE TABLE `servicetemplates` (
 
 LOCK TABLES `servicetemplates` WRITE;
 /*!40000 ALTER TABLE `servicetemplates` DISABLE KEYS */;
-INSERT INTO `servicetemplates` VALUES (1,2,NULL,NULL,75,'Faço cover com vocal e baixo de qualquer música','Cover'),(2,2,NULL,NULL,35,'Podemos fizer jogando conversa fora sobre qualquer assunto, principalmente música','Conversinha'),(3,3,NULL,NULL,60,'Debater sobre as questões modernas','Discussão sobre a sociedade'),(4,3,NULL,NULL,500,'Não importa o assunto, eu sei tudo','Aula particular'),(5,3,NULL,NULL,2000,'Meu pai é rico, logo eu sei administrar dinheiro','Conselho financeiro'),(6,4,NULL,NULL,40,'','Jogar ARAM'),(7,4,NULL,NULL,70,'','Jogar Ranked'),(8,4,NULL,NULL,90,'','Elojob'),(9,8,NULL,NULL,85,'Vou atrás do alvo e te conto tudo','Stalking'),(10,8,NULL,NULL,55,'A gente enche a cara e xinga minorias','Bebedeira'),(11,9,NULL,NULL,110,'Cuido de tudo, pessoal, limpeza, produtos, o caralho a quatro','Gerenciamento'),(12,9,NULL,NULL,72.99,'Entrevisto seus candidatos de acordo com os critérios estabelecidos','Entrevista de emprego'),(13,10,NULL,NULL,430,'Por choque. Ninguem vai nem ver.','Assassinato'),(14,10,NULL,NULL,300,'Movo corpors por forças eletromagnéticas','Transporte eletromagnético');
+INSERT INTO `servicetemplates` VALUES (1,2,NULL,NULL,75,'Faço cover com vocal e baixo de qualquer música','Cover',NULL),(2,2,NULL,NULL,35,'Podemos fizer jogando conversa fora sobre qualquer assunto, principalmente música','Conversinha',NULL),(3,3,NULL,NULL,60,'Debater sobre as questões modernas','Discussão sobre a sociedade',NULL),(4,3,NULL,NULL,500,'Não importa o assunto, eu sei tudo','Aula particular',NULL),(5,3,NULL,NULL,2000,'Meu pai é rico, logo eu sei administrar dinheiro','Conselho financeiro',NULL),(6,4,NULL,NULL,40,'','Jogar ARAM',NULL),(7,4,NULL,NULL,70,'','Jogar Ranked',NULL),(8,4,NULL,NULL,90,'','Elojob',NULL),(9,8,NULL,NULL,85,'Vou atrás do alvo e te conto tudo','Stalking',NULL),(10,8,NULL,NULL,55,'A gente enche a cara e xinga minorias','Bebedeira',NULL),(11,9,NULL,NULL,110,'Cuido de tudo, pessoal, limpeza, produtos, o caralho a quatro','Gerenciamento',NULL),(12,9,NULL,NULL,72.99,'Entrevisto seus candidatos de acordo com os critérios estabelecidos','Entrevista de emprego',NULL),(13,10,NULL,NULL,430,'Por choque. Ninguem vai nem ver.','Assassinato',NULL),(14,10,NULL,NULL,300,'Movo corpors por forças eletromagnéticas','Transporte eletromagnético',NULL);
 /*!40000 ALTER TABLE `servicetemplates` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -251,4 +252,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-06 18:20:43
+-- Dump completed on 2023-05-08 22:44:23

@@ -14,6 +14,8 @@ public class UserInformation {
     boolean providingService;
     Date birthday;
     ArrayList<ServiceBundle> reccomendations;
+    ArrayList<ServiceInformation> services;
+    ArrayList<ReviewInfomation> reviews;
     public UserInformation(){
 
     }
@@ -58,6 +60,20 @@ public class UserInformation {
                 toJoin.add(si.toJson());
             }
             mapFields.put("ServiceRecs", Utils.joinJsonArray(toJoin));
+        }
+        if (!(services == null || services.size() == 0)){
+            ArrayList<String> toJoin = new ArrayList<String>();
+            for (ServiceInformation si : services){
+                toJoin.add(si.toJson());
+            }
+            mapFields.put("Services", Utils.joinJsonArray(toJoin));
+        }
+        if (!(reviews == null || reviews.size() == 0)){
+            ArrayList<String> toJoin = new ArrayList<String>();
+            for (ReviewInfomation si : reviews){
+                toJoin.add(si.toJson());
+            }
+            mapFields.put("Reviews", Utils.joinJsonArray(toJoin));
         }
         String toReturn = Utils.toJson(mapFields);
         
@@ -133,6 +149,19 @@ public class UserInformation {
     public void setArea(int area) {
         this.area = area;
     }
+    public ArrayList<ServiceInformation> getServices() {
+        return services;
+    }
+    public void setServices(ArrayList<ServiceInformation> services) {
+        this.services = services;
+    }
+    public ArrayList<ReviewInfomation> getReviews() {
+        return reviews;
+    }
+    public void setReviews(ArrayList<ReviewInfomation> reviews) {
+        this.reviews = reviews;
+    }
+    
     
 
     

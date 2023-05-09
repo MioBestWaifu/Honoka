@@ -21,7 +21,7 @@ public class LoginHandler implements HttpHandler{
         System.out.println(exchange.getRemoteAddress().getHostString());
         UserInformation info = new UserInformation(x);
         if (DatabaseConnection.checkLogin(info)){
-            info = DatabaseConnection.getUserInformation(info);
+            info = DatabaseConnection.getBasicUserInformation(info);
             toSend = info.toJson().getBytes(StandardCharsets.UTF_8);
             UserConnectionManager.addConnection(exchange.getRemoteAddress().getHostString(), info);
             exchange.getResponseHeaders().add("Content-type", "application/json");
