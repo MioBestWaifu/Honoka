@@ -37,5 +37,15 @@ export class StarRatingComponent implements OnInit{
     if (x.toString().charAt(2) == '5'){
       this.sources[i-0.5] = this.halfstar
     }
+
+    const y = document.getElementsByClassName("starImg")  as HTMLCollectionOf<HTMLElement>;
+    
+    console.log("IMAGE WIDTH");
+    console.log(y.length);
+    for (let a = 0; a < y.length; a++) {
+      if (y[a].style.width == "1.6vw"){
+        y[a].style.width = this.imgWidth
+      }
+    }
   }
 }

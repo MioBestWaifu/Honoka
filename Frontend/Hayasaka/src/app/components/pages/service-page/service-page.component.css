@@ -1,0 +1,23 @@
+ #providerText{
+    font-size: var(--d-size);
+} img{
+    border-radius: 50%; 
+    width: 15vw; 
+    aspect-ratio: 1/1;
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+} #bordas{
+    display: flex;
+    justify-content: center;
+    border-bottom-width: 0.1vw;
+    border-top-width: 0vw;
+    border-left-width: 0vw;
+    border-right-width: 0vw;
+    border-color: var(--rose);
+    border-style: solid;
+} app-star-rating{
+    margin-top: 1vw;
+} #nameDiv{
+    margin-top: 1vw;
+    margin-left: 1vw;
+}

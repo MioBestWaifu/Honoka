@@ -8,6 +8,7 @@ import { ServiceInformation } from 'src/serviceInformation';
   styleUrls: ['./service-card.component.css']
 })
 export class ServiceCardComponent implements OnInit{
+  starWidth = "1.6vw"
   @Input() service:ServiceInformation
 
   ngOnInit(): void {

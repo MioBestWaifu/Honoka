@@ -8,10 +8,7 @@ ol{
     margin-right: 3vw;
 } app-review-lateral-list{
     width: 15vw;
-    position: absolute;
-    right: 0vw;
-
-} #teste{
+} #bordas{
     display: flex;
     justify-content: center;
     border-bottom-width: 0.1vw;

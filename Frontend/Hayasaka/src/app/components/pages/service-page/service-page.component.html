@@ -2,5 +2,18 @@
     <app-header></app-header>
     <app-lateral-bar [user]=buffer.userInfo class="lateralDiv roseBorder"></app-lateral-bar>
     <div class="contentWrapper">
+        <div class="flexbox">
+            <div style="width: 100%;">
+                <div id="bordas">
+                    <img [src]="info.TemplateImageUrl" alt="" class="roseBorder">
+                    <div id="nameDiv">
+                        <p [textContent]="info.ServiceName" class="titleText"></p>
+                        <app-star-rating [rating]="info.AverageScore" [imgWidth]="w"></app-star-rating>
+                        <!-- Botar link pra pag de areas qnd tiver -->
+                        <p [textContent]="info.ProviderName" class="standardText highlightText" id="providerText" [routerLink]="['/user',info.ProviderId]"></p>
+                    </div>
+                </div>
+            </div>
+            <app-review-lateral-list [reviews]="info.Reviews"></app-review-lateral-list>
     </div>
 </div>

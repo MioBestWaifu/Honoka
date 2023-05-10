@@ -7,5 +7,6 @@ import { ReviewInformation } from 'src/reviewInformation';
   styleUrls: ['./review-lateral-list.component.css']
 })
 export class ReviewLateralListComponent {
+  starWidth = "1.4vw";
   @Input() reviews:ReviewInformation[];
 }

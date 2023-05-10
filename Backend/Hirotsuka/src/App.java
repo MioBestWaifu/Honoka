@@ -35,6 +35,7 @@ public class App {
         server.createContext("/areas",new AreaHandler());
         server.createContext("/users", new UserRequestHandler());
         server.createContext("/services", new ServiceRequestHandler());
+        server.setExecutor(java.util.concurrent.Executors.newFixedThreadPool(4));
         server.start(); 
         
     }

@@ -400,7 +400,9 @@ public class DatabaseConnection {
             var res = st.executeQuery();
             ArrayList<ReviewInfomation> toAdd = new ArrayList<>();
             ReviewInfomation buffer;
+            ArrayList<Integer> scores = new ArrayList<>();
             while (res.next()){
+                scores.add(res.getInt("score"));
                 buffer = new ReviewInfomation();
                 buffer.setScore(res.getInt("score"));
                 buffer.setComment(res.getString("comment"));
@@ -410,6 +412,14 @@ public class DatabaseConnection {
                 toAdd.add(buffer);
             }
             info.setReviews(toAdd);
+            try{
+                var r = Utils.sumOfArray(scores);
+                var s =(float) r/scores.size();
+                info.setAverageScore(s);
+            } catch (Exception ex){
+                info.setAverageScore(0);
+                ex.printStackTrace();
+            }
             return info;
         } catch (SQLException ex){
             ex.printStackTrace();

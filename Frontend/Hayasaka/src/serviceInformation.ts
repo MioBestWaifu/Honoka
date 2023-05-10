@@ -1,3 +1,5 @@
+import { ReviewInformation } from "./reviewInformation";
+
 export class ServiceInformation{
     ServiceName:string; Description:string; ProviderName:string; ProviderUrl:string; ProviderImageUrl:string;
     ShortServiceName:string;
@@ -7,4 +9,5 @@ export class ServiceInformation{
     AverageScore:number;
     ServiceId:number;
     TemplateImageUrl:string;
+    Reviews:ReviewInformation[];
 }

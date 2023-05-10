@@ -2,13 +2,21 @@ img{
     border-radius: 50%; 
     width: 15vw; 
     aspect-ratio: 1/1;
-    
+    margin-top: 1vw;
+    margin-bottom: 1vw;
 } #areaText{
     font-size: var(--d-size);
+    margin-top: 2vw;
 } .femIcon{
     color: #E52B50;
     font-size: 3.2vw;
 }.maleIcon{
     color: #007FFF;
     font-size: 3.2vw;
+} app-star-rating{
+    margin-top: 1vw;
+} #nameDiv{
+    margin-top: 1vw;
+} #all{
+    margin-left: 1vw;
 }

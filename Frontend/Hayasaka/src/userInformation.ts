@@ -15,5 +15,6 @@ export class UserInformation{
     ServiceRecs:ServiceBundle[];
     Reviews:ReviewInformation[];
     Services:ServiceInformation[];
+    AverageScore:number;
 
 }

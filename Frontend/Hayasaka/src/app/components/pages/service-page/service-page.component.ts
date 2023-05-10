@@ -14,6 +14,7 @@ export class ServicePageComponent implements OnInit{
   id:number;
   sub:any;
   info:ServiceInformation;
+  w = "3.5vw"
 
   constructor(public buffer:BufferserviceService, private router:ActivatedRoute, private conn:ServerConnectionService){}
 

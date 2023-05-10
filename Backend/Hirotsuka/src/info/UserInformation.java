@@ -1,6 +1,8 @@
 package info;
 
 import java.sql.Date;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -11,6 +13,7 @@ import managers.Utils;
 public class UserInformation {
     String email, password, gender,name,imageUrl;
     int id, area;
+    float averageScore;
     String areaName;
     boolean providingService;
     Date birthday;
@@ -58,6 +61,8 @@ public class UserInformation {
         mapFields.put("ProvidingService", Boolean.toString(providingService));
         if (birthday != null)
             mapFields.put("Birthday", birthday.toString());
+        if (averageScore != 0f)
+            mapFields.put("AverageScore", Float.toString(averageScore));
         if (!(reccomendations == null || reccomendations.size() == 0)){
             ArrayList<String> toJoin = new ArrayList<String>();
             for (ServiceBundle si : reccomendations){
@@ -172,5 +177,17 @@ public class UserInformation {
         this.areaName = areaName;
     }
     
+    public float getAverageScore() {
+        return averageScore;
+    }
+    public void setAverageScore(float scoreAverage) {
+        DecimalFormat format = new DecimalFormat();
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+        symbols.setDecimalSeparator('.');
+        format.setDecimalFormatSymbols(symbols);
+        format.setMinimumFractionDigits(0);
+        format.setMaximumFractionDigits(1);   
+        this.averageScore = Float.parseFloat(format.format(scoreAverage));
+    }
     
 }
