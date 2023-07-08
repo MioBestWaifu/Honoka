@@ -1,8 +1,8 @@
 <div class="wrapper">
     <div class="centerHor">
-        <img class="cardImage highlightImage" [src]="service.TemplateImageUrl" alt="" [title]="service.Description" [routerLink]="['/service',service.ServiceId]">
-        <p [textContent]="service.ShortServiceName" class="standardText serviceNameText highlightText" [title]="service.ServiceName" [routerLink]="['/service',service.ServiceId]"></p>
-        <p [textContent]="service.ProviderName" class="standardText serviceMinorText highlightText" [routerLink]="['/user',service.ProviderId]"></p>
+        <img class="cardImage highlightImage" [src]="service.TemplateImageUrl" alt="" [title]="service.Description" [routerLink]="['/services',service.ServiceId]">
+        <p [textContent]="service.ShortServiceName" class="standardText serviceNameText highlightText" [title]="service.ServiceName" [routerLink]="['/services',service.ServiceId]"></p>
+        <p [textContent]="service.ProviderName" class="standardText serviceMinorText highlightText" [routerLink]="['/users',service.ProviderId]"></p>
         <p [textContent]="service.CostPerHour" class="standardText roseText serviceCostText"></p>
         <app-star-rating [isEnabled]=false [rating]="service.AverageScore" [imgWidth]="starWidth"></app-star-rating>
         <p [textContent]="service.ProviderArea" class="standardText serviceMinorText highlightText"></p>

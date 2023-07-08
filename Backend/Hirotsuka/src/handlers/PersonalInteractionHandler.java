@@ -15,6 +15,13 @@ public class PersonalInteractionHandler implements HttpHandler {
     public void handle(HttpExchange exchange) throws IOException {
         if (UserConnectionManager.hasIp(exchange.getRemoteAddress().getHostString())) {
             var params = Utils.queryToMap(exchange.getRequestURI().getQuery());
+            
+            //É refresh
+            if (params == null){
+                new InitHandler().sendInitialContent("/", exchange);
+                return;
+            }
+
             switch (params.get("type")) {
                 case "reload":
                     exchange.getResponseHeaders().add("Content-type", "application/json");
@@ -44,6 +51,11 @@ public class PersonalInteractionHandler implements HttpHandler {
                 default:
                     break;
             }
+        } else {
+            UserConnectionManager.addConnection(exchange.getRemoteAddress().getHostString());
+            UserConnectionManager.getConnection(exchange.getRemoteAddress().getHostString()).lastPage = "/pages/login";
+            new InitHandler().sendInitialContent("/", exchange);
+            return;
         }
     }
 }
