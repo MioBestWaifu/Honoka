@@ -17,7 +17,7 @@ export class ActiveUserPageComponent implements OnInit{
   }
   
   async ngOnInit(){
-    if (this.buffer.userInfo = null){
+    if (this.buffer.userInfo == null){
       this.buffer.userInfo = await firstValueFrom(this.conn.ReloadUser());
     }
     const x = await firstValueFrom (this.conn.SetLastPage("/viewprofile"));

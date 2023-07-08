@@ -17,7 +17,7 @@ export class UserPageComponent implements OnInit{
   constructor(public buffer:BufferserviceService, private router:ActivatedRoute, private conn:ServerConnectionService){}
 
   async ngOnInit(){
-    if (this.buffer.userInfo = null){
+    if (this.buffer.userInfo == null){
       this.buffer.userInfo = await firstValueFrom(this.conn.ReloadUser());
     }
     this.sub = this.router.params.subscribe(params => {

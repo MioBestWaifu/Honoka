@@ -14,7 +14,7 @@ export class MainPageComponent implements OnInit{
  constructor(public buffer:BufferserviceService, private conn:ServerConnectionService){}
 
  async ngOnInit(){
-  if (this.buffer.userInfo = null){
+  if (this.buffer.userInfo == null){
     this.buffer.userInfo = await firstValueFrom(this.conn.ReloadUser());
   }
   const x = await firstValueFrom (this.conn.SetLastPage("/pages/main"));

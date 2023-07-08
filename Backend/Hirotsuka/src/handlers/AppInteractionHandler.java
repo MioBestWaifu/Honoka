@@ -16,13 +16,6 @@ public class AppInteractionHandler implements HttpHandler{
     public void handle(HttpExchange exchange) throws IOException {
         var params = Utils.queryToMap(exchange.getRequestURI().getQuery());
 
-        //Adicionando nova conexão
-        if(params != null && params.get("type").equals("establish")){
-            UserConnectionManager.addConnection(exchange.getRemoteAddress().getHostString());
-            UserConnectionManager.getConnection(exchange.getRemoteAddress().getHostString()).lastPage = "/pages/login";
-            return;
-        }
-
         if (UserConnectionManager.hasIp(exchange.getRemoteAddress().getHostString())){
             UserConnection conn = UserConnectionManager.getConnection(exchange.getRemoteAddress().getHostString());
             
@@ -44,8 +37,19 @@ public class AppInteractionHandler implements HttpHandler{
                             Utils.sendAndClose(exchange, 200, conn.lastPage.getBytes(StandardCharsets.UTF_8));
                         }
                         break;
+                    case "establish":
+                        Utils.sendAndClose(exchange, 200, "penis".getBytes());
+                        break;
                 }
             }
+        } else {
+            //Criando conexão
+            if(params != null && params.get("type").equals("establish")){
+                UserConnectionManager.addConnection(exchange.getRemoteAddress().getHostString());
+                UserConnectionManager.getConnection(exchange.getRemoteAddress().getHostString()).lastPage = "/pages/login";
+                Utils.sendAndClose(exchange, 200, "penis".getBytes());
+                return;
+        }
         }
     }
 

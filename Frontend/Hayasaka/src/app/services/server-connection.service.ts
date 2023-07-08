@@ -23,13 +23,18 @@ export class ServerConnectionService {
   loginParams = new HttpParams();
   test:UserInformation;
   constructor(private http:HttpClient) {
-    this.requestsUrl = window.location.href.slice(0,window.location.href.length-1) + ":80/";
+    //this.requestsUrl = window.location.href.slice(0,window.location.href.length-1) + ":80/";
     //console.log(this.requestsUrl);
+    const x = window.location.href;
+    const y = x.split("/");
+    console.log(y);
+    this.requestsUrl = y[0] + "//" +y[2] + ":80/"
+    console.log(this.requestsUrl);
     this.loginParams = this.loginParams.append("type", "01");
   }
 
   EstablishConnection(){
-    return this.http.get(this.requestsUrl+"pages?type=establish");
+    return this.http.get(this.requestsUrl+"pages?type=establish",{responseType:'text'});
   }
   
   TryToLogin(forms:LoginTemplate):Observable<HttpResponse<UserInformation>>{
