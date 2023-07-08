@@ -13,6 +13,12 @@ public class ServiceInformation {
     private float scoreAverage;
     private int providerId, templateId;
     private ArrayList<ReviewInfomation> reviews;
+    
+    public ServiceInformation(){}
+    
+    public ServiceInformation(String json){
+        var map = Utils.mapJson(json);
+    }
 
     public String toJson(){
         HashMap<String,String> mapFields = new HashMap<>();

@@ -12,7 +12,7 @@ public class ImageRequestHandler implements HttpHandler{
         System.out.println(exchange.getRequestURI().toString());
         byte[] toSend = Utils.imageToByteArray("src/raw/"+exchange.getRequestURI().toString(), "png");
         exchange.getResponseHeaders().add("Content-type", "image/png");
-        Utils.sendAndClose(exchange, toSend);
+        Utils.sendAndClose(exchange,200,toSend);
     }
     
 }

@@ -31,8 +31,8 @@ export class LoginFormsComponent {
     
     let t:LoginTemplate = new LoginTemplate(this.email,this.password);
     const x = await firstValueFrom(this.conn.TryToLogin(t));
-    this.user = x;
-    if(this.user.Email != "NULL"){
+    if (x.status == 200){
+      this.user = x.body;
       this.email = "";
       this.password = "";
       this.buffer.userInfo = this.user;
@@ -40,7 +40,6 @@ export class LoginFormsComponent {
     } else {
       this.dialog.open(WrongCredentialsDialogComponent)
     }
-    
 }
 }
 

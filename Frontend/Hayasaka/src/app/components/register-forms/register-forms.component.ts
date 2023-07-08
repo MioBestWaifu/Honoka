@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { ServerConnectionService } from 'src/app/services/server-connection.service';
 import { RegisterTemplate } from 'src/registerTemplate';
 import { MissingInfoDialogComponent } from '../dialogs/missing-info-dialog/missing-info-dialog.component';
@@ -43,14 +44,14 @@ export class RegisterFormsComponent{
     }
     let registerTemplate = new RegisterTemplate(this.email,this.password,this.username,this.birthday,this.gender,this.area);
     const response = await firstValueFrom(this.conn.TryToRegister(registerTemplate));
-    if (response == "DONE"){
+    if (response.status == 200){
       this.email = "";
       this.password = "";
       this.username = "";
       this.birthday = new Date();
       this.router.navigateByUrl("/");
     } else {
-      
+      //Adicionar dialogo de registro falho
     }
   }
 }

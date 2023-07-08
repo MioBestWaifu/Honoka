@@ -11,12 +11,13 @@ import java.util.Scanner;
 
 import com.mysql.cj.x.protobuf.MysqlxCrud.Collection;
 
+import info.ClientServiceInteraction;
 import info.ReviewInfomation;
 import info.ServiceBundle;
 import info.ServiceInformation;
 import info.UserInformation;
 
-public class DatabaseConnection {
+public abstract class DatabaseConnection {
     private static Connection conn;
     private static ArrayList<Integer> serviceIds = new ArrayList<>();
     public static String serverPassword;
@@ -453,7 +454,7 @@ public class DatabaseConnection {
 
     public static ServiceInformation getBasicServiceInformation(ServiceInformation info){
         try{
-            var st = conn.prepareStatement("SELECT idProvider, costPerHour, description, serviceName, templateImageUrl FROM servicetemplates WHERE idServiceTemplates = ?");
+            var st = conn.prepareStatement("SELECT idProvider, idServiceTemplates, costPerHour, description, serviceName, templateImageUrl FROM servicetemplates WHERE idServiceTemplates = ?");
             st.setInt(1, info.getTemplateId());
             var res = st.executeQuery();
             res.next();
@@ -462,6 +463,7 @@ public class DatabaseConnection {
             info.setDescription(res.getString("description"));
             info.setServiceName(res.getString("serviceName"));
             info.setTemplateImageUrl(res.getString("templateImageUrl"));
+            info.setTemplateId(res.getInt("idServiceTemplates"));
             return info;
         } catch (SQLException ex){
             ex.printStackTrace();
@@ -474,6 +476,24 @@ public class DatabaseConnection {
         info = getBasicServiceInformation(info);
         info = getServiceReviews(info);
         return info;
+    }
+
+    public static float getCredits(int id){
+        try {
+            var st = conn.prepareStatement("SELECT credits FROM users WHERE idUser = ?");
+            st.setInt(1, id);
+            var res = st.executeQuery();
+            res.next();
+            return res.getFloat("credits");
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public static void addNewServiceRequest(ClientServiceInteraction info){
+
     }
 
 

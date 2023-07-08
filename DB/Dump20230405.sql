@@ -72,15 +72,17 @@ DROP TABLE IF EXISTS `serviceinstances`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `serviceinstances` (
   `idServiceInstances` int NOT NULL AUTO_INCREMENT,
-  `template` int DEFAULT NULL,
-  `idClient` int DEFAULT NULL,
-  `start` datetime DEFAULT NULL,
-  `end` datetime DEFAULT NULL,
+  `templateID` int NOT NULL,
+  `clientID` int NOT NULL,
+  `start` datetime NOT NULL,
+  `end` datetime NOT NULL,
+  `finished` tinyint DEFAULT '0',
+  `cost` float(7,2) NOT NULL,
   PRIMARY KEY (`idServiceInstances`),
-  KEY `template_idx` (`template`),
-  KEY `client_idx` (`idClient`),
-  CONSTRAINT `client` FOREIGN KEY (`idClient`) REFERENCES `user` (`idUser`),
-  CONSTRAINT `template` FOREIGN KEY (`template`) REFERENCES `servicetemplates` (`idServiceTemplates`)
+  KEY `template_idx` (`templateID`),
+  KEY `client_idx` (`clientID`),
+  CONSTRAINT `client` FOREIGN KEY (`clientID`) REFERENCES `user` (`idUser`),
+  CONSTRAINT `template` FOREIGN KEY (`templateID`) REFERENCES `servicetemplates` (`idServiceTemplates`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -113,6 +115,37 @@ CREATE TABLE `servicemodality` (
 LOCK TABLES `servicemodality` WRITE;
 /*!40000 ALTER TABLE `servicemodality` DISABLE KEYS */;
 /*!40000 ALTER TABLE `servicemodality` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `servicerequests`
+--
+
+DROP TABLE IF EXISTS `servicerequests`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `servicerequests` (
+  `serviceRequestID` int NOT NULL AUTO_INCREMENT,
+  `templateID` int NOT NULL,
+  `clientID` int NOT NULL,
+  `start` datetime NOT NULL,
+  `end` datetime NOT NULL,
+  `cost` float(7,2) NOT NULL,
+  PRIMARY KEY (`serviceRequestID`),
+  KEY `template_idx` (`templateID`),
+  KEY `client_idx` (`clientID`),
+  CONSTRAINT `clientInRequests` FOREIGN KEY (`clientID`) REFERENCES `user` (`idUser`),
+  CONSTRAINT `templateInRequests` FOREIGN KEY (`templateID`) REFERENCES `servicetemplates` (`idServiceTemplates`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `servicerequests`
+--
+
+LOCK TABLES `servicerequests` WRITE;
+/*!40000 ALTER TABLE `servicerequests` DISABLE KEYS */;
+/*!40000 ALTER TABLE `servicerequests` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -198,10 +231,11 @@ CREATE TABLE `user` (
   `providingService` tinyint DEFAULT NULL,
   `area` int DEFAULT NULL,
   `profileUrl` varchar(64) DEFAULT NULL,
+  `credits` float NOT NULL DEFAULT '0',
   PRIMARY KEY (`idUser`),
   KEY `area_idx` (`area`),
   CONSTRAINT `area` FOREIGN KEY (`area`) REFERENCES `area` (`idArea`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -210,7 +244,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'Ninjagermanico','Teste@hotmail.com','sexo','M','2005-03-16',NULL,4,'11683147135786.png'),(2,'Akiyama Mio','Mio@hotmail.com','sexo','F','2004-03-16',NULL,1,'2.png'),(3,'Shinomiya Kaguya','Kaguya@hotmail.com','sexo','F','2003-03-16',NULL,1,'3.png'),(4,'Morgana','Morgana@hotmail.com','sexo','F','2002-03-16',NULL,3,'4.png'),(5,'thwumeimba','aaa','babaritibaba','M','2005-03-01',NULL,2,NULL),(6,'Momo-chan','joca@gmail.com','joca','F','2005-03-02',NULL,3,'61683240187054.png'),(7,'jose','jose@yahoo','jose','M','2005-03-04',NULL,4,'71683240306400.png'),(8,'Loid Forger','Loid@hotmail.com','sexo','M','2023-05-05',NULL,2,'8.png'),(9,'Amagi','Amagi@hotmail.com','sexo','M','2023-05-05',NULL,1,'9.png'),(10,'Misaka Mikoto','Misaka@hotmail.com','sexo','F','2023-05-05',NULL,1,'10.png'),(11,'Albert','Albert@hotmail.com','Albert','M','2023-05-05',NULL,NULL,'11.png'),(12,'Berotorto','Berotorto@hotmail.com','Berotorto','M','2023-05-05',NULL,NULL,'12.png'),(13,'Claudio','Claudio@hotmail.com','Claudio','M','2023-05-05',NULL,NULL,'13.png'),(14,'Douglas','Douglas@hotmail.com','Douglas','M','2023-05-05',NULL,NULL,'14.png'),(15,'Eduardo','Eduardo@hotmail.com','Eduardo','M','2023-05-05',NULL,NULL,'15.png'),(16,'Fernando','Fernando@hotmail.com','Fernando','M','2023-05-05',NULL,NULL,'16.png'),(17,'Gustavo','Gustavo@hotmail.com','Gustavo','M','2023-05-05',NULL,NULL,'17.png'),(18,'Hilquias','Hilquias@hotmail.com','Hilquias','M','2023-05-05',NULL,NULL,'18.png'),(19,'Italo','Italo@hotmail.com','Italo','M','2023-05-05',NULL,NULL,'19.png'),(20,'Jonas','Jonas@hotmail.com','Jonas','M','2023-05-05',NULL,NULL,'20.png'),(21,'Zacarias','Zacarias@homail.com','Zacarias',NULL,'2005-03-02',NULL,NULL,'0.png'),(22,'Yan2','2020170020004@ifba.edu.br','Yan2','M','2005-02-17',NULL,2,'0.png');
+INSERT INTO `user` VALUES (1,'MioBestWaifu','Teste@hotmail.com','sexo','M','2005-03-16',NULL,4,'11688779194657.png',0),(2,'Akiyama Mio','Mio@hotmail.com','sexo','F','2004-03-16',NULL,1,'2.png',0),(3,'Shinomiya Kaguya','Kaguya@hotmail.com','sexo','F','2003-03-16',NULL,1,'3.png',0),(4,'Morgana','Morgana@hotmail.com','sexo','F','2002-03-16',NULL,3,'4.png',0),(5,'thwumeimba','aaa','babaritibaba','M','2005-03-01',NULL,2,NULL,0),(6,'Momo-chan','joca@gmail.com','joca','F','2005-03-02',NULL,3,'61683240187054.png',0),(7,'jose','jose@yahoo','jose','M','2005-03-04',NULL,4,'71683240306400.png',0),(8,'Loid Forger','Loid@hotmail.com','sexo','M','2023-05-05',NULL,2,'8.png',0),(9,'Amagi','Amagi@hotmail.com','sexo','M','2023-05-05',NULL,1,'9.png',0),(10,'Misaka Mikoto','Misaka@hotmail.com','sexo','F','2023-05-05',NULL,1,'10.png',0),(11,'Albert','Albert@hotmail.com','Albert','M','2023-05-05',NULL,NULL,'11.png',0),(12,'Berotorto','Berotorto@hotmail.com','Berotorto','M','2023-05-05',NULL,NULL,'12.png',0),(13,'Claudio','Claudio@hotmail.com','Claudio','M','2023-05-05',NULL,NULL,'13.png',0),(14,'Douglas','Douglas@hotmail.com','Douglas','M','2023-05-05',NULL,NULL,'14.png',0),(15,'Eduardo','Eduardo@hotmail.com','Eduardo','M','2023-05-05',NULL,NULL,'15.png',0),(16,'Fernando','Fernando@hotmail.com','Fernando','M','2023-05-05',NULL,NULL,'16.png',0),(17,'Gustavo','Gustavo@hotmail.com','Gustavo','M','2023-05-05',NULL,NULL,'17.png',0),(18,'Hilquias','Hilquias@hotmail.com','Hilquias','M','2023-05-05',NULL,NULL,'18.png',0),(19,'Italo','Italo@hotmail.com','Italo','M','2023-05-05',NULL,NULL,'19.png',0),(20,'Jonas','Jonas@hotmail.com','Jonas','M','2023-05-05',NULL,NULL,'20.png',0),(21,'Zacarias','Zacarias@homail.com','Zacarias',NULL,'2005-03-02',NULL,NULL,'0.png',0),(22,'Yan2','2020170020004@ifba.edu.br','Yan2','M','2005-02-17',NULL,2,'0.png',0),(23,'aa','balbla','ss','M','2005-02-03',NULL,3,'0.png',0),(24,'dd','mm','a','F','2005-03-02',NULL,1,'0.png',0);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -252,4 +286,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-10 16:26:51
+-- Dump completed on 2023-07-08  0:19:39

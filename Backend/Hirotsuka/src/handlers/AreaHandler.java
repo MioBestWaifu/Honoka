@@ -14,7 +14,7 @@ public class AreaHandler implements HttpHandler{
     public void handle(HttpExchange exchange) throws IOException {
         byte[] toSend = DatabaseConnection.GetAreas().getBytes(StandardCharsets.UTF_8);
         exchange.getResponseHeaders().add("Content-type", "application/json");
-        Utils.sendAndClose(exchange, toSend);
+        Utils.sendAndClose(exchange,200,toSend);
     }
     
 }

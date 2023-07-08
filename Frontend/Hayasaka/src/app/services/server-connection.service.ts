@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { HttpParams } from '@angular/common/http';
 import { LoginFormsComponent } from '../components/login-forms/login-forms.component';
@@ -29,30 +29,29 @@ export class ServerConnectionService {
   }
 
 
-  TryToLogin(forms:LoginTemplate):Observable<UserInformation>{
+  TryToLogin(forms:LoginTemplate):Observable<HttpResponse<UserInformation>>{
       //console.log(this.requestsUrl); 
       try{
-      return this.http.post<UserInformation>(this.requestsUrl+"login",JSON.stringify(forms));
+      return this.http.post<UserInformation>(this.requestsUrl+"login",JSON.stringify(forms),{observe:'response'});
       } catch(error){
-        //console.log(error)
         return null;
       }
   }
 
-  TryToRegister(forms:RegisterTemplate):Observable<string>{
-    return this.http.post(this.requestsUrl+"registering",JSON.stringify(forms),{responseType: 'text'});
+  TryToRegister(forms:RegisterTemplate):Observable<HttpResponse<string>>{
+    return this.http.post(this.requestsUrl+"registering",JSON.stringify(forms),{observe:'response',responseType: 'text'});
   }
 
-  TryToUpdateUserPicture(dia:EditUserDialogComponent):Observable<string>{
-    return this.http.post(this.requestsUrl+"update/userimage",base64ToFile(dia.croppedImage),{responseType: 'text'});
+  TryToUpdateUserPicture(dia:EditUserDialogComponent):Observable<HttpResponse<string>>{
+    return this.http.post(this.requestsUrl+"personal?type=imageUpdate",base64ToFile(dia.croppedImage),{observe:'response',responseType: 'text'});
   }
 
-  TryToUpdateUserName(dia:EditUserDialogComponent):Observable<string>{
-    return this.http.post(this.requestsUrl+"update/username",dia.newName,{responseType: 'text'});
+  TryToUpdateUserName(dia:EditUserDialogComponent):Observable<HttpResponse<string>>{
+    return this.http.post(this.requestsUrl+"personal?type=nameUpdate",dia.newName,{observe:'response',responseType: 'text'});
   }
 
   ReloadUser():Observable<UserInformation>{
-    return this.http.get<UserInformation>(this.requestsUrl+"reload/user");
+    return this.http.get<UserInformation>(this.requestsUrl+"personal?type=reload");
   }
 
   GetAreas():Observable<AreaInformation[]>{
@@ -61,7 +60,7 @@ export class ServerConnectionService {
 
   GetUser(id:string):Observable<UserInformation>{
     try{
-    return this.http.get<UserInformation>(this.requestsUrl+"users?id="+id);
+    return this.http.get<UserInformation>(this.requestsUrl+"users?type=request&id="+id);
     } catch (error){
       console.log(error);
       return null;
@@ -70,7 +69,7 @@ export class ServerConnectionService {
 
   GetService(id:string):Observable<ServiceInformation>{
     try{
-    return this.http.get<ServiceInformation>(this.requestsUrl+"services?id="+id);
+    return this.http.get<ServiceInformation>(this.requestsUrl+"services?type=request&id="+id);
     } catch (error){
       console.log(error)
       return null;

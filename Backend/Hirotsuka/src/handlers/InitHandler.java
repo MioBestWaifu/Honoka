@@ -18,27 +18,27 @@ public class InitHandler implements HttpHandler{
         switch (path){
             case "/":
                 exchange.getResponseHeaders().add("Content-type", "text/html");
-                Utils.sendAndClose(exchange, Utils.pages.get("Index"));
+                Utils.sendAndClose(exchange,200,Utils.pages.get("Index"));
                 break;
             case "/main.js":
                 exchange.getResponseHeaders().add("Content-type", "text/javascript");
-                Utils.sendAndClose(exchange, Utils.pages.get("Main"));
+                Utils.sendAndClose(exchange,200,Utils.pages.get("Main"));
                 break;
             case "/runtime.js":
                 exchange.getResponseHeaders().add("Content-type", "text/javascript");
-                Utils.sendAndClose(exchange, Utils.pages.get("Runtime"));
+                Utils.sendAndClose(exchange,200,Utils.pages.get("Runtime"));
                 break;
             case "/polyfills.js":
                 exchange.getResponseHeaders().add("Content-type", "text/javascript");
-                Utils.sendAndClose(exchange, Utils.pages.get("Polyfills"));
+                Utils.sendAndClose(exchange,200,Utils.pages.get("Polyfills"));
                 break;
             case "/styles.css":
                 exchange.getResponseHeaders().add("Content-type", "text/css");
-                Utils.sendAndClose(exchange, Utils.pages.get("Styles"));
+                Utils.sendAndClose(exchange,200,Utils.pages.get("Styles"));
                 break;
             case "/favicon.ico":
                 exchange.getResponseHeaders().add("Content-type", "image/ico");
-                Utils.sendAndClose(exchange, Utils.pages.get("Favicon"));
+                Utils.sendAndClose(exchange,200,Utils.pages.get("Favicon"));
                 break;
         }
     }

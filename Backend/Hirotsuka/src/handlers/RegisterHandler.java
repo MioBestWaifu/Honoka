@@ -13,18 +13,17 @@ public class RegisterHandler implements HttpHandler{
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        byte[] toSend;
         String x = new String(exchange.getRequestBody().readAllBytes());
         if (DatabaseConnection.tryToRegister(new UserInformation(x))){
             //Checar esse krl
-            toSend = "DONE".getBytes();
+            exchange.getResponseHeaders().add("Content-type", "text/plain");
+            Utils.sendAndClose(exchange,201, "".getBytes());
             //Esse tbm
         } else{
-            toSend = "FAILED".getBytes();
+            exchange.getResponseHeaders().add("Content-type", "text/plain");
+            Utils.sendAndClose(exchange,400,"".getBytes());
         }
 
-        exchange.getResponseHeaders().add("Content-type", "text/plain");
-        Utils.sendAndClose(exchange, toSend);
     }
     
 }

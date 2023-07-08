@@ -25,13 +25,13 @@ public class LoginHandler implements HttpHandler{
             toSend = info.toJson().getBytes(StandardCharsets.UTF_8);
             UserConnectionManager.addConnection(exchange.getRemoteAddress().getHostString(), info);
             exchange.getResponseHeaders().add("Content-type", "application/json");
-            Utils.sendAndClose(exchange, toSend);
+            Utils.sendAndClose(exchange,200,toSend);
         } else {
             var errorInformation = new UserInformation();
             errorInformation.setEmail("NULL");
             toSend = errorInformation.toJson().getBytes(StandardCharsets.UTF_8);
             exchange.getResponseHeaders().add("Content-type", "application/json");
-            Utils.sendAndClose(exchange, toSend);
+            Utils.sendAndClose(exchange,401,toSend);
         }
         System.out.println(x);
     }

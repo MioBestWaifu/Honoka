@@ -7,14 +7,12 @@ import com.sun.net.httpserver.HttpServer;
 
 import handlers.AreaHandler;
 import handlers.ImageRequestHandler;
-import handlers.ImageUpdateHandler;
 import handlers.InitHandler;
 import handlers.LoginHandler;
-import handlers.NameUpdateHandler;
+import handlers.PersonalInteractionHandler;
 import handlers.RegisterHandler;
-import handlers.ReloadHandler;
-import handlers.ServiceRequestHandler;
-import handlers.UserRequestHandler;
+import handlers.ServiceInteractionHandler;
+import handlers.UserInteractionHandler;
 import info.ServiceInformation;
 import info.UserInformation;
 import managers.DatabaseConnection;
@@ -29,12 +27,10 @@ public class App {
         server.createContext("/login", new LoginHandler());
         server.createContext("/registering", new RegisterHandler());
         server.createContext("/images", new ImageRequestHandler());
-        server.createContext("/update/userimage", new ImageUpdateHandler());
-        server.createContext("/update/username",new NameUpdateHandler());
-        server.createContext("/reload",new ReloadHandler());
         server.createContext("/areas",new AreaHandler());
-        server.createContext("/users", new UserRequestHandler());
-        server.createContext("/services", new ServiceRequestHandler());
+        server.createContext("/personal",new PersonalInteractionHandler());
+        server.createContext("/users", new UserInteractionHandler());
+        server.createContext("/services", new ServiceInteractionHandler());
         server.setExecutor(java.util.concurrent.Executors.newFixedThreadPool(4));
         server.start(); 
         

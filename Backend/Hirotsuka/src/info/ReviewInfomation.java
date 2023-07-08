@@ -9,6 +9,12 @@ public class ReviewInfomation {
     int score;
     String comment;
 
+    public ReviewInfomation(){}
+
+    public ReviewInfomation(String json){
+        var map = Utils.mapJson(json);
+    }
+
     public String toJson(){
         HashMap<String,String> toMap = new HashMap<>();
         if (!(reviewer == null)){

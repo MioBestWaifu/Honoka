@@ -23,7 +23,7 @@ import javax.print.DocFlavor.STRING;
 
 import com.sun.net.httpserver.HttpExchange;
 
-public class Utils {
+public abstract class Utils {
     public static HashMap<String,byte[]> pages = new HashMap<String,byte[]>();
     public static String ipAddress;
     public static void init () throws IOException{
@@ -42,8 +42,8 @@ public class Utils {
         //ipAddress = input.nextLine();
         //input.close();
     }
-    public static void sendAndClose(HttpExchange exchange,byte[] toSend) throws IOException{
-        exchange.sendResponseHeaders(200, toSend.length);
+    public static void sendAndClose(HttpExchange exchange,int code,byte[] toSend) throws IOException{
+        exchange.sendResponseHeaders(code,toSend.length);
         exchange.getResponseBody().write(toSend);
         exchange.getResponseBody().flush();
         exchange.getResponseBody().close();
