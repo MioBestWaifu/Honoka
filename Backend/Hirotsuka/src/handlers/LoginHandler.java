@@ -1,8 +1,6 @@
 package handlers;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.charset.CharsetEncoder;
 import java.nio.charset.StandardCharsets;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -18,12 +16,11 @@ public class LoginHandler implements HttpHandler{
     public void handle(HttpExchange exchange) throws IOException {
         String x = new String(exchange.getRequestBody().readAllBytes(),StandardCharsets.UTF_8);
         byte[] toSend;
-        System.out.println(exchange.getRemoteAddress().getHostString());
         UserInformation info = new UserInformation(x);
         if (DatabaseConnection.checkLogin(info)){
             info = DatabaseConnection.getActiveUserInformation(info);
             toSend = info.toJson().getBytes(StandardCharsets.UTF_8);
-            UserConnectionManager.addConnection(exchange.getRemoteAddress().getHostString(), info);
+            UserConnectionManager.setConnectionUserInfo(exchange.getRemoteAddress().getHostString(), info);
             exchange.getResponseHeaders().add("Content-type", "application/json");
             Utils.sendAndClose(exchange,200,toSend);
         } else {
@@ -33,7 +30,6 @@ public class LoginHandler implements HttpHandler{
             exchange.getResponseHeaders().add("Content-type", "application/json");
             Utils.sendAndClose(exchange,401,toSend);
         }
-        System.out.println(x);
     }
     
 }

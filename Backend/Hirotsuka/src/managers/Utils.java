@@ -36,8 +36,6 @@ public abstract class Utils {
         var x = Files.readAllLines((Paths.get("src/raw/info.txt")));
         ipAddress = x.get(0);
         DatabaseConnection.serverPassword = x.get(1);
-        System.out.println(ipAddress);
-        System.out.println(DatabaseConnection.serverPassword);
         //Scanner input = new Scanner(System.in);
         //ipAddress = input.nextLine();
         //input.close();

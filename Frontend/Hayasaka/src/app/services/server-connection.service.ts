@@ -28,7 +28,10 @@ export class ServerConnectionService {
     this.loginParams = this.loginParams.append("type", "01");
   }
 
-
+  EstablishConnection(){
+    return this.http.get(this.requestsUrl+"pages?type=establish");
+  }
+  
   TryToLogin(forms:LoginTemplate):Observable<HttpResponse<UserInformation>>{
       //console.log(this.requestsUrl); 
       try{
@@ -76,6 +79,17 @@ export class ServerConnectionService {
     }
   }
 
+  GetTargetPage():Observable<string>{
+    return this.http.get(this.requestsUrl+"pages?type=target",{responseType: 'text'});
+  }
 
+  SetLastPage(currentPage:string):Observable<HttpResponse<string>>{
+    console.log("CHAMADO DE: " +currentPage)
+    return this.http.post(this.requestsUrl+"pages?type=target",currentPage,{observe:'response',responseType: 'text'});
+  }
+
+  PrepareRefresh():Observable<HttpResponse<string>>{
+    return this.http.get(this.requestsUrl+"pages?type=refresh",{observe:'response',responseType: 'text'});
+  }
   
 }

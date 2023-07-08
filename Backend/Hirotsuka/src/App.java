@@ -9,6 +9,7 @@ import handlers.AreaHandler;
 import handlers.ImageRequestHandler;
 import handlers.InitHandler;
 import handlers.LoginHandler;
+import handlers.AppInteractionHandler;
 import handlers.PersonalInteractionHandler;
 import handlers.RegisterHandler;
 import handlers.ServiceInteractionHandler;
@@ -26,6 +27,7 @@ public class App {
         server.createContext("/", initHandler);
         server.createContext("/login", new LoginHandler());
         server.createContext("/registering", new RegisterHandler());
+        server.createContext("/pages", new AppInteractionHandler());
         server.createContext("/images", new ImageRequestHandler());
         server.createContext("/areas",new AreaHandler());
         server.createContext("/personal",new PersonalInteractionHandler());
@@ -33,6 +35,5 @@ public class App {
         server.createContext("/services", new ServiceInteractionHandler());
         server.setExecutor(java.util.concurrent.Executors.newFixedThreadPool(4));
         server.start(); 
-        
     }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { BufferserviceService } from 'src/app/services/bufferservice.service';
@@ -23,9 +23,8 @@ export class ServicePageComponent implements OnInit{
       this.id = +params['id']; 
   
    })
+   const x = await firstValueFrom (this.conn.SetLastPage("/services/"+this.id))
    this.info = await firstValueFrom(this.conn.GetService(this.id.toString()))
-   console.log("SERVICE PAGE");
-   console.log(this.info);
   }
 
 }

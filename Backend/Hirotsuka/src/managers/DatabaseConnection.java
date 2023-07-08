@@ -30,12 +30,9 @@ public abstract class DatabaseConnection {
             e.printStackTrace();
         }
         //Scanner input = new Scanner(System.in);
-        System.out.println("Host:");
         String serverName = "127.0.0.1";
-        System.out.println("Database:");
         String mydatabase ="aluguel";
         String url = "jdbc:mysql://" + serverName + "/" + mydatabase+"?useSSL=false&allowPublicKeyRetrieval=true";
-        System.out.println("User:");
         String username = "root";
         try {
             conn = DriverManager.getConnection(url, username, serverPassword);
@@ -163,7 +160,6 @@ public abstract class DatabaseConnection {
         st.setString(6, info.getGender());
         st.setInt(7, info.getArea());
         int rowsAffected = st.executeUpdate();
-        System.out.println(rowsAffected);
         return true;
         } catch (SQLException e) {
             return false;

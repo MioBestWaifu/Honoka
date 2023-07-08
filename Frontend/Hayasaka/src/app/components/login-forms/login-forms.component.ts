@@ -36,7 +36,7 @@ export class LoginFormsComponent {
       this.email = "";
       this.password = "";
       this.buffer.userInfo = this.user;
-      this.router.navigateByUrl("/main");
+      this.router.navigateByUrl("/pages/main");
     } else {
       this.dialog.open(WrongCredentialsDialogComponent)
     }

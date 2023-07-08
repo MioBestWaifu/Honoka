@@ -49,7 +49,7 @@ export class RegisterFormsComponent{
       this.password = "";
       this.username = "";
       this.birthday = new Date();
-      this.router.navigateByUrl("/");
+      this.router.navigateByUrl("/pages/login");
     } else {
       //Adicionar dialogo de registro falho
     }

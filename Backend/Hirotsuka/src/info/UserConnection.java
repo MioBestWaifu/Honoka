@@ -3,6 +3,9 @@ package info;
 public class UserConnection {
     private UserInformation userInformation;
     public boolean refreshing;
+    public String lastPage;
+
+    public UserConnection(){}
 
     public UserConnection (UserInformation info){
         userInformation = info;

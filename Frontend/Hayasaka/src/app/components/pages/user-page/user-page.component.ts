@@ -17,13 +17,15 @@ export class UserPageComponent implements OnInit{
   constructor(public buffer:BufferserviceService, private router:ActivatedRoute, private conn:ServerConnectionService){}
 
   async ngOnInit(){
+    if (this.buffer.userInfo = null){
+      this.buffer.userInfo = await firstValueFrom(this.conn.ReloadUser());
+    }
     this.sub = this.router.params.subscribe(params => {
       this.id = +params['id']; 
   
    })
-   this.info = await firstValueFrom(this.conn.GetUser(this.id.toString()))
-   console.log("USER PAGE");
-   console.log(this.info);
+   const x = await firstValueFrom (this.conn.SetLastPage("/user/"+this.id));
+   this.info = await firstValueFrom(this.conn.GetUser(this.id.toString()));
   }
 
 }

@@ -18,6 +18,22 @@ public class ServiceInformation {
     
     public ServiceInformation(String json){
         var map = Utils.mapJson(json);
+        
+        if(map.containsKey("providerId")){
+            providerId = Integer.parseInt(map.get("providerId"));
+        }
+
+        if(map.containsKey("serviceName")){
+            serviceName = map.get("providerId");
+        }
+
+        if(map.containsKey("description")){
+            description = map.get("description");
+        }
+
+        if(map.containsKey("costPerHour")){
+            costPerHour = Float.parseFloat(map.get("costPerHour"));
+        }
     }
 
     public String toJson(){
@@ -29,7 +45,6 @@ public class ServiceInformation {
             mapFields.put("ShortServiceName", serviceName.substring(0, 23)+"...");
         else
             mapFields.put("ShortServiceName", serviceName);
-        System.out.println(mapFields.get("ShortServiceName"));
         if (description.isBlank()){
                 description = "DESC";
         }
@@ -120,8 +135,6 @@ public class ServiceInformation {
         format.setMinimumFractionDigits(0);
         format.setMaximumFractionDigits(1);   
         this.scoreAverage = Float.parseFloat(format.format(scoreAverage));
-        System.out.println(this.serviceName);
-        System.out.println(this.scoreAverage);
     }
     public int getTemplateId() {
         return templateId;

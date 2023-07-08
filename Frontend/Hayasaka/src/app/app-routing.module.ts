@@ -11,9 +11,9 @@ import { SettingsPageComponent } from './components/pages/settings-page/settings
 import { MyServicesPageComponent } from './components/pages/my-services-page/my-services-page.component';
 
 const routes: Routes = [
-  {path:'',component:LoginPageComponent},
+  {path:'pages/login',component:LoginPageComponent},
   {path:'register',component:RegisterPageComponent},
-  {path:'main',component:MainPageComponent},
+  {path:'pages/main',component:MainPageComponent},
   {path:'user/:id',component:UserPageComponent},
   {path:'service/:id',component:ServicePageComponent},
   {path:'viewprofile',component:ActiveUserPageComponent},
