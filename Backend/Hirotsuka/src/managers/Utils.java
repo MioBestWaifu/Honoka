@@ -6,6 +6,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.nio.Buffer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -13,6 +14,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -47,28 +49,75 @@ public abstract class Utils {
         exchange.getResponseBody().close();
     }
 
-    public static HashMap<String,String> mapJson(String json){
+    // public static HashMap<String,String> mapJson(String json){
+    //     HashMap<String,String> toReturn = new HashMap<>();
+    //     /*
+    //      * Buscar objetos internos e arrays e tratá-los separadamente
+    //      */
+    //     try{
+    //     var pairs = json.split(",\"");
+    //     for (int a = 0; a<pairs.length;a++){
+    //         pairs[a] = pairs[a].replace("{", "");
+    //         pairs[a] = pairs[a].replace("}", "");
+    //     }
+    //     String[] buffer;
+    //     for (String s : pairs){
+    //         buffer = s.split(":\"");
+    //         buffer[0] = buffer[0].replace("\"","");
+    //         buffer[1] = buffer[1].replace("\"","");
+    //         buffer[0] = Character.toLowerCase(buffer[0].charAt(0))+buffer[0].substring(1, buffer[0].length());
+    //         toReturn.put(buffer[0], buffer[1]);
+    //     }
+    //     } catch (Exception ex){
+    //         ex.printStackTrace();
+    //     }
+    //     return toReturn;
+    // }
+
+    public static HashMap<String,String> mapJson(String json, Class template){
+        var fields = template.getDeclaredFields();
+        ArrayList<String> fieldNames = new ArrayList<>();
+        for(Field f: fields){
+            fieldNames.add(f.getName());
+        }
+
+        ArrayList<Integer> fieldIndexes = new ArrayList<>();
+        json = json.replace("{", "");
+        json = json.replace("}", "");
+        json = json.replace("\"", "");
+        json = json.replace("[", "");
+        json = json.replace("]", "");
+
+        int x;
+        for(String s: fieldNames){
+            x = json.indexOf(s);
+            if (x!=-1)
+                fieldIndexes.add(x);
+        }
+
+        Collections.sort(fieldIndexes);
+        ArrayList<String> brokenByFields = new ArrayList<>();
+        String y;
+
+        for(int a=0;a<fieldIndexes.size()-1;a++){
+            y = json.substring(fieldIndexes.get(a), fieldIndexes.get(a+1)-1);
+            brokenByFields.add(y);
+        }
+        
+        brokenByFields.add(json.substring(fieldIndexes.get(fieldIndexes.size()-1),json.length()));
+        
         HashMap<String,String> toReturn = new HashMap<>();
-        /*
-         * Buscar objetos internos e arrays e tratá-los separadamente
-         */
-        try{
-        var pairs = json.split(",\"");
-        for (int a = 0; a<pairs.length;a++){
-            pairs[a] = pairs[a].replace("{", "");
-            pairs[a] = pairs[a].replace("}", "");
+        
+        String z, k;
+        for(String s : brokenByFields){
+            z = s.substring(0, s.indexOf(":"));
+            k = s.substring(s.indexOf(":")+1,s.length());
+            toReturn.put(z, k);
         }
-        String[] buffer;
-        for (String s : pairs){
-            buffer = s.split(":\"");
-            buffer[0] = buffer[0].replace("\"","");
-            buffer[1] = buffer[1].replace("\"","");
-            buffer[0] = Character.toLowerCase(buffer[0].charAt(0))+buffer[0].substring(1, buffer[0].length());
-            toReturn.put(buffer[0], buffer[1]);
-        }
-        } catch (Exception ex){
-            ex.printStackTrace();
-        }
+        System.out.println(json);
+        System.out.println(brokenByFields);
+        System.out.println(fieldIndexes);
+
         return toReturn;
     }
 
@@ -137,8 +186,8 @@ public abstract class Utils {
 
         if (DatabaseConnection.tryToUpdateServiceImageUrl(id, String.valueOf(id)+String.valueOf(time)+"."+format)){
             ImageIO.write(bImage2, format, new File(name));
-            var x = UserConnectionManager.getInformation(host).getImageUrl();
-            new File("src/raw/images/"+x.split("/")[4]).delete();
+            var x = DatabaseConnection.getServiceImageUrl(DatabaseConnection.getLastCreatedService(UserConnectionManager.getInformation(host).getUserId()));
+            new File("src/raw/images/services/"+x.split("/")[4]).delete();
             return true;
         }
 

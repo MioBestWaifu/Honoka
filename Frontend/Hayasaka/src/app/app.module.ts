@@ -34,6 +34,7 @@ import { StarRatingComponent } from './components/star-rating/star-rating.compon
 import { ReviewLateralListComponent } from './components/review-lateral-list/review-lateral-list.component';
 import { WeekdaySelectorComponent } from './components/weekday-selector/weekday-selector.component';
 import { CreateServiceDialogComponent } from './components/dialogs/create-service-dialog/create-service-dialog.component';
+import { ScheduleServiceDialogComponent } from './components/dialogs/schedule-service-dialog/schedule-service-dialog.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { CreateServiceDialogComponent } from './components/dialogs/create-servic
     StarRatingComponent,
     ReviewLateralListComponent,
     WeekdaySelectorComponent,
-    CreateServiceDialogComponent
+    CreateServiceDialogComponent,
+    ScheduleServiceDialogComponent
   ],
   imports: [
     BrowserModule,

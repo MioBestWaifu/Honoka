@@ -4,17 +4,17 @@ import { ServiceBundle } from "./serviceBundle";
 import { ServiceInformation } from "./serviceInformation";
 
 export class UserInformation{
-    Id:number;
-    Email:string;
-    Name:string;
-    ImageUrl:string;
-    Gender:string;
-    Area:GenericInformation;
-    Birthday:Date;
-    Description:string;
-    ServiceRecs:ServiceBundle[];
-    Reviews:ReviewInformation[];
-    Services:ServiceInformation[];
-    AverageScore:number;
+    userId:number;
+    email:string;
+    name:string;
+    imageUrl:string;
+    gender:string;
+    area:GenericInformation;
+    birthday:Date;
+    description:string;
+    serviceRecs:ServiceBundle[];
+    reviews:ReviewInformation[];
+    services:ServiceInformation[];
+    averageScore:number;
 
 }

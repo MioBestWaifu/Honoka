@@ -29,7 +29,7 @@ public class PersonalInteractionHandler implements HttpHandler {
                     Utils.sendAndClose(exchange,200,toSend);
                     break;
                 case "imageUpdate":
-                    if (Utils.updateUserProfilePicture(exchange.getRemoteAddress().getHostString(),"src/raw/images/" + UserConnectionManager.getInformation(exchange.getRemoteAddress().getHostString()).getId(),"png", exchange.getRequestBody().readAllBytes())) {
+                    if (Utils.updateUserProfilePicture(exchange.getRemoteAddress().getHostString(),"src/raw/images/" + UserConnectionManager.getInformation(exchange.getRemoteAddress().getHostString()).getUserId(),"png", exchange.getRequestBody().readAllBytes())) {
                         exchange.getResponseHeaders().add("Content-type", "text/plain");
                         Utils.sendAndClose(exchange,201, "".getBytes(StandardCharsets.UTF_8));
                     } else {
@@ -39,7 +39,7 @@ public class PersonalInteractionHandler implements HttpHandler {
                     break;
                 case "nameUpdate":
                     String newName = new String(exchange.getRequestBody().readAllBytes());
-                    if (DatabaseConnection.tryToUpdateUserName(UserConnectionManager.getInformation(exchange.getRemoteAddress().getHostString()).getId(),newName)) {
+                    if (DatabaseConnection.tryToUpdateUserName(UserConnectionManager.getInformation(exchange.getRemoteAddress().getHostString()).getUserId(),newName)) {
                         UserConnectionManager.getInformation(exchange.getRemoteAddress().getHostString()).setName(newName);
                         exchange.getResponseHeaders().add("Content-type", "text/plain");
                         Utils.sendAndClose(exchange,201,"".getBytes(StandardCharsets.UTF_8));

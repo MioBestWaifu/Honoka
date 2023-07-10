@@ -14,13 +14,13 @@ public class ServiceInformation {
     private float scoreAverage;
     private int providerId, templateId, modality, category;
     private boolean[] availableDays;
-    private Time[] from, to;
+    private Time[] availableFroms, availableTos;
     private ArrayList<ReviewInfomation> reviews;
     
     public ServiceInformation(){}
     
     public ServiceInformation(String json){
-        var map = Utils.mapJson(json);
+        var map = Utils.mapJson(json,this.getClass());
         
         if(map.containsKey("providerId")){
             providerId = Integer.parseInt(map.get("providerId"));
@@ -55,52 +55,52 @@ public class ServiceInformation {
         }
 
         if(map.containsKey("availableFroms")){
-            from = new Time[7];
+            availableFroms = new Time[7];
             String[] s = Utils.breakJsonArray(map.get("availableFroms"));
             for (int a = 0; a<=6;a++){
                 if (!s[a].equals("null"))
                     s[a] = s[a]+":00";
                 else 
                     s[a] = "00:00:00";
-                from[a] = Time.valueOf((s[a]));
+                availableFroms[a] = Time.valueOf((s[a]));
             }
         }
 
         if(map.containsKey("availableTos")){
-            to = new Time[7];
+            availableTos = new Time[7];
             String[] s = Utils.breakJsonArray(map.get("availableTos"));
             for (int a = 0; a<=6;a++){
                 if (!s[a].equals("null"))
                     s[a] = s[a]+":00";
                 else 
                     s[a] = "00:00:00";
-                to[a] = Time.valueOf((s[a]));
+                availableTos[a] = Time.valueOf((s[a]));
             }
         }
     }
 
     public String toJson(){
         HashMap<String,String> mapFields = new HashMap<>();
-        mapFields.put("ServiceName", serviceName);
-        mapFields.put("ServiceId", Integer.toString(templateId));
-        mapFields.put("ProviderId", Integer.toString(providerId));
+        mapFields.put("serviceName", serviceName);
+        mapFields.put("serviceId", Integer.toString(templateId));
+        mapFields.put("providerId", Integer.toString(providerId));
         if (serviceName.length()>25)
-            mapFields.put("ShortServiceName", serviceName.substring(0, 23)+"...");
+            mapFields.put("shortServiceName", serviceName.substring(0, 23)+"...");
         else
-            mapFields.put("ShortServiceName", serviceName);
+            mapFields.put("shortServiceName", serviceName);
         if (description.isBlank()){
                 description = "DESC";
         }
-        mapFields.put("AverageScore", Float.toString(scoreAverage));
+        mapFields.put("averageScore", Float.toString(scoreAverage));
         if (! (providerArea == null || providerArea.isBlank()))
-            mapFields.put("ProviderArea", providerArea);
-        mapFields.put("Description", description);
+            mapFields.put("providerArea", providerArea);
+        mapFields.put("description", description);
         if (! (providerName == null || providerName.isBlank()))
-            mapFields.put("ProviderName", providerName);
+            mapFields.put("providerName", providerName);
         if (! (providerUrl == null || providerUrl.isBlank()))
-            mapFields.put("ProviderUrl", providerUrl);
+            mapFields.put("providerUrl", providerUrl);
         if (! (templateImageUrl == null || templateImageUrl.isBlank()))
-            mapFields.put("TemplateImageUrl", templateImageUrl);
+            mapFields.put("templateImageUrl", templateImageUrl);
         DecimalFormatSymbols symbols = new DecimalFormatSymbols();
         symbols.setDecimalSeparator(',');
         DecimalFormat format = new DecimalFormat();
@@ -108,15 +108,15 @@ public class ServiceInformation {
         format.setMinimumFractionDigits(2);
         format.setMaximumFractionDigits(2);
         if (! (providerImageUrl == null || providerImageUrl.isBlank()))
-            mapFields.put("ProviderImageUrl", providerImageUrl);
+            mapFields.put("providerImageUrl", providerImageUrl);
         if (!(reviews == null || reviews.size() == 0)){
             ArrayList<String> toJoin = new ArrayList<String>();
             for (ReviewInfomation si : reviews){
                 toJoin.add(si.toJson());
             }
-            mapFields.put("Reviews", Utils.joinJsonArray(toJoin));
+            mapFields.put("reviews", Utils.joinJsonArray(toJoin));
         }
-        mapFields.put("CostPerHour", "R$"+format.format(costPerHour)+"/hr");
+        mapFields.put("costPerHour", "R$"+format.format(costPerHour)+"/hr");
         return Utils.toJson(mapFields);
     }
     public String getDescription() {
@@ -230,20 +230,20 @@ public class ServiceInformation {
         this.availableDays = availableDays;
     }
 
-    public Time[] getFrom() {
-        return from;
+    public Time[] getAvailableFroms() {
+        return availableFroms;
     }
 
-    public void setFrom(Time[] from) {
-        this.from = from;
+    public void setAvailableFroms(Time[] from) {
+        this.availableFroms = from;
     }
 
-    public Time[] getTo() {
-        return to;
+    public Time[] getAvailableTos() {
+        return availableTos;
     }
 
-    public void setTo(Time[] to) {
-        this.to = to;
+    public void setAvailableTos(Time[] to) {
+        this.availableTos = to;
     }
 
     

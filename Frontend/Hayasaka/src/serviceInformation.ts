@@ -1,15 +1,15 @@
 import { ReviewInformation } from "./reviewInformation";
 
 export class ServiceInformation{
-    ServiceName:string; Description:string; ProviderName:string; ProviderUrl:string; ProviderImageUrl:string;
-    ShortServiceName:string;
-    CostPerHour:string;
-    ProviderId:number;
-    ProviderArea:string;
-    AverageScore:number;
-    ServiceId:number;
-    Modality:number;Category:number;
-    AvailableDays:boolean[]; AvailableFroms:string[]; AvailableTos:string[];
-    TemplateImageUrl:string;
-    Reviews:ReviewInformation[];
+    serviceName:string; description:string; providerName:string; providerUrl:string; providerImageUrl:string;
+    shortServiceName:string;
+    costPerHour:string;
+    providerId:number;
+    providerArea:string;
+    averageScore:number;
+    serviceId:number;
+    modality:number;category:number;
+    availableDays:boolean[]; availableFroms:string[]; availableTos:string[];
+    templateImageUrl:string;
+    reviews:ReviewInformation[];
 }

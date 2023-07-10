@@ -7,6 +7,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 import info.UserConnection;
+import managers.DatabaseConnection;
 import managers.UserConnectionManager;
 import managers.Utils;
 
@@ -21,6 +22,7 @@ public class AppInteractionHandler implements HttpHandler{
             
             //é um refresh
             if (params == null){
+                UserConnectionManager.getInformation(exchange.getRemoteAddress().getHostString()).setServiceRecs(DatabaseConnection.getServiceRecommendations(UserConnectionManager.getInformation(exchange.getRemoteAddress().getHostString()).getUserId()));
                 new InitHandler().sendInitialContent("/", exchange);
                 return;
             }

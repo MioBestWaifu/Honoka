@@ -13,7 +13,7 @@ public class ClientServiceInteraction {
     public ClientServiceInteraction(){}
 
     public ClientServiceInteraction(String json){
-        var map = Utils.mapJson(json);
+        var map = Utils.mapJson(json, this.getClass());
         if (map.containsKey("isAccepted"))
             isAccepted = Boolean.parseBoolean(map.get("isAccepted"));
         if (map.containsKey("hasFinished"))

@@ -5,15 +5,15 @@
         <div class="flexbox">
             <div style="width: 100%;">
                 <div id="bordas">
-                    <img [src]="info.TemplateImageUrl" alt="" class="roseBorder">
+                    <img [src]="info.templateImageUrl" alt="" class="roseBorder">
                     <div id="nameDiv">
-                        <p [textContent]="info.ServiceName" class="titleText"></p>
-                        <app-star-rating [rating]="info.AverageScore" [imgWidth]="w"></app-star-rating>
+                        <p [textContent]="info.serviceName" class="titleText"></p>
+                        <app-star-rating [rating]="info.averageScore" [imgWidth]="w"></app-star-rating>
                         <!-- Botar link pra pag de areas qnd tiver -->
-                        <p [textContent]="info.ProviderName" class="standardText highlightText" id="providerText" [routerLink]="['/users',info.ProviderId]"></p>
+                        <p [textContent]="info.providerName" class="standardText highlightText" id="providerText" [routerLink]="['/users',info.providerId]"></p>
                     </div>
                 </div>
             </div>
-            <app-review-lateral-list [reviews]="info.Reviews"></app-review-lateral-list>
+            <app-review-lateral-list [reviews]="info.reviews"></app-review-lateral-list>
     </div>
 </div>

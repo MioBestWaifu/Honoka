@@ -74,10 +74,10 @@ public abstract class DatabaseConnection {
         try {
             var st = conn.prepareStatement("SELECT idUser, name, birthday, gender, profileUrl,area FROM user WHERE user.email = ? OR user.idUser = ?");
             st.setString(1, info.getEmail());
-            st.setInt(2, info.getId());
+            st.setInt(2, info.getUserId());
             var result = st.executeQuery();
             result.next();
-            info.setId(result.getInt("idUser"));
+            info.setUserId(result.getInt("idUser"));
             info.setName(result.getString("name"));
             info.setBirthday(result.getDate("birthday"));
             info.setGender(result.getString("gender"));
@@ -102,7 +102,7 @@ public abstract class DatabaseConnection {
 
     private static UserInformation userFromId(int id){
         UserInformation user = new UserInformation();
-        user.setId(id);
+        user.setUserId(id);
         return user;
     }
 
@@ -131,7 +131,7 @@ public abstract class DatabaseConnection {
     public static UserInformation getActiveUserInformation(UserInformation info){
         info = getBasicUserInformation(info);
         info = getSensitiveUserInformation(info);
-        info.setReccomendations(getServiceRecommendations(info.getId()));
+        info.setServiceRecs(getServiceRecommendations(info.getUserId()));
         return info;
     }
 
@@ -157,7 +157,7 @@ public abstract class DatabaseConnection {
         st.setString(2, info.getEmail());
         st.setString(3, info.getPassword());
         st.setDate(4, info.getBirthday());
-        st.setString(5, info.getId()+".png");
+        st.setString(5, info.getUserId()+".png");
         st.setString(6, info.getGender());
         st.setInt(7, info.getArea());
         int rowsAffected = st.executeUpdate();
@@ -181,7 +181,7 @@ public abstract class DatabaseConnection {
 
             for(int a = 0; a<=6;a++){
                 if (info.getAvailableDays()[a] == true){
-                    addAvailability(getLastCreatedService(info.getProviderId()), a, info.getFrom()[a], info.getTo()[a]);
+                    addAvailability(getLastCreatedService(info.getProviderId()), a, info.getAvailableFroms()[a], info.getAvailableTos()[a]);
                 }
             }
 
@@ -209,7 +209,7 @@ public abstract class DatabaseConnection {
         }
     }
 
-    private static ArrayList<ServiceBundle> getServiceRecommendations(int userCode){
+    public static ArrayList<ServiceBundle> getServiceRecommendations(int userCode){
         ArrayList<ServiceBundle> toReturn = new ArrayList<>();
         ArrayList<ServiceInformation> buffer = new ArrayList<>();
         ArrayList<Integer> available = new ArrayList<>(serviceIds.size());
@@ -405,13 +405,13 @@ public abstract class DatabaseConnection {
     public static UserInformation getUserServices(UserInformation info){
         try{
             var st = conn.prepareStatement("SELECT idServiceTemplates, costPerHour, description, serviceName, templateImageUrl FROM servicetemplates WHERE idProvider = ?");
-            st.setInt(1, info.getId());
+            st.setInt(1, info.getUserId());
             var res = st.executeQuery();
             ArrayList<ServiceInformation> toAdd = new ArrayList<>();
             ServiceInformation buffer;
             while (res.next()){
                 buffer = new ServiceInformation();
-                buffer.setProviderId(info.getId());
+                buffer.setProviderId(info.getUserId());
                 buffer.setTemplateId(res.getInt("idServiceTemplates"));
                 buffer.setCostPerHour(res.getFloat("costPerHour"));
                 buffer.setDescription(res.getString("description"));
@@ -430,7 +430,7 @@ public abstract class DatabaseConnection {
     public static UserInformation getUserReviews(UserInformation info){
         try{
             var st = conn.prepareStatement("SELECT idreviewer, score, comment FROM userreviews WHERE idtarget = ?");
-            st.setInt(1, info.getId());
+            st.setInt(1, info.getUserId());
             var res = st.executeQuery();
             ArrayList<ReviewInfomation> toAdd = new ArrayList<>();
             ReviewInfomation buffer;
@@ -441,7 +441,7 @@ public abstract class DatabaseConnection {
                 buffer.setScore(res.getInt("score"));
                 buffer.setComment(res.getString("comment"));
                 UserInformation x = new UserInformation();
-                x.setId(res.getInt("idreviewer"));
+                x.setUserId(res.getInt("idreviewer"));
                 buffer.setReviewer(getBasicUserInformation(x));
                 toAdd.add(buffer);
             }
@@ -473,7 +473,7 @@ public abstract class DatabaseConnection {
                 buffer.setScore(res.getInt("score"));
                 buffer.setComment(res.getString("comment"));
                 UserInformation x = new UserInformation();
-                x.setId(res.getInt("idclient"));
+                x.setUserId(res.getInt("idclient"));
                 buffer.setReviewer(getBasicUserInformation(x));
                 toAdd.add(buffer);
             }
@@ -508,6 +508,7 @@ public abstract class DatabaseConnection {
         ServiceInformation info = serviceFromId(id);
         info = getBasicServiceInformation(info);
         info = getServiceReviews(info);
+        DatabaseConnection.GetServiceAvailability(info);
         return info;
     }
 
@@ -554,7 +555,49 @@ public abstract class DatabaseConnection {
     }
 
     public static void addNewServiceRequest(ClientServiceInteraction info){
+        try{
+            var st = conn.prepareStatement("INSERT INTO servicerequests (templateID, clientID, start, end, cost) VALUES (?,?,?,?,?)");
+            st.setInt(1, info.getTemplateId());
+            st.setInt(2, info.getClientId());
+            st.setDate(3, info.getStart());
+            st.setDate(4, info.getEnd());
+            st.setFloat(5, info.getCost());
+            st.executeUpdate();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 
+    public static void GetServiceAvailability(ServiceInformation info){
+        try{
+            var st = conn.prepareStatement("SELECT * FROM serviceavailability WHERE templateID = ?");
+            st.setInt(1, info.getTemplateId());
+            var res = st.executeQuery();
+            boolean[] days = new boolean[7];
+            Time[] from = new Time[7];
+            Time[] to = new Time[7];
+            int i;
+            if(res.next()){
+                i = res.getInt("weekday");
+                days[i] = true;
+                from[i] = res.getTime("startHour");
+                to[i] = res.getTime("endHour");
+            } else {
+                //for (int a = 0; a<=6; a++){
+                    //days[a] = false;
+                    //from[a] = new Time(0,0,0);
+                    //to[a] = new Time(0, 0, 0);
+                //}
+            }
+            info.setAvailableDays(days);
+            info.setAvailableFroms(from);
+            info.setAvailableTos(to);
+
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
 

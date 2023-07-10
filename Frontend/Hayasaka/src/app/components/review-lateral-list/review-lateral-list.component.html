@@ -4,9 +4,9 @@
 <ol>
     <li *ngFor="let x of reviews">
         <div>
-            <p [textContent]="x.Reviewer.Name" class="standardText roseText"></p>
-            <app-star-rating [rating]="x.Score" [imgWidth]="starWidth"></app-star-rating>
-            <p [textContent]="x.Comment" class="standardText"></p>
+            <p [textContent]="x.reviewer.name" class="standardText roseText"></p>
+            <app-star-rating [rating]="x.score" [imgWidth]="starWidth"></app-star-rating>
+            <p [textContent]="x.comment" class="standardText"></p>
         </div>
     </li>
 </ol>

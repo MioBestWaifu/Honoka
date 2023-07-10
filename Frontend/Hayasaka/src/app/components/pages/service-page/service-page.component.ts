@@ -29,6 +29,7 @@ export class ServicePageComponent implements OnInit{
    })
    const x = await firstValueFrom (this.conn.SetLastPage("/services/"+this.id))
    this.info = await firstValueFrom(this.conn.GetService(this.id.toString()))
+   this.buffer.lastService = this.info;
   }
 
 }

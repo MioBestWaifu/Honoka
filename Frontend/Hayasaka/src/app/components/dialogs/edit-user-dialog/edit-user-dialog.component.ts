@@ -16,7 +16,7 @@ export class EditUserDialogComponent {
   public newName:string;
   public croppedImage: any = '';
     constructor(public buffer:BufferserviceService, private dialog:MatDialog, private conn:ServerConnectionService){
-      this.croppedImage = buffer.userInfo.ImageUrl;
+      this.croppedImage = buffer.userInfo.imageUrl;
     }
 
   fileChangeEvent(event: any): void {
@@ -39,7 +39,7 @@ export class EditUserDialogComponent {
     this.dialog.closeAll();
   } 
   async save(){
-    if (this.croppedImage != this.buffer.userInfo.ImageUrl){
+    if (this.croppedImage != this.buffer.userInfo.imageUrl){
       var response = await firstValueFrom(this.conn.TryToUpdateUserPicture(this));
       if(response.status != 201){
         this.dialog.open(FailedUpdateDialogComponent)

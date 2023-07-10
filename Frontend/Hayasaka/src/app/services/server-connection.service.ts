@@ -53,14 +53,14 @@ export class ServerConnectionService {
 
   TryToCreateService(dia:CreateServiceDialogComponent):Observable<HttpResponse<string>>{
     const x = new ServiceInformation();
-    x.ServiceName = dia.name;
-    x.Description = dia.description;
-    x.CostPerHour = dia.cost.toString();
-    x.Category = dia.cat;
-    x.Modality = dia.mod;
-    x.AvailableDays = dia.availableDays;
-    x.AvailableFroms = dia.availableFroms;
-    x.AvailableTos = dia.availableTos;
+    x.serviceName = dia.name;
+    x.description = dia.description;
+    x.costPerHour = dia.cost.toString();
+    x.category = dia.cat;
+    x.modality = dia.mod;
+    x.availableDays = dia.availableDays;
+    x.availableFroms = dia.availableFroms;
+    x.availableTos = dia.availableTos;
     return this.http.post(this.requestsUrl+"services?type=create",JSON.stringify(x),{observe:'response',responseType: 'text'});
   }
 

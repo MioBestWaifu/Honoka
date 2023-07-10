@@ -12,19 +12,19 @@ import managers.Utils;
 
 public class UserInformation {
     String email, password, gender,name,imageUrl;
-    int id, area;
+    int userId, area;
     float averageScore;
     String areaName;
     boolean providingService;
     Date birthday;
-    ArrayList<ServiceBundle> reccomendations;
+    ArrayList<ServiceBundle> serviceRecs;
     ArrayList<ServiceInformation> services;
     ArrayList<ReviewInfomation> reviews;
     public UserInformation(){
 
     }
     public UserInformation(String json){
-    var map = Utils.mapJson(json);
+    var map = Utils.mapJson(json, this.getClass());
     if (map.containsKey("email"))
         email = map.get("email");
     if (map.containsKey("name"))
@@ -33,8 +33,8 @@ public class UserInformation {
         name = map.get("username");
     if (map.containsKey("password"))
         password = map.get("password");
-    if (map.containsKey("id"))
-        id = Integer.parseInt(map.get("id"));
+    if (map.containsKey("userId"))
+        userId = Integer.parseInt(map.get("userId"));
     if (map.containsKey("gender"))
         gender = map.get("gender");
     if (map.containsKey("area"))
@@ -48,41 +48,41 @@ public class UserInformation {
     public String toJson(){
         HashMap<String,String> mapFields = new HashMap<>();
         if (email != null)
-            mapFields.put("Email", email);
+            mapFields.put("email", email);
         if (imageUrl != null)
-            mapFields.put("ImageUrl", imageUrl);
+            mapFields.put("imageUrl", imageUrl);
         if (name != null)
-            mapFields.put("Name", name);
+            mapFields.put("name", name);
         //Essa porra é confusa
         if (areaName != null)
-            mapFields.put("Area", areaName);
+            mapFields.put("area", areaName);
         if (gender != null)
-            mapFields.put("Gender", gender);
-        mapFields.put("ProvidingService", Boolean.toString(providingService));
+            mapFields.put("gender", gender);
+        mapFields.put("providingService", Boolean.toString(providingService));
         if (birthday != null)
-            mapFields.put("Birthday", birthday.toString());
+            mapFields.put("birthday", birthday.toString());
         if (averageScore != 0f)
-            mapFields.put("AverageScore", Float.toString(averageScore));
-        if (!(reccomendations == null || reccomendations.size() == 0)){
+            mapFields.put("averageScore", Float.toString(averageScore));
+        if (!(serviceRecs == null || serviceRecs.size() == 0)){
             ArrayList<String> toJoin = new ArrayList<String>();
-            for (ServiceBundle si : reccomendations){
+            for (ServiceBundle si : serviceRecs){
                 toJoin.add(si.toJson());
             }
-            mapFields.put("ServiceRecs", Utils.joinJsonArray(toJoin));
+            mapFields.put("serviceRecs", Utils.joinJsonArray(toJoin));
         }
         if (!(services == null || services.size() == 0)){
             ArrayList<String> toJoin = new ArrayList<String>();
             for (ServiceInformation si : services){
                 toJoin.add(si.toJson());
             }
-            mapFields.put("Services", Utils.joinJsonArray(toJoin));
+            mapFields.put("services", Utils.joinJsonArray(toJoin));
         }
         if (!(reviews == null || reviews.size() == 0)){
             ArrayList<String> toJoin = new ArrayList<String>();
             for (ReviewInfomation si : reviews){
                 toJoin.add(si.toJson());
             }
-            mapFields.put("Reviews", Utils.joinJsonArray(toJoin));
+            mapFields.put("seviews", Utils.joinJsonArray(toJoin));
         }
         String toReturn = Utils.toJson(mapFields);
         
@@ -111,12 +111,12 @@ public class UserInformation {
         this.gender = genre;
     }
 
-    public int getId() {
-        return id;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUserId(int id) {
+        this.userId = id;
     }
 
     public boolean isProvidingService() {
@@ -140,11 +140,11 @@ public class UserInformation {
     public void setName(String name) {
         this.name = name;
     }
-    public ArrayList<ServiceBundle> getReccomendations() {
-        return reccomendations;
+    public ArrayList<ServiceBundle> getServiceRecs() {
+        return serviceRecs;
     }
-    public void setReccomendations(ArrayList<ServiceBundle> reccomendations) {
-        this.reccomendations = reccomendations;
+    public void setServiceRecs(ArrayList<ServiceBundle> reccomendations) {
+        this.serviceRecs = reccomendations;
     }
     public String getImageUrl() {
         return imageUrl;

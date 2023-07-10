@@ -13,7 +13,7 @@ public class ReviewInfomation {
     public ReviewInfomation(){}
 
     public ReviewInfomation(String json){
-        var map = Utils.mapJson(json);
+        var map = Utils.mapJson(json,this.getClass());
         if (map.containsKey("score")){
             score = Integer.parseInt(map.get("score"));
         }
@@ -25,7 +25,7 @@ public class ReviewInfomation {
         }
         if(map.containsKey("reviewerCode")){
             UserInformation toadd = new UserInformation();
-            toadd.setId(Integer.parseInt(map.get("reviewerCode")));
+            toadd.setUserId(Integer.parseInt(map.get("reviewerCode")));
             reviewer = toadd;
         }
     }
@@ -33,12 +33,12 @@ public class ReviewInfomation {
     public String toJson(){
         HashMap<String,String> toMap = new HashMap<>();
         if (!(reviewer == null)){
-            toMap.put("Reviewer", reviewer.toJson());
+            toMap.put("reviewer", reviewer.toJson());
         }
         if (!(comment == null || comment.isBlank())){
-            toMap.put("Comment", comment);
+            toMap.put("comment", comment);
         }
-         toMap.put("Score", Integer.toString(score));
+         toMap.put("score", Integer.toString(score));
 
          return Utils.toJson(toMap);
     }

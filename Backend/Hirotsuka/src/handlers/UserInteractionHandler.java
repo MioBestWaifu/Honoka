@@ -45,7 +45,7 @@ public class UserInteractionHandler implements HttpHandler{
     }
 
     public boolean validateRequest(ClientServiceInteraction info, UserInformation client){
-        if (info.getCost() <= DatabaseConnection.getCredits(client.getId())){
+        if (info.getCost() <= DatabaseConnection.getCredits(client.getUserId())){
             //CHECAR SE O CLIENTE JA TEM UM REQUEST OU INSTANCE PARA AQUELA HORA
             return true;
         } else{
