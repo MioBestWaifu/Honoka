@@ -1,5 +1,6 @@
 package info;
 
+import java.sql.Time;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
@@ -11,7 +12,9 @@ public class ServiceInformation {
     private String serviceName,description, providerName, providerUrl, providerImageUrl, providerArea, templateImageUrl;
     private float costPerHour;
     private float scoreAverage;
-    private int providerId, templateId;
+    private int providerId, templateId, modality, category;
+    private boolean[] availableDays;
+    private Time[] from, to;
     private ArrayList<ReviewInfomation> reviews;
     
     public ServiceInformation(){}
@@ -23,8 +26,16 @@ public class ServiceInformation {
             providerId = Integer.parseInt(map.get("providerId"));
         }
 
+        if(map.containsKey("modality")){
+            modality = Integer.parseInt(map.get("modality"));
+        }
+
+        if(map.containsKey("category")){
+            category = Integer.parseInt(map.get("category"));
+        }
+
         if(map.containsKey("serviceName")){
-            serviceName = map.get("providerId");
+            serviceName = map.get("serviceName");
         }
 
         if(map.containsKey("description")){
@@ -33,6 +44,38 @@ public class ServiceInformation {
 
         if(map.containsKey("costPerHour")){
             costPerHour = Float.parseFloat(map.get("costPerHour"));
+        }
+
+        if(map.containsKey("availableDays")){
+            availableDays = new boolean[7];
+            String[] s = Utils.breakJsonArray(map.get("availableDays"));
+            for (int a = 0; a<=6;a++){
+                availableDays[a] = Boolean.parseBoolean(s[a]);
+            }
+        }
+
+        if(map.containsKey("availableFroms")){
+            from = new Time[7];
+            String[] s = Utils.breakJsonArray(map.get("availableFroms"));
+            for (int a = 0; a<=6;a++){
+                if (!s[a].equals("null"))
+                    s[a] = s[a]+":00";
+                else 
+                    s[a] = "00:00:00";
+                from[a] = Time.valueOf((s[a]));
+            }
+        }
+
+        if(map.containsKey("availableTos")){
+            to = new Time[7];
+            String[] s = Utils.breakJsonArray(map.get("availableTos"));
+            for (int a = 0; a<=6;a++){
+                if (!s[a].equals("null"))
+                    s[a] = s[a]+":00";
+                else 
+                    s[a] = "00:00:00";
+                to[a] = Time.valueOf((s[a]));
+            }
         }
     }
 
@@ -162,4 +205,46 @@ public class ServiceInformation {
             setScoreAverage(x);
         }
     }
+
+    public int getModality() {
+        return modality;
+    }
+
+    public void setModality(int modality) {
+        this.modality = modality;
+    }
+
+    public int getCategory() {
+        return category;
+    }
+
+    public void setCategory(int category) {
+        this.category = category;
+    }
+
+    public boolean[] getAvailableDays() {
+        return availableDays;
+    }
+
+    public void setAvailableDays(boolean[] availableDays) {
+        this.availableDays = availableDays;
+    }
+
+    public Time[] getFrom() {
+        return from;
+    }
+
+    public void setFrom(Time[] from) {
+        this.from = from;
+    }
+
+    public Time[] getTo() {
+        return to;
+    }
+
+    public void setTo(Time[] to) {
+        this.to = to;
+    }
+
+    
 }

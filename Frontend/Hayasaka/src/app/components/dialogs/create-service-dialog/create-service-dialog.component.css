@@ -1,0 +1,5 @@
+.unselected{
+    background-color: var(--font-color);
+}.selected{
+    background-color: var(--rose);
+}

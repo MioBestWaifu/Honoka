@@ -3,6 +3,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -168,16 +169,41 @@ public abstract class DatabaseConnection {
 
     public static boolean tryToAddServiceTemplate(ServiceInformation info){
         try {
-            var st = conn.prepareStatement("INSERT INTO serviceTemplates (idProvider,serviceName,description,costPerHour)"+
-            "VALUES (?,?,?,?)");
+            var st = conn.prepareStatement("INSERT INTO serviceTemplates (idProvider,serviceName,description,costPerHour,serviceModality,serviceCategory)"+
+            "VALUES (?,?,?,?,?,?)");
             st.setInt(1, info.getProviderId());
             st.setString(2, info.getServiceName());
             st.setString(3, info.getDescription());
             st.setFloat(4, info.getCostPerHour());
-            return st.executeUpdate() >0;
+            st.setInt(5, info.getModality());
+            st.setInt(6, info.getCategory());
+            var creation =  st.executeUpdate()>0;
+
+            for(int a = 0; a<=6;a++){
+                if (info.getAvailableDays()[a] == true){
+                    addAvailability(getLastCreatedService(info.getProviderId()), a, info.getFrom()[a], info.getTo()[a]);
+                }
+            }
+
+            return creation;
             
         } catch (SQLException e) {
             // TODO Auto-generated catch block
+            System.out.println("CAT"+info.getCategory());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static boolean addAvailability(int templateId, int weekday, Time from, Time to){
+        try {
+            var st = conn.prepareStatement("INSERT INTO serviceavailability (templateID, weekday,startHour,endHour) VALUES (?,?,?,?)");
+            st.setInt(1, templateId);
+            st.setInt(2, weekday);
+            st.setTime(3, from);
+            st.setTime(4, to);
+            return st.executeUpdate()>0;
+        } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
@@ -285,6 +311,19 @@ public abstract class DatabaseConnection {
         }
     }
 
+    public static boolean tryToUpdateServiceImageUrl(int id, String newUrl){
+        try{
+            var st = conn.prepareStatement("UPDATE serviceTemplates SET templateImageUrl = ? WHERE idServiceTemplates = ?");
+            st.setString(1, newUrl);
+            st.setInt(2, id);
+            var rst = st.executeUpdate();
+            return rst == 1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public static boolean tryToUpdateUserArea(int userId, int areaId){
         try{
             var st = conn.prepareStatement("UPDATE user SET area = ? WHERE idUser = ?");
@@ -342,22 +381,20 @@ public abstract class DatabaseConnection {
         }
     }
 
-    public static String GetAreas(){
+    public static String GetGenericInfo(String table, String id, String name){
         try{
-            var st = conn.prepareStatement("SELECT * FROM area");
+            var st = conn.prepareStatement("SELECT * FROM "+table);
             var rst = st.executeQuery();
             ArrayList<String> toJoin = new ArrayList<>();
             HashMap<String,String> buff = new HashMap<>();
             while(rst.next()){
-                buff.put("Id", rst.getString("idArea"));
-                buff.put("Name", rst.getString("name"));
+                buff.put("Id", rst.getString(id));
+                buff.put("Name", rst.getString(name));
                 toJoin.add(Utils.toJson(buff));
             }
 
             var toSend = Utils.joinJsonArray(toJoin);
-            //buff = new HashMap<>();
-            //buff.put("AreaInfos", toSend);
-            //return Utils.toJson(buff);
+            System.out.println(toSend);
             return toSend;
         } catch (SQLException ex){
             ex.printStackTrace();
@@ -485,6 +522,34 @@ public abstract class DatabaseConnection {
             // TODO Auto-generated catch block
             e.printStackTrace();
             return 0;
+        }
+    }
+
+    public static int getLastCreatedService(int creator){
+        try {
+            var st = conn.prepareStatement("SELECT idServiceTemplates FROM serviceTemplates WHERE idProvider = ? ORDER BY idServiceTemplates DESC LIMIT 1");
+            st.setInt(1, creator);
+            var res = st.executeQuery();
+            res.next();
+            return res.getInt("idServiceTemplates");
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    public static String getServiceImageUrl(int id){
+        try {
+            var st = conn.prepareStatement("SELECT templateImageUrl FROM serviceTemplates WHERE idServiceTemplates = ?");
+            st.setInt(1, id);
+            var res = st.executeQuery();
+            res.next();
+            return res.getString("templateImageUrl");
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return null;
         }
     }
 

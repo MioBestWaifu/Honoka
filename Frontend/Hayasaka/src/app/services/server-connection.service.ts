@@ -11,8 +11,9 @@ import { RegisterFormsComponent } from '../components/register-forms/register-fo
 import { RegisterTemplate } from 'src/registerTemplate';
 import { EditUserDialogComponent } from '../components/dialogs/edit-user-dialog/edit-user-dialog.component';
 import {base64ToFile } from 'ngx-image-cropper';
-import { AreaInformation } from 'src/areaInformation';
+import { GenericInformation } from 'src/genericInformation';
 import { ServiceInformation } from 'src/serviceInformation';
+import { CreateServiceDialogComponent } from '../components/dialogs/create-service-dialog/create-service-dialog.component';
 
 @Injectable({
   providedIn: 'root'
@@ -50,6 +51,23 @@ export class ServerConnectionService {
     return this.http.post(this.requestsUrl+"registering",JSON.stringify(forms),{observe:'response',responseType: 'text'});
   }
 
+  TryToCreateService(dia:CreateServiceDialogComponent):Observable<HttpResponse<string>>{
+    const x = new ServiceInformation();
+    x.ServiceName = dia.name;
+    x.Description = dia.description;
+    x.CostPerHour = dia.cost.toString();
+    x.Category = dia.cat;
+    x.Modality = dia.mod;
+    x.AvailableDays = dia.availableDays;
+    x.AvailableFroms = dia.availableFroms;
+    x.AvailableTos = dia.availableTos;
+    return this.http.post(this.requestsUrl+"services?type=create",JSON.stringify(x),{observe:'response',responseType: 'text'});
+  }
+
+  TryToUpdateServicePicture(image:string,id:number):Observable<HttpResponse<string>>{
+    return this.http.post(this.requestsUrl+"services?type=imageUpdate&id="+id,base64ToFile(image),{observe:'response',responseType: 'text'});
+  }
+
   TryToUpdateUserPicture(dia:EditUserDialogComponent):Observable<HttpResponse<string>>{
     return this.http.post(this.requestsUrl+"personal?type=imageUpdate",base64ToFile(dia.croppedImage),{observe:'response',responseType: 'text'});
   }
@@ -62,8 +80,14 @@ export class ServerConnectionService {
     return this.http.get<UserInformation>(this.requestsUrl+"personal?type=reload");
   }
 
-  GetAreas():Observable<AreaInformation[]>{
-    return this.http.get<AreaInformation[]>(this.requestsUrl+"areas");
+  GetAreas():Observable<GenericInformation[]>{
+    return this.http.get<GenericInformation[]>(this.requestsUrl+"info?type=request&category=areas");
+  }
+  GetModalities():Observable<GenericInformation[]>{
+    return this.http.get<GenericInformation[]>(this.requestsUrl+"info?type=request&category=mod");
+  }
+  GetCategories():Observable<GenericInformation[]>{
+    return this.http.get<GenericInformation[]>(this.requestsUrl+"info?type=request&category=cat");
   }
 
   GetUser(id:string):Observable<UserInformation>{

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AreaInformation } from 'src/areaInformation';
+import { GenericInformation } from 'src/genericInformation';
 import { UserInformation } from 'src/userInformation';
 import { ServerConnectionService } from './server-connection.service';
 

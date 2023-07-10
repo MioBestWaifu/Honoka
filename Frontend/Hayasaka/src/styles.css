@@ -60,6 +60,8 @@
 }.flexbox{
     position: relative;
     display: flex;
+}.verticalFlex{
+    flex-direction: column;
 }.formTemplate{
     margin: auto;
     padding: 1%;

@@ -1,0 +1,90 @@
+<div class="roseBorder">
+    <h2 mat-dialog-title>Create new service</h2>
+    <mat-dialog-content>
+        <div class="flexbox">
+            <img [src]="croppedImage" alt="" style="height: 20vw; width: 20vw;">
+            <image-cropper
+            style="max-height: 20vw; max-width: 70vw;"
+            [imageChangedEvent]="imageChangedEvent"
+            [maintainAspectRatio]="true"
+            [aspectRatio]="1/1"
+            format="png"
+            (imageCropped)="imageCropped($event)"
+            (imageLoaded)="imageLoaded()"
+            (cropperReady)="cropperReady()"
+            (loadImageFailed)="loadImageFailed()"
+            ></image-cropper>
+        </div>
+        <input type="file" class="imageInput" accept="image/*" (change)="fileChangeEvent($event)"/>
+        <div class="flexbox centerHor">
+            <div>
+                <p class="standardText reverseText centerHor">Availability</p>
+                <div class="flexbox">
+                    <button (click)="dayBtnClicked(0)" [class.selected]="availableDays[0]" [class.unselected]="!availableDays[0]">Mon</button> 
+                    <div class="flexbox" id="hour0" style="display: none;">
+                        <label>From:</label><input type="time" name="From" [(ngModel)]="availableFroms[0]"><label>To:</label><input type="time" [min]="availableFroms[0]" name="To" [(ngModel)]="availableTos[0]">
+                    </div>
+                </div>
+                <div class="flexbox">
+                    <button (click)="dayBtnClicked(1)" [class.selected]="availableDays[1]" [class.unselected]="!availableDays[1]">Tue</button>
+                    <div class="flexbox" id="hour1" style="display: none;">
+                        <label>From:</label><input type="time" name="From" [(ngModel)]="availableFroms[1]"><label>To:</label><input type="time" [min]="availableFroms[1]" name="To" [(ngModel)]="availableTos[1]">
+                    </div>
+                </div>
+                <div class="flexbox">
+                    <button (click)="dayBtnClicked(2)" [class.selected]="availableDays[2]" [class.unselected]="!availableDays[2]">Wed</button> 
+                    <div class = "flexbox" id="hour2" style="display: none;">
+                        <label>From:</label><input type="time" name="From" [(ngModel)]="availableFroms[2]"><label>To:</label><input type="time" [min]="availableFroms[2]" name="To" [(ngModel)]="availableTos[2]">
+                    </div>
+                </div>
+                <div class="flexbox">
+                    <button (click)="dayBtnClicked(3)" [class.selected]="availableDays[3]" [class.unselected]="!availableDays[3]">Thu</button> 
+                    <div class="flexbox" id="hour3" style="display: none;">
+                        <label>From:</label><input type="time" name="From" [(ngModel)]="availableFroms[3]"><label>To:</label><input type="time" [min]="availableFroms[3]" name="To" [(ngModel)]="availableTos[3]">
+                    </div>
+                </div>
+                <div class="flexbox">
+                    <button (click)="dayBtnClicked(4)" [class.selected]="availableDays[4]" [class.unselected]="!availableDays[4]">Fri</button> 
+                    <div class="flexbox" id="hour4" style="display: none;">
+                        <label>From:</label><input type="time" name="From" [(ngModel)]="availableFroms[4]"><label>To:</label><input type="time" [min]="availableFroms[4]" name="To" [(ngModel)]="availableTos[4]">
+                    </div>
+                </div>
+                <div class="flexbox">
+                    <button (click)="dayBtnClicked(5)" [class.selected]="availableDays[5]" [class.unselected]="!availableDays[5]">Sat</button> 
+                    <div class="flexbox" id="hour5" style="display: none;">
+                        <label>From:</label><input type="time" name="From" [(ngModel)]="availableFroms[5]"><label>To:</label><input type="time" [min]="availableFroms[5]" name="To" [(ngModel)]="availableTos[5]">
+                    </div>
+                </div>
+                <div class="flexbox">
+                    <button (click)="dayBtnClicked(6)" [class.selected]="availableDays[6]" [class.unselected]="!availableDays[6]">Sun</button> 
+                    <div class="flexbox"  id="hour6" style="display: none;">
+                        <label>From:</label><input type="time" name="From" [(ngModel)]="availableFroms[6]"><label>To:</label><input type="time" [min]="availableFroms[6]" name="To" [(ngModel)]="availableTos[6]">
+                    </div>
+                </div>
+            </div>
+            <div class="flexbox verticalFlex centerHor">
+                <p class="standardText reverseText">Settings</p>
+                <label class="standardText reverseText">Service name:</label><input type="text" placeholder="Name" maxlength="32" [(ngModel)]="name">
+                <label class="standardText reverseText">Description:</label><input type="text" placeholder="Describe what your service is like" maxlength="256" [(ngModel)]="description">
+                <label class="standardText reverseText">Cost per hour:</label><input type="number" min="0" max ="99999" step="any"  [(ngModel)]="cost">
+                <div class="formsDiv">
+                    <label for="mod" class="standardText reverseText block">Modality</label>
+                    <select name="mod" id="mod" [(ngModel)]="mod">
+                        <option *ngFor="let a of Modalities" [value]="a.Id" >{{a.Name}}</option>
+                    </select>
+                </div>
+                <div class="formsDiv">
+                    <label for="cat" class="standardText reverseText block">Category</label>
+                    <select name="cat" id="cat" [(ngModel)]="cat">
+                        <option *ngFor="let a of Categories" [value]="a.Id" >{{a.Name}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions>
+        <button class="mat-raised-button standardButton"(click)="cancel()">Cancel</button>
+        <button class="mat-raised-button mat-primary standardButton"(click)="save()">Save</button>
+    </mat-dialog-actions>
+</div>

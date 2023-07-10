@@ -29,7 +29,7 @@ public class PersonalInteractionHandler implements HttpHandler {
                     Utils.sendAndClose(exchange,200,toSend);
                     break;
                 case "imageUpdate":
-                    if (Utils.byteArrayToImage(exchange.getRemoteAddress().getHostString(),"src/raw/images/" + UserConnectionManager.getInformation(exchange.getRemoteAddress().getHostString()).getId(),"png", exchange.getRequestBody().readAllBytes())) {
+                    if (Utils.updateUserProfilePicture(exchange.getRemoteAddress().getHostString(),"src/raw/images/" + UserConnectionManager.getInformation(exchange.getRemoteAddress().getHostString()).getId(),"png", exchange.getRequestBody().readAllBytes())) {
                         exchange.getResponseHeaders().add("Content-type", "text/plain");
                         Utils.sendAndClose(exchange,201, "".getBytes(StandardCharsets.UTF_8));
                     } else {

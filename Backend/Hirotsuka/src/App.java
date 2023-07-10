@@ -5,8 +5,8 @@ import java.util.Random;
 
 import com.sun.net.httpserver.HttpServer;
 
-import handlers.AreaHandler;
 import handlers.ImageRequestHandler;
+import handlers.InfoHandler;
 import handlers.InitHandler;
 import handlers.LoginHandler;
 import handlers.AppInteractionHandler;
@@ -29,7 +29,7 @@ public class App {
         server.createContext("/registering", new RegisterHandler());
         server.createContext("/pages", new AppInteractionHandler());
         server.createContext("/images", new ImageRequestHandler());
-        server.createContext("/areas",new AreaHandler());
+        server.createContext("/info",new InfoHandler());
         server.createContext("/personal",new PersonalInteractionHandler());
         server.createContext("/users", new UserInteractionHandler());
         server.createContext("/services", new ServiceInteractionHandler());

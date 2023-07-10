@@ -7,6 +7,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 import info.ClientServiceInteraction;
+import info.ServiceInformation;
 import info.UserInformation;
 import managers.DatabaseConnection;
 import managers.UserConnectionManager;
@@ -41,9 +42,36 @@ public class ServiceInteractionHandler implements HttpHandler{
                         Utils.sendAndClose(exchange,403,"".getBytes());
                     }
                     break;
+                case "create":
+                    var x = new String(exchange.getRequestBody().readAllBytes(), StandardCharsets.UTF_8);
+                    ServiceInformation servInfo = new ServiceInformation(x);
+                    servInfo.setProviderId(UserConnectionManager.getInformation(exchange.getRemoteAddress().getHostString()).getId());
+                    if(DatabaseConnection.tryToAddServiceTemplate(servInfo)){
+                        exchange.getResponseHeaders().add("Content-type", "text/plain");
+                        Utils.sendAndClose(exchange,201,"".getBytes());
+                    } else {
+                        exchange.getResponseHeaders().add("Content-type", "text/plain");
+                        Utils.sendAndClose(exchange,500,"".getBytes());
+                    }
+                    break;
                 case "review":
                     break;
                 case "reload":
+                    break;
+                case "imageUpdate":
+                    int id = Integer.parseInt(params.get("id"));
+                    if(id==-1){
+                        id = DatabaseConnection.getLastCreatedService(UserConnectionManager.getInformation(exchange.getRemoteAddress().getHostString()).getId());
+                    }
+
+                    //A função acima retorna -1 se houver erro
+                    if (id!=-1 && Utils.updateServicePicture(exchange.getRemoteAddress().getHostString(), "src/raw/images/services/"+id, "png",exchange.getRequestBody().readAllBytes())){
+                        exchange.getRequestHeaders().add("Content-type", "text/plain");
+                        Utils.sendAndClose(exchange, 201, "".getBytes());
+                    } else {
+                        exchange.getRequestHeaders().add("Content-type", "text/plain");
+                        Utils.sendAndClose(exchange, 500, "".getBytes());
+                    }
                     break;
                 default:
                     break;

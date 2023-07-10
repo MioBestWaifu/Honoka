@@ -49,14 +49,25 @@ public abstract class Utils {
 
     public static HashMap<String,String> mapJson(String json){
         HashMap<String,String> toReturn = new HashMap<>();
-        json = json.replace("\"","");
-        json = json.replace("{", "");
-        json = json.replace("}", "");
-        var pairs = json.split(",");
+        /*
+         * Buscar objetos internos e arrays e tratá-los separadamente
+         */
+        try{
+        var pairs = json.split(",\"");
+        for (int a = 0; a<pairs.length;a++){
+            pairs[a] = pairs[a].replace("{", "");
+            pairs[a] = pairs[a].replace("}", "");
+        }
         String[] buffer;
         for (String s : pairs){
-            buffer = s.split(":");
+            buffer = s.split(":\"");
+            buffer[0] = buffer[0].replace("\"","");
+            buffer[1] = buffer[1].replace("\"","");
+            buffer[0] = Character.toLowerCase(buffer[0].charAt(0))+buffer[0].substring(1, buffer[0].length());
             toReturn.put(buffer[0], buffer[1]);
+        }
+        } catch (Exception ex){
+            ex.printStackTrace();
         }
         return toReturn;
     }
@@ -90,17 +101,43 @@ public abstract class Utils {
         return bytes;
     }
 
-    public static boolean byteArrayToImage(String host,String address, String format,byte[]data){
+    public static boolean updateUserProfilePicture(String host,String baseAddress, String format,byte[]data){
+        try{
+        String time = Long.toString(System.currentTimeMillis());
+        BufferedImage bImage2 = ImageIO.read(new ByteArrayInputStream(data));
+        //BufferedImage bImage2 = ImageIO.read(bis);
+        String name = baseAddress+time+"."+format;
+        var y = baseAddress.split("/");
+        int id = Integer.parseInt(y[y.length-1]);
+
+        if (DatabaseConnection.tryToUpdateUserImageUrl(id, String.valueOf(id)+String.valueOf(time)+"."+format)){
+            ImageIO.write(bImage2, format, new File(name) );
+            var x = UserConnectionManager.getInformation(host).getImageUrl();
+            UserConnectionManager.getInformation(host).setImageUrl(String.valueOf(baseAddress.charAt(baseAddress.length()-1))+time+"."+format);
+            new File("src/raw/images/"+x.split("/")[4]).delete();
+            return true;
+        }
+
+        return false;
+        } catch (IOException ex){
+            System.out.println("Exceção update imagem");
+            System.out.println(ex.getMessage());
+            return false;
+        }
+    }
+
+    public static boolean updateServicePicture(String host,String address, String format,byte[]data){
         try{
         String time = Long.toString(System.currentTimeMillis());
         BufferedImage bImage2 = ImageIO.read(new ByteArrayInputStream(data));
         //BufferedImage bImage2 = ImageIO.read(bis);
         String name = address+time+"."+format;
+        var y = address.split("/");
+        int id = Integer.parseInt(y[y.length-1]);
 
-        if (DatabaseConnection.tryToUpdateUserImageUrl(Integer.parseInt(String.valueOf(address.charAt(address.length()-1))), String.valueOf(address.charAt(address.length()-1))+time+"."+format)){
-            ImageIO.write(bImage2, format, new File(name) );
+        if (DatabaseConnection.tryToUpdateServiceImageUrl(id, String.valueOf(id)+String.valueOf(time)+"."+format)){
+            ImageIO.write(bImage2, format, new File(name));
             var x = UserConnectionManager.getInformation(host).getImageUrl();
-            UserConnectionManager.getInformation(host).setImageUrl(String.valueOf(address.charAt(address.length()-1))+time+"."+format);
             new File("src/raw/images/"+x.split("/")[4]).delete();
             return true;
         }
@@ -122,6 +159,13 @@ public abstract class Utils {
         toReturn = toReturn.substring(0, toReturn.length()-1);
         toReturn+="]";
         return toReturn;
+    }
+
+    public static String[] breakJsonArray(String json){
+        json = json.replace("\"","");
+        json = json.replace("[", "");
+        json = json.replace("]", "");
+        return json.split(",");
     }
 
     public static int sumOfArray(ArrayList<Integer> array) {

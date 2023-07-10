@@ -32,6 +32,8 @@ import { SettingsPageComponent } from './components/pages/settings-page/settings
 import { MyServicesPageComponent } from './components/pages/my-services-page/my-services-page.component';
 import { StarRatingComponent } from './components/star-rating/star-rating.component';
 import { ReviewLateralListComponent } from './components/review-lateral-list/review-lateral-list.component';
+import { WeekdaySelectorComponent } from './components/weekday-selector/weekday-selector.component';
+import { CreateServiceDialogComponent } from './components/dialogs/create-service-dialog/create-service-dialog.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,9 @@ import { ReviewLateralListComponent } from './components/review-lateral-list/rev
     SettingsPageComponent,
     MyServicesPageComponent,
     StarRatingComponent,
-    ReviewLateralListComponent
+    ReviewLateralListComponent,
+    WeekdaySelectorComponent,
+    CreateServiceDialogComponent
   ],
   imports: [
     BrowserModule,

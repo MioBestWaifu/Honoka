@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { ServerConnectionService } from 'src/app/services/server-connection.service';
 import { RegisterTemplate } from 'src/registerTemplate';
 import { MissingInfoDialogComponent } from '../dialogs/missing-info-dialog/missing-info-dialog.component';
-import { AreaInformation } from 'src/areaInformation';
+import { GenericInformation } from 'src/genericInformation';
 
 @Component({
   selector: 'app-register-forms',
@@ -14,7 +14,7 @@ import { AreaInformation } from 'src/areaInformation';
   styleUrls: ['./register-forms.component.css']
 })
 export class RegisterFormsComponent{
-  AreaInfos:AreaInformation[];
+  AreaInfos:GenericInformation[];
   email:string;
   password:string;
   username:string;

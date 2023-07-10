@@ -1,4 +1,4 @@
-import { AreaInformation } from "./areaInformation";
+import { GenericInformation } from "./genericInformation";
 import { ReviewInformation } from "./reviewInformation";
 import { ServiceBundle } from "./serviceBundle";
 import { ServiceInformation } from "./serviceInformation";
@@ -9,7 +9,7 @@ export class UserInformation{
     Name:string;
     ImageUrl:string;
     Gender:string;
-    Area:AreaInformation;
+    Area:GenericInformation;
     Birthday:Date;
     Description:string;
     ServiceRecs:ServiceBundle[];

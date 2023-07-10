@@ -8,6 +8,8 @@ export class ServiceInformation{
     ProviderArea:string;
     AverageScore:number;
     ServiceId:number;
+    Modality:number;Category:number;
+    AvailableDays:boolean[]; AvailableFroms:string[]; AvailableTos:string[];
     TemplateImageUrl:string;
     Reviews:ReviewInformation[];
 }
