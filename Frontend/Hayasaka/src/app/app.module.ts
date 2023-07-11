@@ -5,7 +5,9 @@ import {HttpClientModule} from '@angular/common/http';
 import {MatDialogModule} from "@angular/material/dialog";
 import { AppRoutingModule } from './app-routing.module';
 import { ImageCropperModule } from 'ngx-image-cropper';
-
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatCardModule} from '@angular/material/card';
+import {MatNativeDateModule} from '@angular/material/core';
 
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './components/pages/login-page/login-page.component';
@@ -74,6 +76,9 @@ import { ScheduleServiceDialogComponent } from './components/dialogs/schedule-se
     BrowserAnimationsModule,
     MatDialogModule,
     ImageCropperModule,
+    MatDatepickerModule,
+    MatCardModule,
+    MatNativeDateModule
   ],
   providers: [],
   bootstrap: [AppComponent]

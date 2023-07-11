@@ -14,6 +14,9 @@ import {base64ToFile } from 'ngx-image-cropper';
 import { GenericInformation } from 'src/genericInformation';
 import { ServiceInformation } from 'src/serviceInformation';
 import { CreateServiceDialogComponent } from '../components/dialogs/create-service-dialog/create-service-dialog.component';
+import { ScheduleServiceDialogComponent } from '../components/dialogs/schedule-service-dialog/schedule-service-dialog.component';
+import { ClientServiceInteraction } from 'src/clientServiceInteraction';
+import {Utils} from 'src/utils';
 
 @Injectable({
   providedIn: 'root'
@@ -74,6 +77,23 @@ export class ServerConnectionService {
 
   TryToUpdateUserName(dia:EditUserDialogComponent):Observable<HttpResponse<string>>{
     return this.http.post(this.requestsUrl+"personal?type=nameUpdate",dia.newName,{observe:'response',responseType: 'text'});
+  }
+
+  TryToScheduleService(dia:ScheduleServiceDialogComponent):Observable<HttpResponse<string>>{
+    const x = new ClientServiceInteraction();
+    x.templateId = dia.buffer.lastService.serviceId;
+    x.cost = dia.cost;
+    x.hasFinished = false;
+    x.isAccepted = false;
+    x.startDate = Utils.DateToSqlString(dia.selected);
+    x.endDate = x.startDate;
+    console.log(x.startDate);
+    x.startTime = dia.startHour.substring(0,2)+":"+dia.startHour.substring(3,5)+":00";
+    console.log(x.startTime);
+    x.endTime = dia.endHour.substring(0,2)+":"+dia.endHour.substring(3,5)+":00";
+    console.log(x.endTime);
+
+    return this.http.post(this.requestsUrl+"services?type=schedule",JSON.stringify(x),{observe:'response',responseType: 'text'});
   }
 
   ReloadUser():Observable<UserInformation>{

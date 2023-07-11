@@ -31,15 +31,20 @@ public class ServiceInteractionHandler implements HttpHandler{
                     exchange.getResponseHeaders().add("Content-type", "application/json");
                     Utils.sendAndClose(exchange,200, DatabaseConnection.getFullServiceInformation(Integer.parseInt(params.get("id"))).toJson().getBytes(StandardCharsets.UTF_8));
                     break;
+                case "requestSchedule":
+                    exchange.getResponseHeaders().add("Content-type", "application/json");
+                    Utils.sendAndClose(exchange, 200, DatabaseConnection.getScheduleByProvider(Integer.parseInt(params.get("id"))).toJson().getBytes(StandardCharsets.UTF_8));
+                    break;
                 case "schedule":
                     ClientServiceInteraction csInfo = new ClientServiceInteraction(new String(exchange.getRequestBody().readAllBytes(), StandardCharsets.UTF_8));
                     csInfo.setClientId(UserConnectionManager.getInformation(exchange.getRemoteAddress().getHostString()).getUserId());
                     if (validateRequest(csInfo, UserConnectionManager.getInformation(exchange.getRemoteAddress().getHostString()))){
                         DatabaseConnection.addNewServiceRequest(csInfo);
                         exchange.getResponseHeaders().add("Content-type", "text/plain");
-                        Utils.sendAndClose(exchange,200,"".getBytes());
+                        Utils.sendAndClose(exchange,201,"".getBytes());
                     } else {
                         exchange.getResponseHeaders().add("Content-type", "text/plain");
+                        System.out.println("Faio");
                         Utils.sendAndClose(exchange,403,"".getBytes());
                     }
                     break;
@@ -86,8 +91,7 @@ public class ServiceInteractionHandler implements HttpHandler{
     }
 
     public boolean validateRequest(ClientServiceInteraction info, UserInformation client){
-        if (info.getCost() <= DatabaseConnection.getCredits(client.getUserId())){
-            //CHECAR SE O CLIENTE JA TEM UM REQUEST OU INSTANCE PARA AQUELA HORA
+        if (true){
             return true;
         } else{
             return false;

@@ -13,6 +13,7 @@
                         <p [textContent]="info.providerName" class="standardText highlightText" id="providerText" [routerLink]="['/users',info.providerId]"></p>
                     </div>
                 </div>
+                <button class="standardButton" (click)="schedule()">SCHEDULE</button>
             </div>
             <app-review-lateral-list [reviews]="info.reviews"></app-review-lateral-list>
     </div>

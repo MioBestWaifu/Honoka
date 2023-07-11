@@ -16,6 +16,7 @@ import info.ClientServiceInteraction;
 import info.ReviewInfomation;
 import info.ServiceBundle;
 import info.ServiceInformation;
+import info.ServiceSchedule;
 import info.UserInformation;
 
 public abstract class DatabaseConnection {
@@ -556,12 +557,15 @@ public abstract class DatabaseConnection {
 
     public static void addNewServiceRequest(ClientServiceInteraction info){
         try{
-            var st = conn.prepareStatement("INSERT INTO servicerequests (templateID, clientID, start, end, cost) VALUES (?,?,?,?,?)");
+            var st = conn.prepareStatement("INSERT INTO servicerequests (templateID, clientID, startDate, endDate, startTime, endTime,cost)"+
+             "VALUES (?,?,?,?,?,?,?)");
             st.setInt(1, info.getTemplateId());
             st.setInt(2, info.getClientId());
-            st.setDate(3, info.getStart());
-            st.setDate(4, info.getEnd());
-            st.setFloat(5, info.getCost());
+            st.setDate(3, info.getStartDate());
+            st.setDate(4, info.getEndDate());
+            st.setTime(5, info.getStartTime());
+            st.setTime(6, info.getEndTime());
+            st.setFloat(7, info.getCost());
             st.executeUpdate();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -583,6 +587,12 @@ public abstract class DatabaseConnection {
                 days[i] = true;
                 from[i] = res.getTime("startHour");
                 to[i] = res.getTime("endHour");
+                while(res.next()){
+                    i = res.getInt("weekday");
+                    days[i] = true;
+                    from[i] = res.getTime("startHour");
+                    to[i] = res.getTime("endHour");
+                }
             } else {
                 //for (int a = 0; a<=6; a++){
                     //days[a] = false;
@@ -597,6 +607,65 @@ public abstract class DatabaseConnection {
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+        }
+    }
+
+    public static ServiceSchedule getScheduleByProvider (int id){
+        try{
+            ServiceSchedule toReturn = new ServiceSchedule();
+            ArrayList<ClientServiceInteraction> buffer = new ArrayList<>();
+            var st = conn.prepareStatement("SELECT * FROM serviceinstances WHERE templateID IN (SELECT templateID FROM servicetemplates WHERE idProvider = ?)");
+            st.setInt(1, id);
+
+            var res = st.executeQuery();
+
+            ClientServiceInteraction x;
+            while (res.next()){
+                x = new ClientServiceInteraction();
+                x.setAccepted(true);
+                x.setId(res.getInt("idServiceInstances"));
+                x.setCost(res.getFloat("cost"));
+                x.setHasFinished(res.getBoolean("finished"));
+                x.setStartDate(res.getDate("startDate"));
+                x.setEndDate(res.getDate("endDate"));
+                x.setStartTime(res.getTime("startTime"));
+                x.setEndTime(res.getTime("endTime"));
+                x.setTemplateId(res.getInt("templateID"));
+                x.setClientId(res.getInt("clientID"));
+                buffer.add(x);
+            }
+
+            toReturn.setPendingInstances(buffer);
+
+            buffer = new ArrayList<>();
+
+            st = conn.prepareStatement("SELECT * FROM servicerequests WHERE templateID IN (SELECT templateID FROM servicetemplates WHERE idProvider = ?)");
+            st.setInt(1, id);
+            res = st.executeQuery(); 
+
+            while (res.next()){
+                x = new ClientServiceInteraction();
+                x.setAccepted(false);
+                x.setId(res.getInt("serviceRequestID"));
+                x.setCost(res.getFloat("cost"));
+                x.setHasFinished(false);
+                x.setStartDate(res.getDate("startDate"));
+                x.setEndDate(res.getDate("endDate"));
+                x.setStartTime(res.getTime("startTime"));
+                x.setEndTime(res.getTime("endTime"));
+                x.setTemplateId(res.getInt("templateID"));
+                x.setClientId(res.getInt("clientID"));
+                buffer.add(x);
+            }
+
+            toReturn.setPendingRequests(buffer);
+
+            return toReturn;
+            
+        } catch (SQLException ex){
+            System.out.println("EXCEÇÃO NO SERV SCHEDULE");
+            ex.printStackTrace();
+            return null;
         }
     }
 

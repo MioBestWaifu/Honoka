@@ -21,8 +21,8 @@ export class MyServicesPageComponent implements OnInit{
     const x = await firstValueFrom (this.conn.SetLastPage("/myservices"));
   }
 
-create(){
+  create(){
     const x = this.dialog.open(CreateServiceDialogComponent)
     x.updateSize("70vw","80vh")
-   }
+  }
 }

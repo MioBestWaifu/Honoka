@@ -1,13 +1,16 @@
 package info;
 
 import java.sql.Date;
+import java.sql.Time;
+import java.util.HashMap;
 
 import managers.Utils;
 
 public class ClientServiceInteraction {
     private boolean isAccepted, hasFinished;
     private int id, clientId, templateId;
-    private Date start, end;
+    private Date startDate, endDate;
+    private Time startTime, endTime;
     private float cost;
 
     public ClientServiceInteraction(){}
@@ -26,10 +29,27 @@ public class ClientServiceInteraction {
             templateId = Integer.parseInt(map.get("templateId"));
         if (map.containsKey("cost"))
             cost = Float.parseFloat(map.get("cost"));
-        if (map.containsKey("start"))
-            start = Date.valueOf(map.get("start"));
-        if (map.containsKey("end"))
-            end = Date.valueOf(map.get("end"));
+        if (map.containsKey("startDate"))
+            startDate = Date.valueOf(map.get("startDate"));
+        if (map.containsKey("endDate"))
+            endDate = Date.valueOf(map.get("endDate"));
+        if (map.containsKey("startTime"))
+            startTime = Time.valueOf(map.get("startTime"));
+        if (map.containsKey("endTime"))
+            endTime = Time.valueOf(map.get("endTime"));
+    }
+
+    public String toJson(){
+        HashMap<String,String> mapFields = new HashMap<>();
+        mapFields.put("clientId", Integer.toString(clientId));
+        mapFields.put("templateId", Integer.toString(templateId));
+        mapFields.put("cost", Float.toString(cost));
+        mapFields.put("startDate", Long.toString(startDate.getTime()));
+        mapFields.put("endDate", Long.toString(endDate.getTime()));
+        mapFields.put("startTime", startTime.toString());
+        mapFields.put("endTime", endTime.toString());
+
+        return Utils.toJson(mapFields);
     }
 
     public boolean isAccepted() {
@@ -62,23 +82,39 @@ public class ClientServiceInteraction {
     public void setTemplateId(int templateId) {
         this.templateId = templateId;
     }
-    public Date getStart() {
-        return start;
+    public Date getStartDate() {
+        return startDate;
     }
-    public void setStart(Date start) {
-        this.start = start;
+    public void setStartDate(Date start) {
+        this.startDate = start;
     }
-    public Date getEnd() {
-        return end;
+    public Date getEndDate() {
+        return endDate;
     }
-    public void setEnd(Date end) {
-        this.end = end;
+    public void setEndDate(Date end) {
+        this.endDate = end;
     }
     public float getCost() {
         return cost;
     }
     public void setCost(float cost) {
         this.cost = cost;
+    }
+
+    public Time getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Time starTime) {
+        this.startTime = starTime;
+    }
+
+    public Time getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Time endTime) {
+        this.endTime = endTime;
     }
 
     

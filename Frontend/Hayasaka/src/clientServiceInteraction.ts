@@ -1,6 +1,7 @@
 export class ClientServiceInteraction{
     isAccepted:boolean; hasFinished:boolean;
     id:number; clientId:number; templateId:number;
-    start:Date; end:Date;
+    startDate:string; endDate:string;
+    startTime:string; endTime:string;
     cost:number;
 } 

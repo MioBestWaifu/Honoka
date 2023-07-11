@@ -5,6 +5,7 @@ export class ServiceInformation{
     shortServiceName:string;
     costPerHour:string;
     providerId:number;
+    temp:number;
     providerArea:string;
     averageScore:number;
     serviceId:number;

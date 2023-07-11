@@ -116,7 +116,40 @@ public class ServiceInformation {
             }
             mapFields.put("reviews", Utils.joinJsonArray(toJoin));
         }
+        
+        if (!(availableDays == null)){
+            ArrayList<String> toJoin = new ArrayList<String>();
+            for (boolean si : availableDays){
+                toJoin.add(Boolean.toString(si));
+            }
+            mapFields.put("availableDays", Utils.joinJsonArray(toJoin));
+        }
+
+        if (!(availableFroms == null)){
+            ArrayList<String> toJoin = new ArrayList<String>();
+            for (Time si: availableFroms){
+                if(si == null){
+                    toJoin.add("\"1970-01-01:00:00:00\"");
+                } else {
+                    toJoin.add("\"1970-01-01:"+si.toString()+"\"");
+                }
+            }
+            mapFields.put("availableFroms", Utils.joinJsonArray(toJoin));
+        }
+
+        if (!(availableTos == null)){
+            ArrayList<String> toJoin = new ArrayList<String>();
+            for (Time si : availableTos){
+                if(si == null){
+                    toJoin.add("\"1970-01-01:00:00:00\"");
+                } else {
+                toJoin.add("\"1970-01-01:"+si.toString()+"\"");
+                }
+            }
+            mapFields.put("availableTos", Utils.joinJsonArray(toJoin));
+        }
         mapFields.put("costPerHour", "R$"+format.format(costPerHour)+"/hr");
+        mapFields.put("temp", Float.toString(costPerHour));
         return Utils.toJson(mapFields);
     }
     public String getDescription() {
