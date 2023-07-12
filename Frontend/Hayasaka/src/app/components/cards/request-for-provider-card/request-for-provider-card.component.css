@@ -1,0 +1,15 @@
+#main{
+    width: 65%;
+    border-style: solid;
+    border-width: 0.1vw;
+    border-color: var(--rose);
+    overflow: hidden; /* make sure it hides the content that overflows */
+    white-space: nowrap; /* don't break the line */
+    text-overflow: ellipsis; /* give the beautiful '...' effect */
+    aspect-ratio: 3.4/1;
+} img{
+    height: 100%;
+    aspect-ratio: 2/3;
+} .pad{
+    padding-left: 2%;
+}

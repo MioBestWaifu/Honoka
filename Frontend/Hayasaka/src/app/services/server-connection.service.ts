@@ -17,6 +17,7 @@ import { CreateServiceDialogComponent } from '../components/dialogs/create-servi
 import { ScheduleServiceDialogComponent } from '../components/dialogs/schedule-service-dialog/schedule-service-dialog.component';
 import { ClientServiceInteraction } from 'src/clientServiceInteraction';
 import {Utils} from 'src/utils';
+import { ServiceSchedule } from 'src/serviceSchedule';
 
 @Injectable({
   providedIn: 'root'
@@ -130,6 +131,10 @@ export class ServerConnectionService {
 
   GetTargetPage():Observable<string>{
     return this.http.get(this.requestsUrl+"pages?type=target",{responseType: 'text'});
+  }
+
+  GetSchedule():Observable<ServiceSchedule>{
+    return this.http.get<ServiceSchedule>(this.requestsUrl+"services?type=requestSchedule");
   }
 
   SetLastPage(currentPage:string):Observable<HttpResponse<string>>{

@@ -12,6 +12,8 @@ public class ClientServiceInteraction {
     private Date startDate, endDate;
     private Time startTime, endTime;
     private float cost;
+    private UserInformation client;
+    private ServiceInformation service;
 
     public ClientServiceInteraction(){}
 
@@ -44,11 +46,18 @@ public class ClientServiceInteraction {
         mapFields.put("clientId", Integer.toString(clientId));
         mapFields.put("templateId", Integer.toString(templateId));
         mapFields.put("cost", Float.toString(cost));
-        mapFields.put("startDate", Long.toString(startDate.getTime()));
-        mapFields.put("endDate", Long.toString(endDate.getTime()));
+
+        var x = startDate.toLocalDate();
+        mapFields.put("startDate",x.getDayOfMonth() + "/"+x.getMonthValue()+"/"+x.getYear());
+        x = endDate.toLocalDate();
+        mapFields.put("endDate", x.getDayOfMonth() + "/"+x.getMonthValue()+"/"+x.getYear());
+
         mapFields.put("startTime", startTime.toString());
         mapFields.put("endTime", endTime.toString());
-
+        if(client != null);
+            mapFields.put("client", client.toJson());
+        if(service != null);
+            mapFields.put("service", service.toJson());
         return Utils.toJson(mapFields);
     }
 
@@ -116,6 +125,23 @@ public class ClientServiceInteraction {
     public void setEndTime(Time endTime) {
         this.endTime = endTime;
     }
+    
 
+    public UserInformation getClient() {
+        return client;
+    }
+
+    public void setClient(UserInformation client) {
+        this.client = client;
+    }
+
+    public ServiceInformation getService() {
+        return service;
+    }
+
+    public void setService(ServiceInformation service) {
+        this.service = service;
+    }
+    
     
 }

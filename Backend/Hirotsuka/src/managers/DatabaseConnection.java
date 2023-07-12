@@ -555,6 +555,20 @@ public abstract class DatabaseConnection {
         }
     }
 
+    public static String getUserImageUrl(int id){
+        try {
+            var st = conn.prepareStatement("SELECT profileUrl FROM serviceTemplates WHERE idUser = ?");
+            st.setInt(1, id);
+            var res = st.executeQuery();
+            res.next();
+            return res.getString("profileUrl");
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public static void addNewServiceRequest(ClientServiceInteraction info){
         try{
             var st = conn.prepareStatement("INSERT INTO servicerequests (templateID, clientID, startDate, endDate, startTime, endTime,cost)"+
@@ -632,6 +646,14 @@ public abstract class DatabaseConnection {
                 x.setEndTime(res.getTime("endTime"));
                 x.setTemplateId(res.getInt("templateID"));
                 x.setClientId(res.getInt("clientID"));
+
+                var y = new UserInformation();
+                var z = new ServiceInformation();
+                z.setTemplateId(x.getTemplateId());
+                y.setUserId(x.getClientId());
+                x.setClient(DatabaseConnection.getBasicUserInformation(y));
+                x.setService(DatabaseConnection.getBasicServiceInformation(z));
+
                 buffer.add(x);
             }
 
@@ -655,6 +677,14 @@ public abstract class DatabaseConnection {
                 x.setEndTime(res.getTime("endTime"));
                 x.setTemplateId(res.getInt("templateID"));
                 x.setClientId(res.getInt("clientID"));
+
+                var y = new UserInformation();
+                var z = new ServiceInformation();
+                z.setTemplateId(x.getTemplateId());
+                y.setUserId(x.getClientId());
+                x.setClient(DatabaseConnection.getBasicUserInformation(y));
+                x.setService(DatabaseConnection.getBasicServiceInformation(z));
+                
                 buffer.add(x);
             }
 

@@ -37,6 +37,8 @@ import { ReviewLateralListComponent } from './components/review-lateral-list/rev
 import { WeekdaySelectorComponent } from './components/weekday-selector/weekday-selector.component';
 import { CreateServiceDialogComponent } from './components/dialogs/create-service-dialog/create-service-dialog.component';
 import { ScheduleServiceDialogComponent } from './components/dialogs/schedule-service-dialog/schedule-service-dialog.component';
+import { RequestForProviderCardComponent } from './components/cards/request-for-provider-card/request-for-provider-card.component';
+import { InstanceForProviderCardComponent } from './components/cards/instance-for-provider-card/instance-for-provider-card.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +68,9 @@ import { ScheduleServiceDialogComponent } from './components/dialogs/schedule-se
     ReviewLateralListComponent,
     WeekdaySelectorComponent,
     CreateServiceDialogComponent,
-    ScheduleServiceDialogComponent
+    ScheduleServiceDialogComponent,
+    RequestForProviderCardComponent,
+    InstanceForProviderCardComponent
   ],
   imports: [
     BrowserModule,

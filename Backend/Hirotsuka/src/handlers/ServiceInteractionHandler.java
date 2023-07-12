@@ -33,7 +33,7 @@ public class ServiceInteractionHandler implements HttpHandler{
                     break;
                 case "requestSchedule":
                     exchange.getResponseHeaders().add("Content-type", "application/json");
-                    Utils.sendAndClose(exchange, 200, DatabaseConnection.getScheduleByProvider(Integer.parseInt(params.get("id"))).toJson().getBytes(StandardCharsets.UTF_8));
+                    Utils.sendAndClose(exchange, 200, DatabaseConnection.getScheduleByProvider(UserConnectionManager.getInformation(exchange.getRemoteAddress().getHostString()).getUserId()).toJson().getBytes(StandardCharsets.UTF_8));
                     break;
                 case "schedule":
                     ClientServiceInteraction csInfo = new ClientServiceInteraction(new String(exchange.getRequestBody().readAllBytes(), StandardCharsets.UTF_8));

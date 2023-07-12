@@ -1,0 +1,11 @@
+#requests{
+    width: 75%;
+    padding-left: 4%;
+} #instances{
+    width: 25%;
+    padding-left: 4%;
+} ol{
+    list-style: none;
+} li{
+    padding-top: 3vh;
+}

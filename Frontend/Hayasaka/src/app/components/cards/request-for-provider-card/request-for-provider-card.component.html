@@ -1,0 +1,16 @@
+<div id="main" class="flexbox">
+    <img [src]="request.client.imageUrl">
+    <div class="flexbox pad">
+        <div>
+            <p class="standardText">Client: {{request.client.name}}</p>
+            <p class="standardText">From: {{request.startDate}}</p>
+            <p class="standardText">From: {{request.startTime}}</p>
+            <p class="standardText">Cost: {{request.cost}}</p>
+        </div>
+        <div class="pad">
+            <p class="standardText">Service: {{request.service.serviceName}}</p>
+            <p class="standardText">To: {{request.endDate}}</p>
+            <p class="standardText">To: {{request.endTime}}</p>
+        </div>
+    </div>
+</div>

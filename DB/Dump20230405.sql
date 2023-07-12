@@ -42,6 +42,35 @@ INSERT INTO `area` VALUES (1,'Salvador'),(2,'Sto Amaro'),(3,'Fra de Santana'),(4
 UNLOCK TABLES;
 
 --
+-- Table structure for table `serviceavailability`
+--
+
+DROP TABLE IF EXISTS `serviceavailability`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `serviceavailability` (
+  `serviceAvailabilityID` int NOT NULL AUTO_INCREMENT,
+  `templateID` int NOT NULL,
+  `weekday` int NOT NULL,
+  `startHour` time NOT NULL,
+  `endHour` time NOT NULL,
+  PRIMARY KEY (`serviceAvailabilityID`),
+  KEY `templateInAvailability_idx` (`templateID`),
+  CONSTRAINT `templateInAvailability` FOREIGN KEY (`templateID`) REFERENCES `servicetemplates` (`idServiceTemplates`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `serviceavailability`
+--
+
+LOCK TABLES `serviceavailability` WRITE;
+/*!40000 ALTER TABLE `serviceavailability` DISABLE KEYS */;
+INSERT INTO `serviceavailability` VALUES (1,1,0,'11:00:00','13:30:00'),(2,1,4,'16:15:00','19:20:00');
+/*!40000 ALTER TABLE `serviceavailability` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `servicecategory`
 --
 
@@ -50,8 +79,9 @@ DROP TABLE IF EXISTS `servicecategory`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `servicecategory` (
   `idServiceCategory` int NOT NULL AUTO_INCREMENT,
+  `categoryName` varchar(45) NOT NULL,
   PRIMARY KEY (`idServiceCategory`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -60,6 +90,7 @@ CREATE TABLE `servicecategory` (
 
 LOCK TABLES `servicecategory` WRITE;
 /*!40000 ALTER TABLE `servicecategory` DISABLE KEYS */;
+INSERT INTO `servicecategory` VALUES (1,'Companionship'),(2,'Direct Action'),(3,'Freelancing'),(4,'Gaming'),(5,'Others');
 /*!40000 ALTER TABLE `servicecategory` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -74,16 +105,18 @@ CREATE TABLE `serviceinstances` (
   `idServiceInstances` int NOT NULL AUTO_INCREMENT,
   `templateID` int NOT NULL,
   `clientID` int NOT NULL,
-  `start` datetime NOT NULL,
-  `end` datetime NOT NULL,
   `finished` tinyint DEFAULT '0',
   `cost` float(7,2) NOT NULL,
+  `startDate` date NOT NULL,
+  `endDate` date NOT NULL,
+  `startTime` time NOT NULL,
+  `endTime` time NOT NULL,
   PRIMARY KEY (`idServiceInstances`),
   KEY `template_idx` (`templateID`),
   KEY `client_idx` (`clientID`),
   CONSTRAINT `client` FOREIGN KEY (`clientID`) REFERENCES `user` (`idUser`),
   CONSTRAINT `template` FOREIGN KEY (`templateID`) REFERENCES `servicetemplates` (`idServiceTemplates`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -92,6 +125,7 @@ CREATE TABLE `serviceinstances` (
 
 LOCK TABLES `serviceinstances` WRITE;
 /*!40000 ALTER TABLE `serviceinstances` DISABLE KEYS */;
+INSERT INTO `serviceinstances` VALUES (1,1,1,1,400.00,'2023-07-04','2023-07-04','11:15:00','14:00:00');
 /*!40000 ALTER TABLE `serviceinstances` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -104,8 +138,9 @@ DROP TABLE IF EXISTS `servicemodality`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `servicemodality` (
   `idServiceModality` int NOT NULL AUTO_INCREMENT,
+  `modalityName` varchar(45) NOT NULL,
   PRIMARY KEY (`idServiceModality`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -114,6 +149,7 @@ CREATE TABLE `servicemodality` (
 
 LOCK TABLES `servicemodality` WRITE;
 /*!40000 ALTER TABLE `servicemodality` DISABLE KEYS */;
+INSERT INTO `servicemodality` VALUES (1,'In-person'),(2,'Virtual');
 /*!40000 ALTER TABLE `servicemodality` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -128,15 +164,17 @@ CREATE TABLE `servicerequests` (
   `serviceRequestID` int NOT NULL AUTO_INCREMENT,
   `templateID` int NOT NULL,
   `clientID` int NOT NULL,
-  `start` datetime NOT NULL,
-  `end` datetime NOT NULL,
+  `startDate` date NOT NULL,
+  `endDate` date NOT NULL,
   `cost` float(7,2) NOT NULL,
+  `startTime` time NOT NULL,
+  `endTime` time NOT NULL,
   PRIMARY KEY (`serviceRequestID`),
   KEY `template_idx` (`templateID`),
   KEY `client_idx` (`clientID`),
   CONSTRAINT `clientInRequests` FOREIGN KEY (`clientID`) REFERENCES `user` (`idUser`),
   CONSTRAINT `templateInRequests` FOREIGN KEY (`templateID`) REFERENCES `servicetemplates` (`idServiceTemplates`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -145,6 +183,7 @@ CREATE TABLE `servicerequests` (
 
 LOCK TABLES `servicerequests` WRITE;
 /*!40000 ALTER TABLE `servicerequests` DISABLE KEYS */;
+INSERT INTO `servicerequests` VALUES (1,1,1,'2023-07-23','2023-07-23',150.00,'11:23:00','13:23:00'),(2,2,7,'2023-08-11','2023-08-11',350.15,'11:00:00','13:30:00');
 /*!40000 ALTER TABLE `servicerequests` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -201,7 +240,7 @@ CREATE TABLE `servicetemplates` (
   CONSTRAINT `category` FOREIGN KEY (`serviceCategory`) REFERENCES `servicecategory` (`idServiceCategory`),
   CONSTRAINT `idProvider` FOREIGN KEY (`idProvider`) REFERENCES `user` (`idUser`),
   CONSTRAINT `modality` FOREIGN KEY (`serviceModality`) REFERENCES `servicemodality` (`idServiceModality`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -210,7 +249,7 @@ CREATE TABLE `servicetemplates` (
 
 LOCK TABLES `servicetemplates` WRITE;
 /*!40000 ALTER TABLE `servicetemplates` DISABLE KEYS */;
-INSERT INTO `servicetemplates` VALUES (1,2,NULL,NULL,75,'Faço cover com vocal e baixo de qualquer música','Cover','1.png'),(2,2,NULL,NULL,35,'Podemos fizer jogando conversa fora sobre qualquer assunto, principalmente música','Conversinha','2.png'),(3,3,NULL,NULL,60,'Debater sobre as questões modernas','Discussão sobre a sociedade','3.png'),(4,3,NULL,NULL,500,'Não importa o assunto, eu sei tudo','Aula particular','4.png'),(5,3,NULL,NULL,2000,'Meu pai é rico, logo eu sei administrar dinheiro','Conselho financeiro','5.png'),(6,4,NULL,NULL,40,'','Jogar ARAM','6.png'),(7,4,NULL,NULL,70,'','Jogar Ranked','7.png'),(8,4,NULL,NULL,90,'','Elojob','8.png'),(9,8,NULL,NULL,85,'Vou atrás do alvo e te conto tudo','Stalking','9.png'),(10,8,NULL,NULL,55,'A gente enche a cara e xinga minorias','Bebedeira','10.png'),(11,9,NULL,NULL,110,'Cuido de tudo, pessoal, limpeza, produtos, o caralho a quatro','Gerenciamento','11.png'),(12,9,NULL,NULL,72.99,'Entrevisto seus candidatos de acordo com os critérios estabelecidos','Entrevista de emprego','12.png'),(13,10,NULL,NULL,430,'Por choque. Ninguem vai nem ver.','Assassinato','13.png'),(14,10,NULL,NULL,300,'Invado ou destruo qualquer sistema','Hacking','14.png');
+INSERT INTO `servicetemplates` VALUES (1,2,2,3,75,'Faço cover com vocal e baixo de qualquer música','Cover','1.png'),(2,2,2,1,35,'Podemos fizer jogando conversa fora sobre qualquer assunto, principalmente música','Conversinha','2.png'),(3,3,2,1,60,'Debater sobre as questões modernas','Discussão sobre a sociedade','3.png'),(4,3,1,5,500,'Não importa o assunto, eu sei tudo','Aula particular','4.png'),(5,3,2,5,2000,'Meu pai é rico, logo eu sei administrar dinheiro','Conselho financeiro','5.png'),(6,4,2,4,40,'','Jogar ARAM','6.png'),(7,4,2,4,70,'','Jogar Ranked','7.png'),(8,4,2,4,90,'','Elojob','8.png'),(9,8,1,2,85,'Vou atrás do alvo e te conto tudo','Stalking','9.png'),(10,8,1,1,55,'A gente enche a cara e xinga minorias','Bebedeira','10.png'),(11,9,1,3,110,'Cuido de tudo, pessoal, limpeza, produtos, o caralho a quatro','Gerenciamento','11.png'),(12,9,1,3,72.99,'Entrevisto seus candidatos de acordo com os critérios estabelecidos','Entrevista de emprego','12.png'),(13,10,1,2,430,'Por choque. Ninguem vai nem ver.','Assassinato','13.png'),(14,10,1,2,300,'Invado ou destruo qualquer sistema','Hacking','14.png');
 /*!40000 ALTER TABLE `servicetemplates` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -244,7 +283,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'MioBestWaifu','Teste@hotmail.com','sexo','M','2005-03-16',NULL,4,'11688779194657.png',0),(2,'Akiyama Mio','Mio@hotmail.com','sexo','F','2004-03-16',NULL,1,'2.png',0),(3,'Shinomiya Kaguya','Kaguya@hotmail.com','sexo','F','2003-03-16',NULL,1,'3.png',0),(4,'Morgana','Morgana@hotmail.com','sexo','F','2002-03-16',NULL,3,'4.png',0),(5,'thwumeimba','aaa','babaritibaba','M','2005-03-01',NULL,2,NULL,0),(6,'Momo-chan','joca@gmail.com','joca','F','2005-03-02',NULL,3,'61683240187054.png',0),(7,'jose','jose@yahoo','jose','M','2005-03-04',NULL,4,'71683240306400.png',0),(8,'Loid Forger','Loid@hotmail.com','sexo','M','2023-05-05',NULL,2,'8.png',0),(9,'Amagi','Amagi@hotmail.com','sexo','M','2023-05-05',NULL,1,'9.png',0),(10,'Misaka Mikoto','Misaka@hotmail.com','sexo','F','2023-05-05',NULL,1,'10.png',0),(11,'Albert','Albert@hotmail.com','Albert','M','2023-05-05',NULL,NULL,'11.png',0),(12,'Berotorto','Berotorto@hotmail.com','Berotorto','M','2023-05-05',NULL,NULL,'12.png',0),(13,'Claudio','Claudio@hotmail.com','Claudio','M','2023-05-05',NULL,NULL,'13.png',0),(14,'Douglas','Douglas@hotmail.com','Douglas','M','2023-05-05',NULL,NULL,'14.png',0),(15,'Eduardo','Eduardo@hotmail.com','Eduardo','M','2023-05-05',NULL,NULL,'15.png',0),(16,'Fernando','Fernando@hotmail.com','Fernando','M','2023-05-05',NULL,NULL,'16.png',0),(17,'Gustavo','Gustavo@hotmail.com','Gustavo','M','2023-05-05',NULL,NULL,'17.png',0),(18,'Hilquias','Hilquias@hotmail.com','Hilquias','M','2023-05-05',NULL,NULL,'18.png',0),(19,'Italo','Italo@hotmail.com','Italo','M','2023-05-05',NULL,NULL,'19.png',0),(20,'Jonas','Jonas@hotmail.com','Jonas','M','2023-05-05',NULL,NULL,'20.png',0),(21,'Zacarias','Zacarias@homail.com','Zacarias',NULL,'2005-03-02',NULL,NULL,'0.png',0),(22,'Yan2','2020170020004@ifba.edu.br','Yan2','M','2005-02-17',NULL,2,'0.png',0),(23,'aa','balbla','ss','M','2005-02-03',NULL,3,'0.png',0),(24,'dd','mm','a','F','2005-03-02',NULL,1,'0.png',0);
+INSERT INTO `user` VALUES (1,'MioBestWaifu','Teste@hotmail.com','sexo','M','2005-03-16',NULL,4,'1.png',0),(2,'Akiyama Mio','Mio@hotmail.com','sexo','F','2004-03-16',NULL,1,'2.png',0),(3,'Shinomiya Kaguya','Kaguya@hotmail.com','sexo','F','2003-03-16',NULL,1,'3.png',0),(4,'Morgana','Morgana@hotmail.com','sexo','F','2002-03-16',NULL,3,'4.png',0),(5,'thwumeimba','aaa','babaritibaba','M','2005-03-01',NULL,2,NULL,0),(6,'Momo-chan','joca@gmail.com','joca','F','2005-03-02',NULL,3,'61683240187054.png',0),(7,'jose','jose@yahoo','jose','M','2005-03-04',NULL,4,'71683240306400.png',0),(8,'Loid Forger','Loid@hotmail.com','sexo','M','2023-05-05',NULL,2,'8.png',0),(9,'Amagi','Amagi@hotmail.com','sexo','M','2023-05-05',NULL,1,'9.png',0),(10,'Misaka Mikoto','Misaka@hotmail.com','sexo','F','2023-05-05',NULL,1,'10.png',0),(11,'Albert','Albert@hotmail.com','Albert','M','2023-05-05',NULL,NULL,'11.png',0),(12,'Berotorto','Berotorto@hotmail.com','Berotorto','M','2023-05-05',NULL,NULL,'12.png',0),(13,'Claudio','Claudio@hotmail.com','Claudio','M','2023-05-05',NULL,NULL,'13.png',0),(14,'Douglas','Douglas@hotmail.com','Douglas','M','2023-05-05',NULL,NULL,'14.png',0),(15,'Eduardo','Eduardo@hotmail.com','Eduardo','M','2023-05-05',NULL,NULL,'15.png',0),(16,'Fernando','Fernando@hotmail.com','Fernando','M','2023-05-05',NULL,NULL,'16.png',0),(17,'Gustavo','Gustavo@hotmail.com','Gustavo','M','2023-05-05',NULL,NULL,'17.png',0),(18,'Hilquias','Hilquias@hotmail.com','Hilquias','M','2023-05-05',NULL,NULL,'18.png',0),(19,'Italo','Italo@hotmail.com','Italo','M','2023-05-05',NULL,NULL,'19.png',0),(20,'Jonas','Jonas@hotmail.com','Jonas','M','2023-05-05',NULL,NULL,'20.png',0),(21,'Zacarias','Zacarias@homail.com','Zacarias',NULL,'2005-03-02',NULL,NULL,'0.png',0),(22,'Yan2','2020170020004@ifba.edu.br','Yan2','M','2005-02-17',NULL,2,'0.png',0),(23,'aa','balbla','ss','M','2005-02-03',NULL,3,'0.png',0),(24,'dd','mm','a','F','2005-03-02',NULL,1,'0.png',0);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -286,4 +325,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-07-08  0:19:39
+-- Dump completed on 2023-07-11 21:50:37

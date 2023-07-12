@@ -2,8 +2,16 @@
     <app-header></app-header>
     <app-lateral-bar [user]=buffer.userInfo class="lateralDiv roseBorder"></app-lateral-bar>
     <div class="contentWrapper">
-        <div>
-            <button class="standardButton" (click)="create()">Create Service</button>
+        <div id="requests">
+            <button class="standardButton" (click)="create()" style="display: none;">Create Service</button>
+            <ol>
+                <li *ngFor="let req of schedule.pendingRequests">
+                    <app-request-for-provider-card [request]=req></app-request-for-provider-card>
+                </li>
+            </ol>
+        </div>
+        <div id="instances">
+
         </div>
     </div>
 </div>

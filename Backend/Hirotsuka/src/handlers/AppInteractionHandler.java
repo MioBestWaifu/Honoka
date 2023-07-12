@@ -16,6 +16,7 @@ public class AppInteractionHandler implements HttpHandler{
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         var params = Utils.queryToMap(exchange.getRequestURI().getQuery());
+        String toSend;
 
         if (UserConnectionManager.hasIp(exchange.getRemoteAddress().getHostString())){
             UserConnection conn = UserConnectionManager.getConnection(exchange.getRemoteAddress().getHostString());
@@ -38,6 +39,14 @@ public class AppInteractionHandler implements HttpHandler{
                             exchange.getResponseHeaders().add("Content-type", "text/plain");
                             Utils.sendAndClose(exchange, 200, conn.lastPage.getBytes(StandardCharsets.UTF_8));
                         }
+                        break;
+                    case "serviceImageUrl":
+                        toSend = "http://"+Utils.ipAddress+"images/services/"+DatabaseConnection.getServiceImageUrl(Integer.parseInt(params.get("id")));
+                        Utils.sendAndClose(exchange, 200, toSend.getBytes(StandardCharsets.UTF_8));
+                        break;
+                    case "userImageUrl":
+                        toSend = "http://"+Utils.ipAddress+"images/"+DatabaseConnection.getUserImageUrl(Integer.parseInt(params.get("id")));
+                        Utils.sendAndClose(exchange, 200, toSend.getBytes(StandardCharsets.UTF_8));
                         break;
                     case "establish":
                         Utils.sendAndClose(exchange, 200, "penis".getBytes());
